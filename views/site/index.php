@@ -225,7 +225,20 @@ $this->title = Yii::$app->name;
             slidesToShow: 1,
             slidesToScroll: 1,
             arrows: false,
-            draggable: false
+            draggable: false,
+            responsive: [{
+                breakpoint: 1080,
+                settings: {
+                    adaptiveHeight: true,
+                }
+            }, ]
+        });
+
+        $('#order-price_range').on('slide', function(ev) {
+            var myString = $('#order-price_range').val();
+            var parts = myString.split(',');
+            $('.price_digit_min').text(parts[0]);
+            $('.price_digit_max').text(parts[1]);
         });
     });
 
@@ -235,18 +248,19 @@ $this->title = Yii::$app->name;
         counter = counter - 1;
         $('.question_next').find('span').text('Далее');
         if (counter > 1) {
-            
+
         }
     });
+
 
     $('.question_next').click(function() {
         $('.count_slider').slick('slickNext');
         counter = counter + 1;
         if (counter < 4) {
-            
+
         } else if (counter == 4) {
             $(this).find('span').text('Готово');
-        } else if(counter > 4) {
+        } else if (counter > 4) {
             var thisOne = $(this);
             var form = $(".order_form");
             if (form.find('.has-error').length) {
@@ -261,17 +275,17 @@ $this->title = Yii::$app->name;
                 },
                 success: function(response) {
                     if (response == 'true') {
-                       $('.modal-body').html("<div class='modal-success-header'>Отлично!</div><div class='modal-shortener'>"
-                       +"<div class='custom-modal-desc text-align-center'>Результаты уже поступили в систему. Приблизительная оценка вашего  проекта...</div>"
-                       +"<div class='custom-modal-grid-two'>"
-                       +"<div class='modal-grid-col'><div class='modal-grid-col-text'>Стоимость создания вашего проекта</div><div class='modal-counted-data'>$ 2300</div></div>"
-                       +"<div class='modal-grid-col'><div class='modal-grid-col-text'>Сроки для разработки вашего проекта</div><div class='modal-counted-data'>ч. 543</div></div>"
-                       +"</div>"
-                       +"<div class='custom-modal-desc text-align-center'>Хотите увидеть расчеты прямо сейчас? Заполните ваши данные.</div></div>"
-                       );
-                       $('.modal-body').append($('.order_personal_data'));
-                       $('.order_personal_data').css('display','block');
-                    } 
+                        $('.modal-body').html("<div class='modal-success-header'>Отлично!</div><div class='modal-shortener'>" +
+                            "<div class='custom-modal-desc text-align-center'>Результаты уже поступили в систему. Приблизительная оценка вашего  проекта...</div>" +
+                            "<div class='custom-modal-grid-two'>" +
+                            "<div class='modal-grid-col'><div class='modal-grid-col-text'>Стоимость создания вашего проекта</div><div class='modal-counted-data'>$ 2300</div></div>" +
+                            "<div class='modal-grid-col'><div class='modal-grid-col-text'>Сроки для разработки вашего проекта</div><div class='modal-counted-data'>ч. 543</div></div>" +
+                            "</div>" +
+                            "<div class='custom-modal-desc text-align-center'>Хотите увидеть расчеты прямо сейчас? Заполните ваши данные.</div></div>"
+                        );
+                        $('.modal-body').append($('.order_personal_data'));
+                        $('.order_personal_data').css('display', 'block');
+                    }
                 }
             });
             return false;

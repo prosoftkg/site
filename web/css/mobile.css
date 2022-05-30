@@ -62,9 +62,21 @@
 }
 
 @media screen and (max-width:600px) {
+    /* #getCount .wrap-modal-slider .slick-list {
+        height: auto!important;
+    } */
     .site-index .intro-cover {
         background-size: auto 100%!important;
         height: 260px!important;
+    }
+    .order_personal_data .blue-btn {
+        padding: 20px 50px;
+    }
+    .count-modal-desc .question_nav {
+        margin-top: 0px;
+    }
+    .modal-grid-col {
+        margin-bottom: 30px;
     }
     .social-links a {
         margin-right: 10px;
@@ -96,9 +108,46 @@
     .client-block {
         padding: 0!important;
     }
+    .count-modal-desc .modal-right-block {
+        display: block;
+    }
+    #order-type,
+    #order-design_need,
+    #order-industry {
+        grid-template-columns: 1fr;
+        grid-gap: 15px;
+    }
+    #getCount .count-modal-desc {
+        grid-template-columns: 1fr;
+    }
+    .count-modal-desc #order-type,
+    .count-modal-desc #order-design_need,
+    .count-modal-desc #order-industry {
+        grid-template-columns: 1fr;
+        grid-gap: 10px;
+    }
+    .checkbox-group label,
+    #order-design_need label,
+    #order-industry label,
+    #order-type label {
+        font-size: 15px!important;
+    }
+    .modal-success .modal-content::after {
+        display: none!important;
+    }
+    .count-modal-desc .blue-btn {
+        padding: 20px 50px 20px 30px!important;
+    }
+    #getCountModal .custom-modal-grid-two {
+        grid-template-columns: 1fr!important;
+        grid-gap: 30px;
+    }
 }
 
 @media screen and (max-width:768px) {
+    .modal-right-block {
+        display: none!important;
+    }
     .header_toggle {
         background-color: #0a2c5d !important;
     }
@@ -222,7 +271,6 @@
     }
     .site-index .intro-cover {
         background-size: 100% auto;
-        margin-top: 50px;
         height: 350px;
         background-repeat: no-repeat;
     }
@@ -438,7 +486,6 @@
     }
     .site-index .intro-cover {
         height: 500px;
-        margin-top: 45px;
     }
     .portfolio .container {
         position: relative;
@@ -605,6 +652,23 @@
     }
     .site-index .digits_cover {
         background-size: 100%!important;
+    }
+}
+
+@media screen and (max-width:810px) {}
+
+@media screen and (max-width:1080px) {
+    .count-modal-desc .modal-right-block {
+        display: none;
+    }
+    .count_slider .count-modal-desc {
+        grid-template-columns: 1fr;
+    }
+    .modal-success .modal-content::after {
+        display: none!important;
+    }
+    #getCount .count-modal-desc {
+        grid-template-columns: 1fr;
     }
 }
 

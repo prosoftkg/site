@@ -14,20 +14,20 @@ use kartik\slider\Slider;
             </div>
 
             <div class="range_label_cover">
-                <div class="range_label range_label_left">от $ 1000</div>
-                <div class="range_label range_label_right">до $ 5000</div>
+                <div class="range_label range_label_left">от $ <span class="price_digit_min">500</span></div>
+                <div class="range_label range_label_right">до $ <span class="price_digit_max">10000</span></div>
             </div>
 
             <?=$form->field($model, 'price_range')->widget(Slider::classname(), [
-                'value' => '500,10000',
+                'value' => '500,5000',
                 'sliderColor' => Slider::TYPE_GREY,
                 'pluginOptions' => [
                     'min' => 0,
-                    'max' => 100000,
+                    'max' => 10000,
                     'step' => 100,
                     'range' => true
                 ]
-            ]);
+            ])->label(false);
             ?>
         </div>
 
