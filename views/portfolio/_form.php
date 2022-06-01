@@ -21,19 +21,7 @@ use dosamigos\selectize\SelectizeTextInput;
     ]); ?>
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'tagNames')->widget(SelectizeTextInput::className(), [
-        // calls an action that returns a JSON object with matched
-        // tags
-        'loadUrl' => ['product/list'],
-        'options' => ['class' => 'form-control'],
-        'clientOptions' => [
-            'plugins' => ['remove_button'],
-            'valueField' => 'name',
-            'labelField' => 'name',
-            'searchField' => ['name'],
-            'create' => true,
-        ],
-    ])->hint('Введите тэги через запятую') ?>
+
 
     <?= $form->field($model, 'text')->widget(Widget::className(), [
         'settings' => [
@@ -49,6 +37,20 @@ use dosamigos\selectize\SelectizeTextInput;
             ]
         ],
     ]); ?>
+
+    <?= $form->field($model, 'tagNames')->widget(SelectizeTextInput::className(), [
+        // calls an action that returns a JSON object with matched
+        // tags
+        'loadUrl' => ['portfolio/list'],
+        'options' => ['class' => 'form-control'],
+        'clientOptions' => [
+            'plugins' => ['remove_button'],
+            'valueField' => 'name',
+            'labelField' => 'name',
+            'searchField' => ['name'],
+            'create' => true,
+        ],
+    ])->hint('Введите тэги через запятую') ?>
 
     <?= $form->field($model, 'photo')->widget(CropImageUpload::className()) ?>
 

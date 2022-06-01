@@ -73,7 +73,6 @@ class OrderController extends Controller
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
                 $model->type = serialize($model->type);
-
                 if ($model->price_range) {
                     $post = explode(',', $model->price_range);
                     $model->price_min = $post[0];
@@ -81,7 +80,7 @@ class OrderController extends Controller
                 }
                 Yii::$app->response->format = Response::FORMAT_JSON;
                 if ($model->save()) {
-                    return "true";
+                    return $model->id;
                 } else {
                     return "false";
                 }

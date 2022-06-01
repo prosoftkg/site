@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use app\models\Portfolio;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\PortfolioSearch */
@@ -13,9 +14,7 @@ $this->title = Yii::t('app', 'Portfolios');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="portfolio-index">
-
     <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
         <?= Html::a(Yii::t('app', 'Create Portfolio'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
@@ -25,14 +24,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'summary'=>false,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
             'title',
-            'text:ntext',
-            'photo',
-            'photo_crop',
             //'photo_cropped',
             //'logo',
             [

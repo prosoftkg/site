@@ -10,7 +10,7 @@ use app\models\Feedback;
 /* @var $searchModel app\models\FeedbackSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Feedbacks');
+$this->title = Yii::t('app', 'Отзывы');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="feedback-index">
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Feedback'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Добавить отзывы'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -26,15 +26,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'summary'=>false,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
             'title',
-            'text:ntext',
-            'photo',
-            'photo_crop',
-            //'photo_cropped',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Feedback $model, $key, $index, $column) {

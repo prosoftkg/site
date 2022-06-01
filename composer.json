@@ -23,10 +23,11 @@
         "karpoff/yii2-crop-image-upload": "*",
         "vova07/yii2-imperavi-widget": "*",
         "kartik-v/yii2-widget-fileinput": "dev-master",
-        "2amigos/yii2-taggable-behavior": "~1.0",
         "yiisoft/yii2-imagine": "^2.3",
-        "2amigos/yii2-selectize-widget": "~1.0",
-        "kartik-v/yii2-slider": "dev-master"
+        "kartik-v/yii2-slider": "dev-master",
+        "dektrium/yii2-user": "^0.9.14",
+        "2amigos/yii2-taggable-behavior": "~1.0",
+        "2amigos/yii2-selectize-widget": "~1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
@@ -57,13 +58,11 @@
     },
     "extra": {
         "yii\\composer\\Installer::postCreateProject": {
-            "setPermission": [
-                {
-                    "runtime": "0777",
-                    "web/assets": "0777",
-                    "yii": "0755"
-                }
-            ]
+            "setPermission": [{
+                "runtime": "0777",
+                "web/assets": "0777",
+                "yii": "0755"
+            }]
         },
         "yii\\composer\\Installer::postInstall": {
             "generateCookieValidationKey": [
@@ -71,10 +70,8 @@
             ]
         }
     },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://asset-packagist.org"
-        }
-    ]
+    "repositories": [{
+        "type": "composer",
+        "url": "https://asset-packagist.org"
+    }]
 }

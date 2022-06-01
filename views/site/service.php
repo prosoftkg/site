@@ -1,6 +1,8 @@
 <?php
+
 use yii\helpers\Html;
 use yii\helpers\Url;
+
 /** @var yii\web\View $this */
 ?>
 
@@ -53,7 +55,24 @@ use yii\helpers\Url;
                 </div>
 
                 <div class="service-bottom">
-                    <?=Html::img(Url::base().'/images/site/service-items.svg');?>
+                    <?= Html::img(Url::base() . '/images/site/service-items.svg'); ?>
+                </div>
+            </div>
+
+            <div class="service-block free-consult">
+
+                <div class="service-title">
+                    Не знаете какая услуга вам нужна?
+                </div>
+
+                <div class="service-desc-consult">
+                    Бесплатная консультация
+                    <div><?= Html::img(Url::base() . '/images/site/arrow-right-circle.svg'); ?></div>
+                </div>
+
+
+                <div class="service-bottom">
+                    <?= Html::img(Url::base() . '/images/site/service-items.svg'); ?>
                 </div>
             </div>
         </div>

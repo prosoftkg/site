@@ -617,6 +617,18 @@
     }
 }
 
+@media screen and (max-width:390px) {
+    .service-block .service-desc {
+        padding: 0 10px;
+    }
+    .service-bottom img {
+        width: 80%;
+    }
+    .service-bottom {
+        bottom: 25px!important;
+    }
+}
+
 @media screen and (max-width:320px) {
     .feedback-thumb img {
         width: 45px!important;
@@ -669,6 +681,16 @@
     }
     #getCount .count-modal-desc {
         grid-template-columns: 1fr;
+    }
+    .free-consult {
+        background-color: #0a2c5d;
+        display: flex!important;
+        align-items: center;
+        text-align: center;
+        color: #fff;
+        width: 100%;
+        font-weight: 700;
+        justify-content: center;
     }
 }
 

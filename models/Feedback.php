@@ -7,6 +7,7 @@ use karpoff\icrop\CropImageUploadBehavior;
 use yii\helpers\Url;
 use yii\helpers\FileHelper;
 use yii\web\UploadedFile;
+
 /**
  * This is the model class for table "feedback".
  *
@@ -36,7 +37,7 @@ class Feedback extends \yii\db\ActiveRecord
         return [
             [['title', 'text'], 'required'],
             [['text',], 'string'],
-            [['title','logo','author'], 'string', 'max' => 255],
+            [['title', 'logo', 'author'], 'string', 'max' => 255],
             ['photo', 'file', 'extensions' => 'png, jpeg, jpg, gif', 'on' => ['insert', 'update']],
             [['photo_crop', 'photo_cropped'], 'string', 'max' => 100]
         ];
@@ -89,7 +90,7 @@ class Feedback extends \yii\db\ActiveRecord
             return Url::base() . "/images/portfolio/template.png";
         }
     }
-    
+
     function beforeValidate()
     {
         $this->file = UploadedFile::getInstance($this, 'file');
@@ -126,6 +127,7 @@ class Feedback extends \yii\db\ActiveRecord
             'photo_crop' => Yii::t('app', 'Photo Crop'),
             'author' => Yii::t('app', 'Author'),
             'photo_cropped' => Yii::t('app', 'Photo Cropped'),
+            'file' => Yii::t('app', 'Фото'),
         ];
     }
 }

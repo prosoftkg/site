@@ -140,6 +140,8 @@ class Portfolio extends \yii\db\ActiveRecord
             'photo_crop' => Yii::t('app', 'Photo Crop'),
             'photo_cropped' => Yii::t('app', 'Photo Cropped'),
             'logo' => Yii::t('app', 'Logo'),
+            'file' => Yii::t('app', 'Файл'),
+            'tagNames' => Yii::t('app', 'Тэг'),
         ];
     }
 }

@@ -31,6 +31,7 @@ class Inquiry extends \yii\db\ActiveRecord
         return [
             [['phone', 'message'], 'required'],
             [['fullname', 'email', 'phone'], 'string', 'max' => 255],
+            [['count_id'], 'integer', 'max' => 11],
             [['message'], 'string', 'max' => 500],
         ];
     }
@@ -46,6 +47,7 @@ class Inquiry extends \yii\db\ActiveRecord
             'email' => Yii::t('app', 'E-Mail'),
             'phone' => Yii::t('app', 'Телефон'),
             'message' => Yii::t('app', 'Сообщение'),
+            'count_id' => Yii::t('app', 'Заявка на расчет'),
         ];
     }
 }

@@ -40,6 +40,7 @@ $this->title = Yii::$app->name;
     </div>
 </div>
 <script>
+    var count_id = '';
     $('.portfolio-slider').slick({
         infinite: true,
         slidesToShow: 1, // Shows a three slides at a time
@@ -129,6 +130,7 @@ $this->title = Yii::$app->name;
         e.preventDefault();
         var thisOne = $(this);
         var form = $(".callback-form-gq");
+        console.log(form.serialize());
         if (form.find('.has-error').length) {
             return false;
         }
@@ -274,7 +276,8 @@ $this->title = Yii::$app->name;
                     thisOne.addClass('inquiry-loading');
                 },
                 success: function(response) {
-                    if (response == 'true') {
+                    if (response != 'false') {
+                        count_id = parseInt(response);
                         $('.modal-body').html("<div class='modal-success-header'>Отлично!</div><div class='modal-shortener'>" +
                             "<div class='custom-modal-desc text-align-center'>Результаты уже поступили в систему. Приблизительная оценка вашего  проекта...</div>" +
                             "<div class='custom-modal-grid-two'>" +
