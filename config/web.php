@@ -1,12 +1,17 @@
 <?php
 
 $params = require __DIR__ . '/params.php';
-$db = require __DIR__ . '/db.php';
+//$db = require __DIR__ . '/db.php';
+$db = array_merge(
+    require __DIR__ . '/db.php',
+    require __DIR__ . '/db-local.php'
+);
+
 
 $config = [
     'id' => 'basic',
-    'language'=>'ru',
-    'name'=>'Prosoft.kg - разработка сайтов и мобильных приложений в Бишкеке, в Кыргызстане',
+    'language' => 'ru',
+    'name' => 'Prosoft.kg - разработка сайтов и мобильных приложений в Бишкеке, в Кыргызстане',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
@@ -27,7 +32,7 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-        
+
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
@@ -55,9 +60,9 @@ $config = [
                 '<controller:\w+>/<id:\d+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
-                'about'=>'site/about',
-                'contact'=>'site/contact',
-                'regulation'=>'site/regulation',
+                'about' => 'site/about',
+                'contact' => 'site/contact',
+                'regulation' => 'site/regulation',
             ],
         ],
         'assetManager' => [

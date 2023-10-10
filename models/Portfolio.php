@@ -39,7 +39,7 @@ class Portfolio extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'text'], 'required'],
-            [['tagNames','web','mobile'], 'safe'],
+            [['tagNames', 'web', 'mobile'], 'safe'],
             [['text'], 'string'],
             [['title'], 'string', 'max' => 255],
             ['photo', 'file', 'extensions' => 'png, jpeg, jpg, gif', 'on' => ['insert', 'update']],
@@ -55,7 +55,7 @@ class Portfolio extends \yii\db\ActiveRecord
     {
         return [
             [
-                'class' => CropImageUploadBehavior::className(),
+                'class' => CropImageUploadBehavior::class,
                 'attribute' => 'photo',
                 'scenarios' => ['insert', 'update'],
                 'path' => "@webroot/images/portfolio",
@@ -65,7 +65,7 @@ class Portfolio extends \yii\db\ActiveRecord
                 'cropped_field' => 'photo_cropped',
             ],
             [
-                'class' => Taggable::className(),
+                'class' => Taggable::class,
             ],
         ];
     }
@@ -83,7 +83,7 @@ class Portfolio extends \yii\db\ActiveRecord
             return Url::base() . "/images/portfolio/template.png";
         }
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -96,11 +96,11 @@ class Portfolio extends \yii\db\ActiveRecord
         } else {
             return Url::base() . "/images/portfolio/template.png";
         }
-    }    
+    }
 
     public function getTags()
     {
-        return $this->hasMany(Tag::className(), ['id' => 'tag_id'])->viaTable('portfolio_tag_assn', ['product_id' => 'id']);
+        return $this->hasMany(Tag::class, ['id' => 'tag_id'])->viaTable('portfolio_tag_assn', ['product_id' => 'id']);
     }
 
     function beforeValidate()
