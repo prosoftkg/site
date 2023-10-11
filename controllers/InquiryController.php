@@ -73,13 +73,12 @@ class InquiryController extends Controller
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
                 Yii::$app->response->format = Response::FORMAT_JSON;
-                if($model->save()){                    
+                if ($model->save()) {
                     //$model->email(Yii::$app->params['adminEmail'], $model->name, $model->phone);
                     return "Заказ звонка принят! Мы свяжемся с вами в ближайшее время!";
-                }
-                else{
+                } else {
                     //$model->validate();
-                    return "false";
+                    return $model->errors;
                 }
             }
         } else {

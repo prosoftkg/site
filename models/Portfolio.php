@@ -20,6 +20,7 @@ use dosamigos\taggable\Taggable;
  * @property string $photo_crop
  * @property string $photo_cropped
  * @property string $logo
+ * @property int $prioritet
  */
 class Portfolio extends \yii\db\ActiveRecord
 {
@@ -39,7 +40,7 @@ class Portfolio extends \yii\db\ActiveRecord
     {
         return [
             [['title', 'text'], 'required'],
-            [['tagNames', 'web', 'mobile'], 'safe'],
+            [['tagNames', 'web', 'mobile', 'prioritet'], 'safe'],
             [['text'], 'string'],
             [['title'], 'string', 'max' => 255],
             ['photo', 'file', 'extensions' => 'png, jpeg, jpg, gif', 'on' => ['insert', 'update']],

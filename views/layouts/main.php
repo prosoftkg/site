@@ -29,21 +29,23 @@ AppAsset::register($this);
 
 <body class="d-flex flex-column h-100">
     <?php $this->beginBody() ?>
-    <?=$this->render('admin');?>
+    <?php //echo $this->render('admin'); //hmm
+    ?>
     <header>
-        <?=$this->render('navbar');?>
+        <?= $this->render('navbar'); ?>
     </header>
     <main role="main" class="flex-shrink-0">
         <div class="container">
             <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             ]) ?>
-            <?= Alert::widget() ?>        
-        <?= $content ?>
+            <?= Alert::widget() ?>
+            <?= $content ?>
         </div>
     </main>
-    <?=$this->render('footer')?>
+    <?= $this->render('footer') ?>
     <?php $this->endBody() ?>
 </body>
+
 </html>
 <?php $this->endPage() ?>

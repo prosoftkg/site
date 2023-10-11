@@ -134,10 +134,9 @@ class SiteController extends Controller
     {
         if ($id == 1) {
             $portfolio = Portfolio::find()->where(['web' => 1])->all();
-        } elseif($id == 2) {
+        } elseif ($id == 2) {
             $portfolio = Portfolio::find()->where(['mobile' => 1])->all();
-        }
-        else{
+        } else {
             $portfolio = Portfolio::find()->all();
         }
         $html = $this->renderPartial('tabContent', ['items' => $portfolio]);

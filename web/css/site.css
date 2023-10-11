@@ -1,3 +1,6 @@
+body{
+    font-family: 'Open Sans', 'sans-serif';
+}
 main>.container {
     padding: 70px 15px 20px;
 }
@@ -115,7 +118,7 @@ a.desc:after {
 }
 
 .navbar-nav {
-    font-family: 'Open Sans', sans-serif;
+    
     font-weight: 500;
     font-style: normal;
     font-size: 18px;
@@ -159,7 +162,7 @@ a.desc:after {
 }
 
 .slogan_one {
-    font-family: 'Open Sans', sans-serif;
+    
     font-weight: 700;
     font-size: 30px;
     line-height: 45px;
@@ -168,7 +171,7 @@ a.desc:after {
 }
 
 .slogan_two {
-    font-family: 'Open Sans', sans-serif;
+    
     font-weight: 400;
     font-size: 24px;
     line-height: 36px;
@@ -177,27 +180,28 @@ a.desc:after {
     margin: 40px 0;
 }
 
-.inquiry_create {
-    font-family: 'Open Sans', sans-serif;
+
+.btn-main{
+    color: #FFFFFF;
+    background-color: #0A2C5D;
+    text-align: center;
+    letter-spacing: 0.3px;
+    box-shadow: 0px 15px 20px rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
     font-style: normal;
     font-weight: 700;
     font-size: 16px;
     line-height: 18px;
-    text-align: center;
-    letter-spacing: 0.3px;
-    color: #FFFFFF;
-    background: #0A2C5D;
-    box-shadow: 0px 15px 20px rgba(255, 255, 255, 0.08);
-    border-radius: 4px;
     padding: 20px 80px;
     display: inline-block;
     cursor: pointer;
 }
+.btn-main:hover {background-color: #071D3E;}
 
 .count-btn {}
 
 .blue-btn {
-    font-family: 'Open Sans', sans-serif;
+    
     font-style: normal;
     font-weight: 700;
     font-size: 16px;
@@ -251,7 +255,7 @@ a.desc:after {
 }
 
 .custom-heading {
-    font-family: 'Open Sans', sans-serif;
+    
     font-style: normal;
     font-weight: 700;
     font-size: 18px;
@@ -262,7 +266,7 @@ a.desc:after {
 }
 
 .custom-heading-white {
-    font-family: 'Open Sans', sans-serif;
+    
     font-style: normal;
     font-weight: 700;
     font-size: 18px;
@@ -273,7 +277,7 @@ a.desc:after {
 }
 
 .offer-heading-white {
-    font-family: 'Open Sans', sans-serif;
+    
     font-style: normal;
     font-weight: 700;
     font-size: 18px;
@@ -363,7 +367,7 @@ a.desc:after {
 }
 
 .portfolio_slogan {
-    font-family: 'Open Sans', sans-serif;
+    
     font-style: normal;
     font-weight: 400;
     font-size: 20px;
@@ -422,7 +426,7 @@ a.desc:after {
 }
 
 .portfolio-logo {
-    float: left;
+    float: left;max-width: 141px;
 }
 
 .portfolio-intro {
@@ -828,7 +832,7 @@ a.desc:after {
 }
 
 .portfolio-wallpaper {
-    border-radius: 4px;
+    border-radius: 4px;max-width: 100%;
 }
 
 .question.active+.answercont {}

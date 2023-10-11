@@ -20,7 +20,7 @@ $this->title = Yii::$app->name;
                 <div class="slogan_two">
                     Разработка мобильных приложений и сайтов
                 </div>
-                <div class="inquiry_create">
+                <div class="inquiry_create btn-main">
                     Оставить заявку
                 </div>
             </div>
@@ -132,7 +132,7 @@ $this->title = Yii::$app->name;
         var form = $(".callback-form-gq");
         console.log(form.serialize());
         if (form.find('.has-error').length) {
-            return false;
+            return 'yoba';
         }
         $.ajax({
             url: form.attr('action'),
