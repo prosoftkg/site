@@ -13,7 +13,7 @@ NavBar::begin([
     'brandUrl' => Yii::$app->homeUrl,
     'options' => [
         'class' => 'navbar navbar-expand-md navbar-custom',
-        'id'=>'header',
+        'id' => 'header',
         'encodeLabels' => false,
     ],
 ]);
@@ -23,10 +23,11 @@ echo Nav::widget([
     'items' => [
         ['label' => 'портфолио', 'url' => '#portfolio', 'options' => ['class' => 'left-side-menu menu-right-margin']],
         ['label' => 'услуги', 'url' => '#service', 'options' => ['class' => 'left-side-menu menu-right-margin']],
-        ['label' => 'о нас', 'url' => '#', 'options' => ['class' => 'left-side-menu']],
+        ['label' => 'о нас', 'url' => '#digits', 'options' => ['class' => 'left-side-menu']],
         ['label' => '', 'url' => ['/'], 'options' => ['class' => 'logo']],
         ['label' => 'условия работы', 'url' => '#stages', 'options' => ['class' => 'right-side-menu menu-left-margin']],
-        ['label' => 'контакты', 'url' => '#', 'options' => ['class' => 'right-side-menu menu-left-margin']],
+        ['label' => 'отзывы', 'url' => '#feedback', 'options' => ['class' => 'right-side-menu menu-left-margin']],
+        ['label' => 'контакты', 'url' => '#contact', 'options' => ['class' => 'right-side-menu menu-left-margin']],
     ],
 ]);
 NavBar::end();

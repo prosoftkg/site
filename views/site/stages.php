@@ -25,26 +25,22 @@ use yii\helpers\Html;
 
                     <div class="accordeon-container">
                         <div class="question">
-                            Прототипируем
+                            Создаем прототип
                         </div>
                         <div class="answercont">
                             <div class="answer">
-                                It's likely an infinite loop in JavaScript that we could not catch. To fix, add ?turn_off_js=true to the end of the URL (on any page, like the Pen or Project editor, your Profile page, or the Dashboard) to temporarily turn off JavaScript. When you're ready to run the JavaScript again, remove ?turn_off_js=true and refresh the page.<br><br>
-
-                                <a href="https://blog.codepen.io/documentation/features/turn-off-javascript-in-previews/">How to Disable JavaScript Docs</a>
+                                Чтобы понять, как оно будет выглядеть и работать сайт или мобильное приложение, до начала полноценной разработки. Это помогает проверить идеи, улучшить дизайн и устранить проблемы на ранних этапах проекта.
                             </div>
                         </div>
                     </div>
 
                     <div class="accordeon-container">
                         <div class="question">
-                            Дизайним
+                            Дизайн
                         </div>
                         <div class="answercont">
                             <div class="answer">
-                                You can leave a comment on any public Pen. Click the "Comments" link in the Pen editor view, or visit the Details page.<br><br>
-
-                                <a href="https://blog.codepen.io/documentation/faq/how-do-i-contact-the-creator-of-a-pen/">How to Contact Creator of a Pen Docs</a>
+                                Создаем интерфейс, который позволит пользователям легко понимать, как пользоваться приложением или сайтом, и сделаем его приятным и привлекательным для вашей целевой аудитории.
                             </div>
                         </div>
                     </div>
@@ -55,8 +51,7 @@ use yii\helpers\Html;
                         </div>
                         <div class="answercont">
                             <div class="answer">
-                                We have our current list of library versions <a href="https://codepen.io/versions">here</a>
-
+                                Используем только современные технологии, позволяющие быстро и качественно создавать продукты.
                             </div>
                         </div>
                     </div>
@@ -67,9 +62,7 @@ use yii\helpers\Html;
                         </div>
                         <div class="answercont">
                             <div class="answer">
-                                A fork is a complete copy of a Pen or Project that you can save to your own account and modify. Your forked copy comes with everything the original author wrote, including all of the code and any dependencies.<br><br>
-
-                                <a href="https://blog.codepen.io/documentation/features/forks/">Learn More About Forks</a>
+                                Проверяем и испытываем сайт или приложение с целью обнаружения ошибок, недочетов или проблем, которые могут повлиять на работу или удобство использования.
                             </div>
                         </div>
                     </div>
@@ -79,9 +72,7 @@ use yii\helpers\Html;
                         </div>
                         <div class="answercont">
                             <div class="answer">
-                                A fork is a complete copy of a Pen or Project that you can save to your own account and modify. Your forked copy comes with everything the original author wrote, including all of the code and any dependencies.<br><br>
-
-                                <a href="https://blog.codepen.io/documentation/features/forks/">Learn More About Forks</a>
+                                Остаемся на связи с вами для исправление ошибок, добавление новых функций и обновлений, чтобы обеспечить бесперебойную работу сайта или приложения.
                             </div>
                         </div>
                     </div>
@@ -89,7 +80,7 @@ use yii\helpers\Html;
                 </div>
             </div>
             <div class="stage_right">
-                <?=Html::img(Url::base().'/images/site/stage.png');?>
+                <?= Html::img(Url::base() . '/images/site/stage.png'); ?>
             </div>
         </div>
     </div>

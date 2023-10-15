@@ -1,5 +1,7 @@
 <?php
+
 use app\models\Order;
+
 $industries = Order::industryList();
 ?>
 <div>
@@ -10,11 +12,9 @@ $industries = Order::industryList();
             </div>
 
             <div class="question_title">
-                Нужна разработка дизайна?
+                К какой индустрии относится ваш проект?
             </div>
-            <div class="question_amount">
-                Выберите один или несколько вариантов
-            </div>
+            <br />
 
             <!-- <div class="question_options">
                 <div class="quest_option option_1">Да, нужно разработать дизайн</div>
@@ -27,10 +27,6 @@ $industries = Order::industryList();
         </div>
 
         <div>
-            <div class="modal-right-block">
-                <div class="modal-info"></div>
-                <div class="inner-modal-right">Считается, что самая платежеспособная аудитория - это пользователи iOS. Чаще всего разработку начинают именно с iOS, так как количество устройств на ней гораздо меньше, чем у Android - и приложение гораздо проще переделывать, учитывая пожелания пользователей.</div>
-            </div>
         </div>
     </div>
 </div>

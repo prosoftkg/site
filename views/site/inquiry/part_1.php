@@ -1,5 +1,7 @@
 <?php
+
 use app\models\Order;
+
 $types = Order::typeList();
 ?>
 <div>
@@ -17,7 +19,7 @@ $types = Order::typeList();
             </div>
 
 
-            <? //= $form->field($model, 'type')->checkboxList($types)->label(false); 
+            <?php //= $form->field($model, 'type')->checkboxList($types)->label(false); 
             ?>
             <?= $form->field($model, 'type[]')->checkboxList(
                 $types

@@ -308,7 +308,7 @@ a.desc:after {
 }
 
 .portfolio {
-    padding: 60px 0 80px;
+    padding: 60px 0 0;
     background-color: #fbfbfb;
 }
 
@@ -399,10 +399,16 @@ a.desc:after {
     display: none;
 }
 
+.portfolio-wallpaper {
+    border-radius: 4px;max-width: 100%;
+}
 .portfolio-grid {
-    grid-template-columns: auto 715px;
+    grid-template-columns: auto 700px;
     grid-gap: 50px;
     display: grid!important;
+}
+#w0-tab1 .portfolio-grid,#w0-tab2 .portfolio-grid{
+    margin-bottom:50px;
 }
 
 .portfolio-title {
@@ -413,7 +419,7 @@ a.desc:after {
     font-size: 20px;
     line-height: 30px;
     color: #000000;
-    margin: 40px 0;
+    margin: 34px 0;
 }
 
 .portfolio-text {
@@ -426,7 +432,7 @@ a.desc:after {
 }
 
 .portfolio-logo {
-    float: left;max-width: 141px;
+    float: left;max-width: 141px; max-height:60px;
 }
 
 .portfolio-intro {
@@ -450,7 +456,7 @@ a.desc:after {
     padding: 0 12px;
     border-radius: 23px;
 }
-
+#digits{padding-top:60px;}
 .digits_cover {
     height: 300px;
     background-image: url('../images/site/digit_bg.png');
@@ -810,11 +816,12 @@ a.desc:after {
 .feedback-text {
     font-style: normal;
     font-weight: 400;
-    font-size: 15px;
+    font-size: 14px;
     line-height: 21px;
     letter-spacing: 0.04em;
     color: #000000;
-    margin-top: 40px;
+    margin-top: 30px;
+    max-height: 300px;overflow-y: auto;
 }
 
 .feedback-slider {
@@ -831,9 +838,6 @@ a.desc:after {
     border-radius: 4px;
 }
 
-.portfolio-wallpaper {
-    border-radius: 4px;max-width: 100%;
-}
 
 .question.active+.answercont {}
 
@@ -1852,11 +1856,6 @@ a.desc:after {
 .blue-btn:hover {
     color: #fff;
 }
-
-.service-block {
-    cursor: pointer;
-}
-
 .free-consult {
     display: none;
 }
