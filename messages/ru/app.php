@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: damir
@@ -7,19 +8,22 @@
  */
 
 return [
-    'Title'=>'Заголовок',
-    'Portfolios'=>'Портфолио',    
-    'Portfolio'=>'Портфолио',    
-    'Create Portfolio'=>'Добавить портфолио', 
-    'Feedbacks'=>'Отзывы', 
-    'Update'=>'Редактировать', 
-    'Author'=>'Автор', 
-    'Text'=>'Текст', 
-    'Photo'=>'Обложка', 
-    'File'=>'Лого', 
-    'Update Feedback:'=>'Редактировать отзыв', 
-    'Save'=>'Сохранить', 
-    'Delete'=>'Удалить', 
-    'Inquiries'=>'Заявки на звонок', 
-    'Inquiry'=>'Заявка на звонок', 
+    'Title' => 'Заголовок',
+    'Portfolios' => 'Портфолио',
+    'Portfolio' => 'Портфолио',
+    'Create Portfolio' => 'Добавить портфолио',
+    'Feedbacks' => 'Отзывы',
+    'Update' => 'Редактировать',
+    'Author' => 'Автор',
+    'Text' => 'Текст',
+    'Photo' => 'Обложка',
+    'File' => 'Лого',
+    'Update Feedback:' => 'Редактировать отзыв',
+    'Save' => 'Сохранить',
+    'Delete' => 'Удалить',
+    'Inquiries' => 'Заявки на звонок',
+    'Inquiry' => 'Заявка на звонок',
+    'Name' => 'ФИО',
+    'Contact' => 'Контактные данные',
+    'Comment' => 'Комментарии',
 ];

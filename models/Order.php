@@ -13,6 +13,10 @@ use Yii;
  * @property int $price_min
  * @property int $price_max
  * @property int $industry
+ * @property string $industry_custom
+ * @property string $name
+ * @property string $contact
+ * @property string $comment
  */
 class Order extends \yii\db\ActiveRecord
 {
@@ -39,12 +43,13 @@ class Order extends \yii\db\ActiveRecord
      */
 
     public $price_range;
-    
+
     public static function tableName()
     {
-        return 'order';
+        return 'orders';
     }
-    public static function typeList(){
+    public static function typeList()
+    {
         return  [
             self::ORDER_TYPE_ANDROID => 'Андроид приложение',
             self::ORDER_TYPE_SITE => 'Сайт',
@@ -53,7 +58,8 @@ class Order extends \yii\db\ActiveRecord
         ];
     }
 
-    public static function designNeedList(){
+    public static function designNeedList()
+    {
         return  [
             self::ORDER_DESIGN_NEED => 'Да, нужно разработать дизайн',
             self::ORDER_DESIGN_NOT_DECIDED => 'Пока не решил',
@@ -62,7 +68,8 @@ class Order extends \yii\db\ActiveRecord
         ];
     }
 
-    public static function industryList(){
+    public static function industryList()
+    {
         return  [
             self::ORDER_INDUSTRY_STORE => 'Интернет-магазин',
             self::ORDER_INDUSTRY_DELIVERY => 'Служба доставки',
@@ -82,7 +89,7 @@ class Order extends \yii\db\ActiveRecord
     {
         return [
             [['design_need', 'price_min', 'price_max', 'industry'], 'integer'],
-            [['type','price_range'], 'safe'],
+            [['type', 'price_range', 'industry_custom', 'name', 'contact', 'comment'], 'safe'],
         ];
     }
 
@@ -98,6 +105,9 @@ class Order extends \yii\db\ActiveRecord
             'price_min' => Yii::t('app', 'Price Min'),
             'price_max' => Yii::t('app', 'Price Max'),
             'industry' => Yii::t('app', 'Industry'),
+            'name' => Yii::t('app', 'Name'),
+            'contact' => Yii::t('app', 'Contact'),
+            'comment' => Yii::t('app', 'Comment'),
         ];
     }
 }

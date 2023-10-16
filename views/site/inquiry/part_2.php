@@ -8,7 +8,7 @@ $needs = Order::designNeedList();
     <div class="custom-modal-desc count-modal-desc">
         <div>
             <div class="question_num">
-                Вопрос <span>2</span> из 4
+                Вопрос <span>2</span> из 5
             </div>
 
             <div class="question_title">

@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Order;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -25,16 +26,50 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'id',
-            'type',
-            'design_need',
+            'name',
+            'contact',
+            [
+                'attribute' => 'type',
+                'value' => function ($model) {
+                    $types = [];
+                    $rows = unserialize($model->type);
+                    if (!$rows) {
+                        return null;
+                    }
+                    foreach ($rows as $type) {
+                        $types[] = Order::typeList()[$type];
+                    };
+                    return implode(', ', $types);
+                }
+            ],
+            [
+                'attribute' => 'design_need',
+                'value' => function ($model) {
+                    $list = Order::designNeedList();
+                    if ($model->design_need) {
+                        return $list[$model->design_need];
+                    }
+                    return $model->design_need;
+                }
+            ],
             'price_min',
             'price_max',
-            'industry',
+            [
+                'attribute' => 'industry',
+                'value' => function ($model) {
+                    $list = Order::industryList();
+                    if ($model->industry) {
+                        return $list[$model->industry];
+                    }
+                    return $model->industry;
+                }
+            ],
+            'industry_custom',
+            'comment'
         ],
     ]) ?>
 
