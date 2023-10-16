@@ -16,8 +16,8 @@ use yii\helpers\Url;
 <section id="contacts">
     <div class="container addr_row mb-4 d-flex flex-column flex-md-row">
 
-        <div id="map" style="width:500px; height:300px"></div>
-        <div class='addr_right ml-5 mb-3'>
+        <div id="map" class='map'></div>
+        <div class='addr_right ml-5 mb-3 mob-ml-0 mob-mt-15'>
             <strong>Наш адрес:</strong><br />
             ул. Шевченко 114, каб. 4<br />Бишкек, 720033<br />
             Тел.: <?= Html::a('(+996) 555 801166', 'tel:+996555801166') ?><br />

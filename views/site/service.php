@@ -65,7 +65,7 @@ use yii\helpers\Url;
                     Не знаете какая услуга вам нужна?
                 </div>
 
-                <div class="service-desc-consult">
+                <div class="service-desc-consult js_offer_btn pointer">
                     Бесплатная консультация
                     <div><?= Html::img(Url::base() . '/images/site/arrow-right-circle.svg'); ?></div>
                 </div>

@@ -1369,7 +1369,7 @@ a.desc:after {
 }
 
 .custom-modal-desc {
-    margin: 0 0 40px;
+    margin: 0;
     font-size: 18px;
     line-height: 27px;
     color: #828282;
@@ -1404,7 +1404,6 @@ a.desc:after {
 }
 
 .custom-modal-text .form-shortener {
-    width: 590px;
     margin: auto;
 }
 
@@ -1555,7 +1554,7 @@ a.desc:after {
 }
 
 .question_nav {
-    margin-top: 70px;
+    margin-top: 20px;
     display: flex;
 }
 
@@ -1945,3 +1944,12 @@ a.desc:after {
     padding-left: 0;
     padding-right: 0;
 } */
+.hiddeniraak{display: none;}
+.field-order-industry_custom{margin-bottom: 0;}
+.field-order-comment{margin-bottom:0;}
+.font11{font-size: 11px;}
+.font12{font-size: 12px;}
+.lhn{line-height: normal;}
+.mb5{margin-bottom: 5px;}
+.pointer{cursor:pointer;}
+.map{width:500px;height:300px;}

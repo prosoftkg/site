@@ -69,6 +69,10 @@ $order = new Order();
                             'form' => $order_form,
                             'model' => $order,
                         ]) ?>
+                        <?= $this->render('inquiry/part_5', [
+                            'form' => $order_form,
+                            'model' => $order,
+                        ]) ?>
                     </div>
                 </div>
 
@@ -88,8 +92,6 @@ $order = new Order();
     </div>
 </div>
 <?php ActiveForm::end(); ?>
-
-
 
 <div class="inquiry_cover">
     <div class="container">
@@ -164,14 +166,14 @@ $order = new Order();
 </div>
 
 <div class="order_personal_data modal-shortener">
-    <div class="custom-modal-grid-two">        
+    <div class="custom-modal-grid-two">
         <?php
         echo $form->field($model, 'fullname')->textInput(['maxlength' => true, 'placeholder' => 'ФИО'])->label(false);
         echo $form->field($model, 'phone')->textInput(['maxlength' => true, 'placeholder' => '0555 51 50 55'])->label(false);
         ?>
     </div>
     <div class="custom-modal-hint">
-    Нажимая кнопку, вы даете согласие на обработку персональных данных и согласны с условиями пользовательского соглашения.
+        Нажимая кнопку, вы даете согласие на обработку персональных данных и согласны с условиями пользовательского соглашения.
     </div>
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Получить расчет'), ['class' => 'btn blue-btn call_click']) ?>

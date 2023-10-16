@@ -6,7 +6,7 @@ use kartik\slider\Slider;
     <div class="custom-modal-desc count-modal-desc">
         <div>
             <div class="question_num">
-                Вопрос <span>3</span> из 4
+                Вопрос <span>3</span> из 5
             </div>
 
             <div class="question_title">
@@ -26,7 +26,7 @@ use kartik\slider\Slider;
                     'max' => 20000,
                     'step' => 500,
                     'range' => true
-                ]
+                ],
             ])->label(false);
             ?>
         </div>

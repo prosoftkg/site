@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @link http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
@@ -21,9 +22,9 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/site.css',
+        'css/mobile.css'
     ];
-    public $js = [
-    ];
+    public $js = [];
     public $jsOptions = [
         'position' => \yii\web\View::POS_HEAD
     ];

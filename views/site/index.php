@@ -53,6 +53,7 @@ $this->title = Yii::$app->name;
         mode: 'slide',
         prevArrow: '<i class="slick-prev custom-prev"></i>',
         nextArrow: '<i class="slick-next custom-next"></i>',
+        adaptiveHeight: true,
         responsive: [{
             breakpoint: 1024,
             settings: {
@@ -155,7 +156,8 @@ $this->title = Yii::$app->name;
     });
 
     var form = $('.inquiry-phone-form');
-    $('.inquiry_create').on('click', function(e) {
+    let msgField = form.find('#inquiry-message');
+    $('.inquiry_create, .js_offer_btn').on('click', function(e) {
         $('#getCodeModal').addClass('phone-inquiry');
         e.stopImmediatePropagation();
         e.preventDefault();
@@ -165,8 +167,19 @@ $this->title = Yii::$app->name;
         form.appendTo('#getCodeModal .custom-modal-text');
         form.css('display', 'block');
         $('#getCodeModal .custom-modal-text .btn-callback').text('Оставить заявку');
+
+        if ($(this).hasClass('js_startup')) {
+            msgField.val('Хочу получить КП для стартапа');
+        } else if ($(this).hasClass('js_msb')) {
+            msgField.val('Хочу получить КП для МСБ');
+        } else if ($(this).hasClass('js_corp')) {
+            msgField.val('Хочу получить КП для корпорации');
+        } else {
+            msgField.val('');
+        }
         jQuery("#getCodeModal").modal('show');
     });
+
 
 
     $(".btn-callback").click(function(e) {
@@ -237,7 +250,7 @@ $this->title = Yii::$app->name;
             }, ]
         });
 
-        $('#order-price_range').on('slide', function(ev) {
+        $('#order-price_range').on('change', function(ev) {
             var myString = $('#order-price_range').val();
             var parts = myString.split(',');
             $('.price_digit_min').text(parts[0]);
@@ -259,18 +272,19 @@ $this->title = Yii::$app->name;
     $('.question_next').click(function() {
         $('.count_slider').slick('slickNext');
         counter = counter + 1;
-        if (counter < 4) {
+        if (counter < 5) {
 
-        } else if (counter == 4) {
+        } else if (counter == 5) {
             $(this).find('span').text('Готово');
-        } else if (counter > 4) {
+        } else if (counter > 5) {
             var thisOne = $(this);
             var form = $(".order_form");
             if (form.find('.has-error').length) {
+                console.log('has error mlya');
                 return false;
             }
             $.ajax({
-                url: '/web/order/create',
+                url: '/order/create',
                 type: 'post',
                 data: form.serialize(),
                 beforeSend: function() {
@@ -279,20 +293,29 @@ $this->title = Yii::$app->name;
                 success: function(response) {
                     if (response != 'false') {
                         count_id = parseInt(response);
-                        $('.modal-body').html("<div class='modal-success-header'>Отлично!</div><div class='modal-shortener'>" +
+                        /* $('.modal-body').html("<div class='modal-success-header'>Отлично!</div><div class='modal-shortener'>" +
                             "<div class='custom-modal-desc text-align-center'>Результаты уже поступили в систему. Приблизительная оценка вашего  проекта...</div>" +
                             "<div class='custom-modal-grid-two'>" +
                             "<div class='modal-grid-col'><div class='modal-grid-col-text'>Стоимость создания вашего проекта</div><div class='modal-counted-data'>$ 2300</div></div>" +
                             "<div class='modal-grid-col'><div class='modal-grid-col-text'>Сроки для разработки вашего проекта</div><div class='modal-counted-data'>ч. 543</div></div>" +
                             "</div>" +
                             "<div class='custom-modal-desc text-align-center'>Хотите увидеть расчеты прямо сейчас? Заполните ваши данные.</div></div>"
-                        );
-                        $('.modal-body').append($('.order_personal_data'));
-                        $('.order_personal_data').css('display', 'block');
+                        ); */
+
+                        $('#getCountModal .modal-body').html("<div class='modal-success-header'>Отлично!</div><div class='modal-shortener'>Мы свяжемся с вами в ближайщее время.</div>");
+                        //$('.modal-body').append($('.order_personal_data'));
+                        //$('.order_personal_data').css('display', 'block');
                     }
                 }
             });
             return false;
+        }
+    });
+    $('#order-industry input').change(function() {
+        if (this.value === '7') {
+            $('.js_industry_custom').show();
+        } else {
+            $('.js_industry_custom').hide();
         }
     });
 </script>
