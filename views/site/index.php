@@ -37,6 +37,7 @@ $this->title = Yii::$app->name;
         <?= $this->render('clients'); ?>
         <?= $this->render('feedback'); ?>
         <?= $this->render('inquiry'); ?>
+        <?= $this->render('contact'); ?>
     </div>
 </div>
 <script>

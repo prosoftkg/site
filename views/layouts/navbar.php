@@ -27,7 +27,7 @@ echo Nav::widget([
         ['label' => '', 'url' => ['/'], 'options' => ['class' => 'logo']],
         ['label' => 'условия работы', 'url' => '#stages', 'options' => ['class' => 'right-side-menu menu-left-margin']],
         ['label' => 'отзывы', 'url' => '#feedback', 'options' => ['class' => 'right-side-menu menu-left-margin']],
-        ['label' => 'контакты', 'url' => '#contact', 'options' => ['class' => 'right-side-menu menu-left-margin']],
+        ['label' => 'контакты', 'url' => '#contacts', 'options' => ['class' => 'right-side-menu menu-left-margin']],
     ],
 ]);
 NavBar::end();
