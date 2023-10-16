@@ -47,12 +47,12 @@ use yii\helpers\Url;
 
                 </div>
                 <div class="service-title">
-                    SEO оптимизация
+                    Бизнес аналитика
                 </div>
 
-                <div class="service-desc">
+                <!-- <div class="service-desc">
                     PPC, электронный маркетинг, написание контента, SEO, продвижение в Apple Store и Google Market.
-                </div>
+                </div> -->
 
                 <div class="service-bottom">
                     <?= Html::img(Url::base() . '/images/site/service-items.svg'); ?>

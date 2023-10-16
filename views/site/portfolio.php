@@ -8,7 +8,7 @@ use kartik\tabs\TabsX;
 $items = [
     [
         'label' => '',
-        'content' => $this->render('tabContent', ['items' => Portfolio::find()->all()]),
+        'content' => $this->render('tabContent', ['items' => Portfolio::find()->orderBy(['prioritet' => SORT_ASC])->all()]),
         'active' => true,
         'linkOptions' => ['class' => 'empty-tab-link']
     ],

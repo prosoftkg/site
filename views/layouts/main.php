@@ -29,7 +29,8 @@ AppAsset::register($this);
 
 <body class="d-flex flex-column h-100">
     <?php $this->beginBody() ?>
-    <?= $this->render('admin'); ?>
+    <?php //echo $this->render('admin'); //hmm
+    ?>
     <header>
         <?= $this->render('navbar'); ?>
     </header>

@@ -10,14 +10,16 @@ use yii\helpers\Url;
             <div class="footer-nav">
                 <?= Html::a('портфолио', '#portfolio'); ?>
                 <?= Html::a('услуги', '#service'); ?>
-                <?= Html::a('о нас', '#'); ?>
+                <?= Html::a('о нас', '#digits'); ?>
                 <?= Html::a('условия работы', '#stages'); ?>
-                <?= Html::a('контакты', '#'); ?>
             </div>
             <div class="social-links">
-                <?php echo Html::a(Html::img(Url::base() . '/images/site/facebook.svg'), 'https://www.facebook.com/Prosoftkg'); ?>
-                <?php echo Html::a(Html::img(Url::base() . '/images/site/instagram.svg'), 'https://instagram.com/Prosoftkg') ?>
-                <?php echo Html::a(Html::img(Url::base() . '/images/site/twitter.svg'), 'https://www.twitter.com/prosoftkg') ?>
+                <?php //echo Html::a(Html::img(Url::base() . '/images/site/facebook.svg'), 'https://www.facebook.com/Prosoftkg'); 
+                ?>
+                <?php //echo Html::a(Html::img(Url::base() . '/images/site/instagram.svg'), 'https://instagram.com/Prosoftkg') 
+                ?>
+                <?php //echo Html::a(Html::img(Url::base() . '/images/site/twitter.svg'), 'https://www.twitter.com/prosoftkg') 
+                ?>
             </div>
         </div>
     </div>
@@ -47,9 +49,9 @@ use yii\helpers\Url;
     $('.navbar-toggler-icon').on('click', function() {
         var parent = $(this).parents('.navbar-custom');
         if (parent.hasClass('header_toggle')) {
-            if(!parent.hasClass('scrolled')){
+            if (!parent.hasClass('scrolled')) {
                 parent.removeClass('header_toggle');
-            }            
+            }
         } else {
             parent.addClass('header_toggle');
         }

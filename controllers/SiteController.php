@@ -133,11 +133,10 @@ class SiteController extends Controller
     public function actionTabsData($id)
     {
         if ($id == 1) {
-            $portfolio = Portfolio::find()->where(['web' => 1])->all();
-        } elseif($id == 2) {
-            $portfolio = Portfolio::find()->where(['mobile' => 1])->all();
-        }
-        else{
+            $portfolio = Portfolio::find()->where(['web' => 1])->orderBy(['prioritet' => SORT_ASC])->all();
+        } elseif ($id == 2) {
+            $portfolio = Portfolio::find()->where(['mobile' => 1])->orderBy(['prioritet' => SORT_ASC])->all();
+        } else {
             $portfolio = Portfolio::find()->all();
         }
         $html = $this->renderPartial('tabContent', ['items' => $portfolio]);
