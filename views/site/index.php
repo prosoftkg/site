@@ -65,10 +65,10 @@ $this->title = Yii::$app->name;
 
     $('.feedback-slider').slick({
         infinite: true,
-        slidesToShow: 1, // Shows a three slides at a time
+        slidesToShow: 1, // Shows a 1 slides at a time
         slidesToScroll: 1, // When you click an arrow, it scrolls 1 slide at a time
         arrows: true, // Adds arrows to sides of slider
-        asNavFor: '.test-small-slick',
+        //asNavFor: '.test-small-slick',
         fade: true,
         dots: false,
         easing: 'cubic-bezier(0.25, 0, 0.25, 1)',
@@ -83,16 +83,19 @@ $this->title = Yii::$app->name;
         }, ]
     });
 
-    $('.test-small-slick').slick({
-        slidesToShow: 5,
-        slidesToScroll: 1,
-        asNavFor: '.feedback-slider',
-        dots: false,
-        centerMode: true,
-        focusOnSelect: true,
-        arrows: false,
-        infinite: true,
+    // On before slide change
+    $('.feedback-slider').on('beforeChange', function(event, slick, currentSlide, nextSlide) {
+        $('.js_feedback_dots span').removeClass('active');
+        $('.js_feedback_dots span').eq(nextSlide).addClass('active');
     });
+
+    $('.js_feedback_dots span').on('click', function() {
+        let count = $(this).data("count");
+        $('.feedback-slider').slick('slickGoTo', count);
+        $('.js_feedback_dots span').removeClass('active');
+        $(this).addClass('active');
+    });
+
 
     let question = document.querySelectorAll(".question");
     question.forEach(question => {

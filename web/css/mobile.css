@@ -61,92 +61,6 @@
     }
 }
 
-@media screen and (max-width:600px) {
-    /* #getCount .wrap-modal-slider .slick-list {
-        height: auto!important;
-    } */
-    .site-index .intro-cover {
-        background-size: auto 100%!important;
-        height: 260px!important;
-    }
-    .order_personal_data .blue-btn {
-        padding: 20px 50px;
-    }
-    .count-modal-desc .question_nav {
-        margin-top: 0px;
-    }
-    .modal-grid-col {
-        margin-bottom: 30px;
-    }
-    .social-links a {
-        margin-right: 10px;
-    }
-    .site-index .digits_cover {
-        background-size: auto 100%!important;
-        background-position: 50% 50%;
-    }
-    .service_cover .service-grid {
-        grid-template-columns: 1fr 1fr!important;
-    }
-    .service-grid .service-block {
-        background-size: cover;
-        background-position: 50%;
-        height: 280px!important;
-    }
-    .offer_cover .offer_grid {
-        grid-template-columns: 1fr!important;
-    }
-    .offer_block .offer-title {
-        height: 35px!important;
-    }
-    .offer_block .offer-text {
-        height: auto!important;
-    }
-    /* .site-index .inquiry_cover {
-        height: 860px!important;
-    } */
-    .client-block {
-        padding: 0!important;
-    }
-    .count-modal-desc .modal-right-block {
-        display: block;
-    }
-    #order-type,
-    #order-design_need,
-    #order-industry {
-        grid-template-columns: 1fr;
-        grid-gap: 15px;
-    }
-    #getCount .count-modal-desc {
-        grid-template-columns: 1fr;
-    }
-    .count-modal-desc #order-type,
-    .count-modal-desc #order-design_need,
-    .count-modal-desc #order-industry {
-        grid-template-columns: 1fr;
-        grid-gap: 10px;
-    }
-    .checkbox-group label,
-    #order-design_need label,
-    #order-industry label,
-    #order-type label {
-        font-size: 15px!important;
-    }
-    .modal-success .modal-content::after {
-        display: none!important;
-    }
-    .count-modal-desc .blue-btn {
-        padding: 20px 50px 20px 30px!important;
-    }
-    #getCountModal .custom-modal-grid-two {
-        grid-template-columns: 1fr!important;
-        grid-gap: 30px;
-    }
-    .map{width:100%;height:300px;}
-    .mob-ml-0 {margin-left:0 !important;}
-    .mob-mt-15{margin-top:15px;}
-}
-
 @media screen and (max-width:768px) {
     .modal-right-block {
         display: none!important;
@@ -171,8 +85,10 @@
     .inquiry-form {
         background-color: #fff;
     }
+    .current-author img { width: 60px;}
+    
     .feedback-title {
-        margin-top: 20px;
+        margin-top: 6px; overflow: hidden;
     }
     .intro-cover .intro-text {
         width: 100%;
@@ -215,6 +131,7 @@
     .portfolio,
     .feedback_cover {
         /* display: none; */
+        margin-bottom: 0;
     }
     .stage_cover .stage_grid {
         grid-template-columns: 1fr;
@@ -332,6 +249,7 @@
     .feedback-slider .feedback-grid {
         display: block!important;
     }
+    .feedback-wrap{margin-top:16px;}
     .site-index .digits_cover {
         background-image: url('../images/site/mobile_digit_bg.png');
         height: auto;
@@ -434,7 +352,7 @@
         position: relative;
     }
     .main-body .footer {
-        margin-top: 35px;
+        margin-top: 0;
     }
     .site-index .portfolio {
         padding: 60px 0 10px;
@@ -447,6 +365,7 @@
     } */
     .feedback_cover .slick-dotted.slick-slider {
         margin-bottom: 0;
+        padding:20px;
     }
     .feedback_cover .feedback-thumb {
         margin: 24px 15px;
@@ -619,7 +538,97 @@
         overflow: hidden;
     }
 }
-
+@media screen and (max-width:600px) {
+    /* #getCount .wrap-modal-slider .slick-list {
+        height: auto!important;
+    } */
+    .site-index .intro-cover {
+        background-size: auto 100%!important;
+        height: 260px!important;
+    }
+    .order_personal_data .blue-btn {
+        padding: 20px 50px;
+    }
+    .count-modal-desc .question_nav {
+        margin-top: 0px;
+    }
+    .modal-grid-col {
+        margin-bottom: 30px;
+    }
+    .social-links a {
+        margin-right: 10px;
+    }
+    .site-index .digits_cover {
+        background-size: auto 100%!important;
+        background-position: 50% 50%;
+    }
+    .service_cover .service-grid {
+        grid-template-columns: 1fr 1fr!important;
+    }
+    .service-grid .service-block {
+        background-size: cover;
+        background-position: 50%;
+        height: 280px!important;
+    }
+    .offer_cover .offer_grid {
+        grid-template-columns: 1fr!important;
+    }
+    .offer_block .offer-title {
+        height: 35px!important;
+    }
+    .offer_block .offer-text {
+        height: auto!important;
+    }
+    /* .site-index .inquiry_cover {
+        height: 860px!important;
+    } */
+    .client-block {
+        padding: 0!important;
+    }
+    .count-modal-desc .modal-right-block {
+        display: block;
+    }
+    #order-type,
+    #order-design_need,
+    #order-industry {
+        grid-template-columns: 1fr;
+        grid-gap: 15px;
+    }
+    #getCount .count-modal-desc {
+        grid-template-columns: 1fr;
+    }
+    .count-modal-desc #order-type,
+    .count-modal-desc #order-design_need,
+    .count-modal-desc #order-industry {
+        grid-template-columns: 1fr;
+        grid-gap: 10px;
+    }
+    .checkbox-group label,
+    #order-design_need label,
+    #order-industry label,
+    #order-type label {
+        font-size: 15px!important;
+    }
+    .modal-success .modal-content::after {
+        display: none!important;
+    }
+    .count-modal-desc .blue-btn {
+        padding: 20px 50px 20px 30px!important;
+    }
+    #getCountModal .custom-modal-grid-two {
+        grid-template-columns: 1fr!important;
+        grid-gap: 30px;
+    }
+    .map{width:100%;height:300px;}
+    .mob-ml-0 {margin-left:0 !important;}
+    .mob-mt-15{margin-top:15px;}
+    .feedback_cover .feedback-slider::after {
+        border: 28px solid transparent;
+        margin-left: -28px;
+        border-top-color: transparent;
+        border-top-color: #fff;
+    }
+}
 @media screen and (max-width:390px) {
     .service-block .service-desc {
         padding: 0 10px;
