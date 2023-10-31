@@ -34,6 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     return implode('<br />', $types);
                 }
             ],
+            'yougile_id'
         ],
     ]) ?>
 
