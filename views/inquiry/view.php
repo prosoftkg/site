@@ -18,8 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'fullname',
             'email',
             'phone',
-            'message',
-            [
+            /* [
                 'attribute' => 'info',
                 'format' => 'raw',
                 'value' => function ($model) {
@@ -33,8 +32,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     };
                     return implode('<br />', $types);
                 }
+            ], */
+            [
+                'attribute' => 'info',
+                'format' => 'raw',
             ],
-            'yougile_id'
+            'message',
+            'yougile_id',
+            'admin_comment'
         ],
     ]) ?>
 

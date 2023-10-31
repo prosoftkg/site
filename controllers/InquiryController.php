@@ -77,36 +77,44 @@ class InquiryController extends Controller
 
                 if ($model->price_range) {
                     $post = explode(',', $model->price_range);
-                    $info['price_min'] = $post[0];
-                    $info['price_max'] = $post[1];
+                    //$info['price_min'] = $post[0];
+                    //$info['price_max'] = $post[1];
+                    $info[] = 'price_min: ' . $post[0];
+                    $info[] = 'price_max: ' . $post[1];
                 }
 
                 if ($model->type) {
                     foreach ($model->type as $type) {
                         $types[] = Inquiry::typeList()[$type];
                     };
-                    $info['type'] = implode(', ', $types);
+                    //$info['type'] = implode(', ', $types);
+                    $info[] = 'type: ' . implode(', ', $types);
                 }
 
                 if ($model->design_need) {
                     $list = Inquiry::designNeedList();
-                    $info['design_need'] = $list[$model->design_need];
+                    //$info['design_need'] = $list[$model->design_need];
+                    $info[] = 'design_need: ' . $list[$model->design_need];
                 }
 
                 if ($model->industry) {
                     $list = Inquiry::industryList();
-                    $info['industry'] = $list[$model->industry];
+                    //$info['industry'] = $list[$model->industry];
+                    $info[] = 'industry: ' . $list[$model->industry];
                 }
                 if ($model->industry_custom) {
-                    $info['industry_custom'] = $model->industry_custom;
+                    //$info['industry_custom'] = $model->industry_custom;
+                    $info[] = 'industry_custom: ' . $model->industry_custom;
                 }
                 if ($info) {
-                    $model->info = json_encode($info, JSON_UNESCAPED_UNICODE);
+                    //$model->info = json_encode($info, JSON_UNESCAPED_UNICODE);
+                    $model->info = implode('<br />', $info);
                 }
 
                 Yii::$app->response->format = Response::FORMAT_JSON;
                 if ($model->save()) {
                     //$model->email(Yii::$app->params['adminEmail'], $model->name, $model->phone);
+                    self::saveYougile($model->id, $model->fullname . ' ' . $model->phone, $model->info . '<br />comment: ' . $model->message);
                     return "Заказ звонка принят! Мы свяжемся с вами в ближайшее время!";
                 } else {
                     //$model->validate();
@@ -120,6 +128,29 @@ class InquiryController extends Controller
         return $this->render('create', [
             'model' => $model,
         ]);
+    }
+
+    static function saveYougile($id, $title, $desc)
+    {
+        $request = [
+            'title' => $title,
+            'description' => $desc,
+            'columnId' => '9df7847f-5d46-4764-9d61-00c712cf501b',
+            'assigned' => ['76071d35-e01d-4e11-95db-9cfed9a186c7']
+        ];
+
+        $client = new Client();
+        $response = $client
+            ->createRequest()
+            ->setMethod('POST')
+            ->setUrl('https://yougile.com/api-v2/tasks')
+            ->setHeaders(['content-type' => 'application/json'])
+            ->addHeaders(['authorization' => 'Bearer AftoMTJhmiYXDzSrYkzdoOkUfu46fQJd9IOY5ghZ-K5RRZFMpIlVxwc8IPgIluf3'])
+            ->setData($request)
+            ->send();
+
+        $dao = Yii::$app->db;
+        $dao->createCommand()->update('inquiry', ['yougile_id' => $response->data['id']], ['id' => $id])->execute();
     }
 
     /**
@@ -226,26 +257,10 @@ class InquiryController extends Controller
         $dao = Yii::$app->db;
         $post = Yii::$app->request->post();
         if ($post) {
-            $post = json_encode($post);
+            //$post = json_encode($post);
 
-            //$dao->createCommand()->insert('inquiry', ['fullname' => 'post', 'phone' => '0553000665', 'info' => $post])->execute();
+            $dao->createCommand()->insert('inquiry', ['fullname' => 'post id', 'phone' => '0553000665', 'info' => $post['payload']['id']])->execute();
         }
         exit;
-    }
-
-    public function actionRun()
-    {
-        //baha bratan
-        $request = ['title' => 'task added by Yii2', 'columnId' => '9df7847f-5d46-4764-9d61-00c712cf501b', 'assigned' => ['76071d35-e01d-4e11-95db-9cfed9a186c7']];
-        $client = new Client();
-        $response = $client
-            ->createRequest()
-            ->setMethod('POST')
-            ->setUrl('https://yougile.com/api-v2/tasks')
-            ->setHeaders(['content-type' => 'application/json'])
-            ->addHeaders(['authorization' => 'Bearer AftoMTJhmiYXDzSrYkzdoOkUfu46fQJd9IOY5ghZ-K5RRZFMpIlVxwc8IPgIluf3'])
-            ->setData($request)
-            ->send();
-        return $response->data['id'];
     }
 }
