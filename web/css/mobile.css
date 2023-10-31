@@ -590,7 +590,9 @@
     }
     #order-type,
     #order-design_need,
-    #order-industry {
+    #order-industry, #inquiry-type,
+    #inquiry-design_need,
+    #inquiry-industry {
         grid-template-columns: 1fr;
         grid-gap: 15px;
     }
@@ -599,14 +601,18 @@
     }
     .count-modal-desc #order-type,
     .count-modal-desc #order-design_need,
-    .count-modal-desc #order-industry {
+    .count-modal-desc #order-industry,.count-modal-desc #inquiry-type,
+    .count-modal-desc #inquiry-design_need,
+    .count-modal-desc #inquiry-industry  {
         grid-template-columns: 1fr;
         grid-gap: 10px;
     }
     .checkbox-group label,
     #order-design_need label,
     #order-industry label,
-    #order-type label {
+    #order-type label,#inquiry-design_need label,
+    #inquiry-industry label,
+    #inquiry-type label {
         font-size: 15px!important;
     }
     .modal-success .modal-content::after {

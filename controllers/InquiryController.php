@@ -72,6 +72,37 @@ class InquiryController extends Controller
         $model = new Inquiry();
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
+                $info = [];
+
+                if ($model->price_range) {
+                    $post = explode(',', $model->price_range);
+                    $info['price_min'] = $post[0];
+                    $info['price_max'] = $post[1];
+                }
+
+                if ($model->type) {
+                    foreach ($model->type as $type) {
+                        $types[] = Inquiry::typeList()[$type];
+                    };
+                    $info['type'] = implode(', ', $types);
+                }
+
+                if ($model->design_need) {
+                    $list = Inquiry::designNeedList();
+                    $info['design_need'] = $list[$model->design_need];
+                }
+
+                if ($model->industry) {
+                    $list = Inquiry::industryList();
+                    $info['industry'] = $list[$model->industry];
+                }
+                if ($model->industry_custom) {
+                    $info['industry_custom'] = $model->industry_custom;
+                }
+                if ($info) {
+                    $model->info = json_encode($info, JSON_UNESCAPED_UNICODE);
+                }
+
                 Yii::$app->response->format = Response::FORMAT_JSON;
                 if ($model->save()) {
                     //$model->email(Yii::$app->params['adminEmail'], $model->name, $model->phone);

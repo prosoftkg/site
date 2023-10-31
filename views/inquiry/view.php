@@ -19,6 +19,21 @@ $this->params['breadcrumbs'][] = $this->title;
             'email',
             'phone',
             'message',
+            [
+                'attribute' => 'info',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    $types = [];
+                    $rows = json_decode($model->info);
+                    if (!$rows) {
+                        return null;
+                    }
+                    foreach ($rows as $k => $v) {
+                        $types[] = $k . ': ' . $v;
+                    };
+                    return implode('<br />', $types);
+                }
+            ],
         ],
     ]) ?>
 

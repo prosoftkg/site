@@ -253,8 +253,8 @@ $this->title = Yii::$app->name;
             }, ]
         });
 
-        $('#order-price_range').on('change', function(ev) {
-            var myString = $('#order-price_range').val();
+        $('#inquiry-price_range').on('change', function(ev) {
+            var myString = $('#inquiry-price_range').val();
             var parts = myString.split(',');
             $('.price_digit_min').text(parts[0]);
             $('.price_digit_max').text(parts[1]);
@@ -287,7 +287,7 @@ $this->title = Yii::$app->name;
                 return false;
             }
             $.ajax({
-                url: '/order/create',
+                url: '/inquiry/create',
                 type: 'post',
                 data: form.serialize(),
                 beforeSend: function() {
@@ -314,7 +314,7 @@ $this->title = Yii::$app->name;
             return false;
         }
     });
-    $('#order-industry input').change(function() {
+    $('#inquiry-industry input').change(function() {
         if (this.value === '7') {
             $('.js_industry_custom').show();
         } else {

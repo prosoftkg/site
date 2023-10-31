@@ -20,7 +20,7 @@ use yii\helpers\Url;
         <div class='addr_right ml-5 mb-3 mob-ml-0 mob-mt-15'>
             <strong>Наш адрес:</strong><br />
             ул. Шевченко 114, каб. 4<br />Бишкек, 720033<br />
-            Тел.: <?= Html::a('(+996) 555 801166', 'tel:+996555801166') ?><br />
+            Тел.: <?= Html::a('(+996) 990 140 142', 'tel:+996990140142') ?><br />
             Эл. почта: <?= Html::a('info@prosoft.kg', 'mailto:info@prosoft.kg') ?>
         </div>
     </div>
