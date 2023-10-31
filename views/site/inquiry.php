@@ -1,7 +1,6 @@
 <?php
 
 use app\models\Inquiry;
-use app\models\Order;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -36,11 +35,11 @@ use kartik\slider\Slider;
 $order_form = ActiveForm::begin([
     'options' => [
         'enctype' => 'multipart/form-data',
-        'action' => Url::to(['order/create']),
+        'action' => Url::to(['inquiry/create']),
         'class' => 'order_form'
     ]
 ]);
-$order = new Order();
+$order = new Inquiry();
 ?>
 <div class="modal fade modal-success" id="getCountModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">

@@ -12,6 +12,7 @@ use yii\helpers\Url;
                 <?= Html::a('услуги', '#service'); ?>
                 <?= Html::a('о нас', '#digits'); ?>
                 <?= Html::a('условия работы', '#stages'); ?>
+                <?= Html::a('отзывы', '#feedback'); ?>
             </div>
             <div class="social-links">
                 <?php //echo Html::a(Html::img(Url::base() . '/images/site/facebook.svg'), 'https://www.facebook.com/Prosoftkg'); 

@@ -1,8 +1,8 @@
 <?php
 
-use app\models\Order;
+use app\models\Inquiry;
 
-$needs = Order::designNeedList();
+$needs = Inquiry::designNeedList();
 ?>
 <div>
     <div class="custom-modal-desc count-modal-desc">

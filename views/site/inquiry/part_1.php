@@ -1,8 +1,8 @@
 <?php
 
-use app\models\Order;
+use app\models\Inquiry;
 
-$types = Order::typeList();
+$types = Inquiry::typeList();
 ?>
 <div>
     <div class="custom-modal-desc count-modal-desc">

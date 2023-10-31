@@ -1,8 +1,8 @@
 <?php
 
-use app\models\Order;
+use app\models\Inquiry;
 
-$industries = Order::industryList();
+$industries = Inquiry::industryList();
 ?>
 <div>
     <div class="custom-modal-desc count-modal-desc">

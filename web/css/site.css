@@ -778,19 +778,18 @@ a.desc:after {
 
 .client_grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-gap: 80px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 60px;
     margin-top: 50px;
 }
 
 .client-block img {
     width: 100%;
-    max-height: 70px;
+    max-height: 50px;
 }
 
 .client-block {
     filter: grayscale();
-    cursor: pointer;
     display: flex;
     align-items: center;
 }
@@ -1475,7 +1474,9 @@ a.desc:after {
 
 #order-type,
 #order-design_need,
-#order-industry {
+#order-industry,#inquiry-type,
+#inquiry-design_need,
+#inquiry-industry {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 15px 25px;
@@ -1647,7 +1648,8 @@ a.desc:after {
 
 .checkbox-group label,
 #order-design_need label,
-#order-industry label {
+#order-industry label,#inquiry-design_need label,
+#inquiry-industry label{
     position: relative;
     cursor: pointer;
 }
@@ -1655,7 +1657,9 @@ a.desc:after {
 .checkbox-group label,
 #order-design_need label,
 #order-industry label,
-#order-type label {
+#order-type label,#inquiry-design_need label,
+#inquiry-industry label,
+#inquiry-type label {
     border: 1px solid #0A2C5D;
     border-radius: 4px;
     padding: 10px 15px;
@@ -1667,12 +1671,12 @@ a.desc:after {
     width: 100%;
 }
 
-#order-type label {
+#order-type label, #inquiry-type label {
     position: relative;
     display: flex;
 }
 
-#order-type label::before {
+#order-type label::before, #inquiry-type label::before {
     content: '';
     -webkit-appearance: none;
     background-color: #EAEAEA;
@@ -1704,12 +1708,12 @@ a.desc:after {
     height: 22px;
 }
 
-#order-type input {
+#order-type input ,#inquiry-type input{
     width: 0;
     height: 0;
 }
 
-#order-type input:checked:after {
+#order-type input:checked:after,#inquiry-type input:checked:after {
     content: '';
     display: block;
     position: absolute;
@@ -1727,7 +1731,7 @@ a.desc:after {
     color: #fff;
 }
 
-#order-type label input:checked+label {
+#order-type label input:checked+label,#inquiry-type label input:checked+label  {
     background-color: #0a2c5d;
     color: #fff;
 }
