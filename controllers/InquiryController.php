@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Response;
+use yii\httpclient\Client;
 
 /**
  * InquiryController implements the CRUD actions for Inquiry model.
@@ -171,16 +172,9 @@ class InquiryController extends Controller
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 
-    static function yougile()
+    static function yougiles()
     {
-        $dao = Yii::$app->db;
-        $post = Yii::$app->request->post();
-        if ($post) {
-            $post = json_encode($post);
 
-            $dao->createCommand()->insert('inquiry', ['fullname' => 'post', 'phone' => '0553000665', 'info' => $post])->execute();
-            exit;
-        }
         /* {"event":"task-moved",
             "payload":
             {
@@ -194,12 +188,63 @@ class InquiryController extends Controller
                 "timestamp":1698652295065,"parents":[]
             },
             "fromUserId":"76071d35-e01d-4e11-95db-9cfed9a186c7"} */
+
+        /*"{\"event\":\"task-moved\",\"payload\":{\"id\":\"a2f3aed6-fbc4-430b-9079-dd850665d071\",\"title\":\"test\",\"columnId\":\"9df7847f-5d46-4764-9d61-00c712cf501b\",\"completed\":false,\"archived\":false,\"createdBy\":\"76071d35-e01d-4e11-95db-9cfed9a186c7\",\"timestamp\":1698746220096,\"parents\":[]},\"fromUserId\":\"76071d35-e01d-4e11-95db-9cfed9a186c7\"}"*/
+        /*"{\
+            "event\":\"task-updated\",
+            \"payload\":{
+                \"id\":\"9deeacde-c520-4eb0-9bf0-8a4ec1fa0a80\",
+                \"title\":\"task added by Postman\",
+                \"columnId\":\"55972025-7573-46a9-8b2e-08046b5d99c4\",
+                \"completed\":true,
+                \"completedTimestamp\":1698753622699,
+                \"archived\":false,
+                \"createdBy\":\"76071d35-e01d-4e11-95db-9cfed9a186c7\",
+                \"subtasks\":[],
+                \"assigned\":[\"76071d35-e01d-4e11-95db-9cfed9a186c7\"],
+                \"timestamp\":1698652295065,
+                \"parents\":[]
+            },
+            \"fromUserId\":\"76071d35-e01d-4e11-95db-9cfed9a186c7\
+            "}"*/
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function beforeAction($action)
+    {
+        if ($action->id == 'yougile') {
+            $this->enableCsrfValidation = false;
+        }
+
+        return parent::beforeAction($action);
+    }
+
+    public function actionYougile()
+    {
+        $dao = Yii::$app->db;
+        $post = Yii::$app->request->post();
+        if ($post) {
+            $post = json_encode($post);
+
+            //$dao->createCommand()->insert('inquiry', ['fullname' => 'post', 'phone' => '0553000665', 'info' => $post])->execute();
+        }
+        exit;
     }
 
     public function actionRun()
     {
-        //self::yougile();
-        echo 'yoba';
-        exit;
+        $request = ['title' => 'task added by Yii2', 'columnId' => '9df7847f-5d46-4764-9d61-00c712cf501b', 'assigned' => ['76071d35-e01d-4e11-95db-9cfed9a186c7']];
+        $client = new Client();
+        $response = $client
+            ->createRequest()
+            ->setMethod('POST')
+            ->setUrl('https://yougile.com/api-v2/tasks')
+            ->setHeaders(['content-type' => 'application/json'])
+            ->addHeaders(['authorization' => 'Bearer AftoMTJhmiYXDzSrYkzdoOkUfu46fQJd9IOY5ghZ-K5RRZFMpIlVxwc8IPgIluf3'])
+            ->setData($request)
+            ->send();
+        return $response->data['id'];
     }
 }

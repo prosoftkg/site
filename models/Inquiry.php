@@ -23,6 +23,9 @@ use yii\behaviors\TimestampBehavior;
  * @property int $price_max
  * @property int $industry
  * @property string $industry_custom
+ * 
+ * @property string yougile_id
+ * @property string admin_comment
  */
 class Inquiry extends \yii\db\ActiveRecord
 {
@@ -110,10 +113,10 @@ class Inquiry extends \yii\db\ActiveRecord
     {
         return [
             [['phone'], 'required'],
-            [['fullname', 'email', 'phone'], 'string', 'max' => 255],
+            [['fullname', 'email', 'phone', 'admin_comment'], 'string', 'max' => 255],
             [['count_id', 'created_at', 'updated_at'], 'integer', 'max' => 11],
             [['message'], 'string', 'max' => 500],
-            [['info'], 'safe'],
+            [['info', 'yougile_id'], 'safe'],
             [['design_need', 'price_min', 'price_max', 'industry'], 'integer'],
             [['type', 'price_range', 'industry_custom'], 'safe'],
         ];
