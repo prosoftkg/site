@@ -170,4 +170,36 @@ class InquiryController extends Controller
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
+
+    static function yougile()
+    {
+        $dao = Yii::$app->db;
+        $post = Yii::$app->request->post();
+        if ($post) {
+            $post = json_encode($post);
+
+            $dao->createCommand()->insert('inquiry', ['fullname' => 'post', 'phone' => '0553000665', 'info' => $post])->execute();
+            exit;
+        }
+        /* {"event":"task-moved",
+            "payload":
+            {
+                "id":"00043c65-02f5-4c63-9ebb-150d47bc6e01",
+                "title":"task added by Postman",
+                "columnId":"190dea20-9b1e-4516-b1da-0b0073cf02ec",
+                "completed":false,
+                "archived":false,
+                "createdBy":"76071d35-e01d-4e11-95db-9cfed9a186c7",
+                "assigned":["76071d35-e01d-4e11-95db-9cfed9a186c7"],
+                "timestamp":1698652295065,"parents":[]
+            },
+            "fromUserId":"76071d35-e01d-4e11-95db-9cfed9a186c7"} */
+    }
+
+    public function actionRun()
+    {
+        //self::yougile();
+        echo 'yoba';
+        exit;
+    }
 }
