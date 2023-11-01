@@ -254,13 +254,28 @@ class InquiryController extends Controller
 
     public function actionYougile()
     {
+        return 'yoba';
         $dao = Yii::$app->db;
         $post = Yii::$app->request->post();
+        $info = 'no post';
         if ($post) {
             //$post = json_encode($post);
-
-            $dao->createCommand()->insert('inquiry', ['fullname' => 'post id', 'phone' => '0553000665', 'info' => $post['payload']['id']])->execute();
+            $info = 'no payload id';
+            if (!empty($post['payload']['id'])) {
+                $info = $post['payload']['id'];
+            }
         }
+        $dao->createCommand()->insert(
+            'inquiry',
+            [
+                'fullname' => 'post id', 'phone' => '0553000665',
+                'info' => $info
+            ]
+        )->execute();
         exit;
+    }
+    public function actionRun()
+    {
+        return 'run';
     }
 }
