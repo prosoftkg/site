@@ -54,9 +54,10 @@ use yii\helpers\Url;
                     PPC, электронный маркетинг, написание контента, SEO, продвижение в Apple Store и Google Market.
                 </div> -->
 
-                <div class="service-bottom">
-                    <?= Html::img(Url::base() . '/images/site/service-items.svg'); ?>
-                </div>
+                <!-- <div class="service-bottom">
+                    <?php //Html::img(Url::base() . '/images/site/service-items.svg'); 
+                    ?>
+                </div> -->
             </div>
 
             <div class="service-block free-consult">
@@ -68,11 +69,6 @@ use yii\helpers\Url;
                 <div class="service-desc-consult js_offer_btn pointer">
                     Бесплатная консультация
                     <div><?= Html::img(Url::base() . '/images/site/arrow-right-circle.svg'); ?></div>
-                </div>
-
-
-                <div class="service-bottom">
-                    <?= Html::img(Url::base() . '/images/site/service-items.svg'); ?>
                 </div>
             </div>
         </div>

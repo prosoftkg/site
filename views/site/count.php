@@ -11,7 +11,7 @@
                 </div>
                 <div class="count-hint">
                     <p>Есть вопросы? Позвоните нам</p>
-                    <p><a href='tel:+996555801166'>+996 (555) 80 11 66</a></p>
+                    <p><a href='tel:+996990140142'>+996 (990) 140 142</a></p>
                 </div>
             </div>
             <div class="count-right">

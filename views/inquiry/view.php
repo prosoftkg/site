@@ -39,7 +39,20 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'message',
             'yougile_id',
-            'admin_comment'
+            'yougile_status',
+            'admin_comment',
+            [
+                'attribute' => 'created_at',
+                'value' => function ($model) {
+                    return Yii::$app->formatter->asDatetime($model->created_at);
+                },
+            ],
+            [
+                'attribute' => 'updated_at',
+                'value' => function ($model) {
+                    return Yii::$app->formatter->asDatetime($model->updated_at);
+                },
+            ],
         ],
     ]) ?>
 

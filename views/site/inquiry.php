@@ -122,7 +122,7 @@ $order = new Inquiry();
 
                 <?= $form->field($model, 'email')->textInput(['maxlength' => true, 'placeholder' => 'ваш@gmail.com'])->label(false) ?>
 
-                <?= $form->field($model, 'phone')->textInput(['maxlength' => true, 'placeholder' => '0555 51 50 55'])->label(false) ?>
+                <?= $form->field($model, 'phone')->textInput(['maxlength' => true, 'placeholder' => '0990 140 142'])->label(false) ?>
 
                 <?= $form->field($model, 'message')->textInput(['maxlength' => true, 'placeholder' => 'Сообщение'])->label(false) ?>
 
@@ -151,7 +151,7 @@ $order = new Inquiry();
         ?>
         <div class="form-shortener">
             <?= $form->field($model, 'fullname')->textInput(['maxlength' => true, 'placeholder' => 'ФИО'])->label(false); ?>
-            <?= $form->field($model, 'phone')->textInput(['maxlength' => true, 'placeholder' => '0555 51 50 55'])->label(false) ?>
+            <?= $form->field($model, 'phone')->textInput(['maxlength' => true, 'placeholder' => '0990 140 142'])->label(false) ?>
             <?= $form->field($model, 'message')->textInput(['maxlength' => true, 'placeholder' => 'Сообщение'])->label(false) ?>
         </div>
         <div class='custom-modal-comment'>Нажимая кнопку, вы даете согласие на обработку персональных данных и согласны с условиями пользовательского соглашения.</div>
@@ -168,7 +168,7 @@ $order = new Inquiry();
     <div class="custom-modal-grid-two">
         <?php
         echo $form->field($model, 'fullname')->textInput(['maxlength' => true, 'placeholder' => 'ФИО'])->label(false);
-        echo $form->field($model, 'phone')->textInput(['maxlength' => true, 'placeholder' => '0555 51 50 55'])->label(false);
+        echo $form->field($model, 'phone')->textInput(['maxlength' => true, 'placeholder' => '0990 140 142'])->label(false);
         ?>
     </div>
     <div class="custom-modal-hint">

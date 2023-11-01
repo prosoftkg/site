@@ -132,11 +132,14 @@ class InquiryController extends Controller
 
     static function saveYougile($id, $title, $desc)
     {
+        //$temir='76071d35-e01d-4e11-95db-9cfed9a186c7';
+        $isa = 'b908f561-855c-411c-8083-5602d770b680';
         $request = [
             'title' => $title,
             'description' => $desc,
-            'columnId' => '9df7847f-5d46-4764-9d61-00c712cf501b',
-            'assigned' => ['76071d35-e01d-4e11-95db-9cfed9a186c7']
+            //'columnId' => '9df7847f-5d46-4764-9d61-00c712cf501b',//pm->novaya->inprogress
+            'columnId' => '130b04e8-2527-45a0-97ee-d1d353d490d9', //crm->novaya->novye
+            'assigned' => [$isa]
         ];
 
         $client = new Client();
@@ -245,7 +248,7 @@ class InquiryController extends Controller
      */
     public function beforeAction($action)
     {
-        if ($action->id == 'yougile') {
+        if ($action->id == 'yougile' || $action->id == 'run') {
             $this->enableCsrfValidation = false;
         }
 
@@ -254,17 +257,30 @@ class InquiryController extends Controller
 
     public function actionYougile()
     {
-        return 'yoba';
         $dao = Yii::$app->db;
         $post = Yii::$app->request->post();
-        $info = 'no post';
         if ($post) {
-            //$post = json_encode($post);
-            $info = 'no payload id';
             if (!empty($post['payload']['id'])) {
-                $info = $post['payload']['id'];
+                $id = $post['payload']['id'];
+                $event = $post['event'];
+            }
+            if (!empty($post['payload']['completed'])) {
+                $event .= ' completed';
+            }
+            if (!empty($post['payload']['archived'])) {
+                $event .= ' archived';
+            }
+            if (!empty($id)) {
+                $dao->createCommand()->update('inquiry', ['yougile_status' => $event], ['yougile_id' => $id])->execute();
             }
         }
+        exit;
+    }
+
+    public function actionRun()
+    {
+        $dao = Yii::$app->db;
+        $info = '';
         $dao->createCommand()->insert(
             'inquiry',
             [
@@ -272,10 +288,5 @@ class InquiryController extends Controller
                 'info' => $info
             ]
         )->execute();
-        exit;
-    }
-    public function actionRun()
-    {
-        return 'run';
     }
 }
