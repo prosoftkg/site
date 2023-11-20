@@ -33,7 +33,7 @@ $items = Feedback::find()->all();
                     foreach ($items as $item) {
                         echo Html::beginTag('div', ['class' => 'feedback-grid']);
 
-                        echo Html::beginTag('div');
+                        echo Html::beginTag('div', ['class' => 'fb_img']);
                         echo Html::img($item->getWallpaper(), ['class' => 'feedback-wallpaper']);
                         echo Html::endTag('div');
 

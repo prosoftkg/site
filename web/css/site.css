@@ -816,7 +816,7 @@ a.desc:after {
 .feedback-grid {
     display: grid !important;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 100px;
+    grid-gap: 50px;
 }
 
 .feedback-title {
@@ -851,6 +851,10 @@ a.desc:after {
 .feedback-wallpaper {
     width: 100%;
     border-radius: 4px;
+}
+.fb_img{
+    display: flex;
+    align-items: center;
 }
 
 
