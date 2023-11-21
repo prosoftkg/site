@@ -118,7 +118,7 @@ class InquiryController extends Controller
                     if ($model->email) {
                         $title .= ' ' . $model->email;
                     }
-                    //self::saveYougile($model->id, $title, $desc); //changeThis
+                    self::saveYougile($model->id, $title, $desc);
                     return "Заказ звонка принят! Мы свяжемся с вами в ближайшее время!";
                 } else {
                     //$model->validate();
