@@ -23,7 +23,7 @@ use kartik\slider\Slider;
                 <div class="modal-body" id="getCode">
                     <div class="custom-modal-header"></div>
                     <div class="custom-modal-desc"></div>
-                    <div class="custom-modal-text"></div>
+                    <div class="custom-modal-text js_modal_content"></div>
                     <div class="custom-modal-comment"></div>
                 </div>
             </div>
@@ -127,7 +127,7 @@ $order = new Inquiry();
                 <?= $form->field($model, 'message')->textInput(['maxlength' => true, 'placeholder' => 'Сообщение'])->label(false) ?>
 
                 <div class="form-group">
-                    <?= Html::submitButton(Yii::t('app', 'отправить'), ['class' => 'btn btn-custom call_click']) ?>
+                    <?= Html::submitButton(Yii::t('app', 'отправить'), ['class' => 'btn btn-custom js_contact_submit']) ?>
                 </div>
 
                 <?php ActiveForm::end(); ?>
@@ -135,7 +135,6 @@ $order = new Inquiry();
             </div>
         </div>
     </div>
-
 
     <div class="inquiry-phone-form">
         <?php
@@ -156,7 +155,7 @@ $order = new Inquiry();
         </div>
         <div class='custom-modal-comment'>Нажимая кнопку, вы даете согласие на обработку персональных данных и согласны с условиями пользовательского соглашения.</div>
         <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', 'отправить'), ['class' => 'btn btn-callback']) ?>
+            <?= Html::submitButton(Yii::t('app', 'отправить'), ['class' => 'btn js_inquiry_submit btn-callback']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>
@@ -175,7 +174,7 @@ $order = new Inquiry();
         Нажимая кнопку, вы даете согласие на обработку персональных данных и согласны с условиями пользовательского соглашения.
     </div>
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Получить расчет'), ['class' => 'btn blue-btn call_click']) ?>
+        <?= Html::submitButton(Yii::t('app', 'Получить расчет'), ['class' => 'btn blue-btn js_contact_submit']) ?>
     </div>
 
 </div>

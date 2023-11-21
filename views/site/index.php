@@ -130,46 +130,70 @@ $this->title = Yii::$app->name;
         });
     });
 
-    $(".call_click").click(function(e) {
+    $(document).on('click', ".js_contact_submit", function(e) {
         e.stopImmediatePropagation();
         e.preventDefault();
         var thisOne = $(this);
         var form = $(".callback-form-gq");
-        console.log(form.serialize());
-        if (form.find('.has-error').length) {
-            return 'yoba';
+        //console.log(form.serialize());
+        if (form.find('.has-error').length) {}
+        let namefield = form.find('#inquiry-fullname');
+        let emailfield = form.find('#inquiry-email');
+        let phonefield = form.find('#inquiry-phone');
+        let hasError = false;
+
+        if (!namefield.val().length) {
+            hasError = true;
+            alert('Заполните ФИО');
         }
-        $.ajax({
-            url: form.attr('action'),
-            type: 'post',
-            data: form.serialize(),
-            beforeSend: function() {
-                thisOne.addClass('inquiry-loading');
-            },
-            success: function(response) {
-                thisOne.removeClass('inquiry-loading');
-                if (response != 'false') {
-                    $('.custom-modal-header').text('Заявка на звонок');
-                    $(".custom-modal-text").text(response);
-                    jQuery("#getCodeModal").modal('show');
+        if (!phonefield.val().length && !emailfield.val().length) {
+            hasError = true;
+            alert('Заполните телефон или эл. почту');
+        }
+
+        if (emailfield.val().length && !validateEmail(emailfield.val())) {
+            hasError = true;
+            alert('Неправильный формат эл. почты');
+        }
+        if (!hasError) {
+            $.ajax({
+                url: form.attr('action'),
+                type: 'post',
+                data: form.serialize(),
+                beforeSend: function() {
+                    thisOne.addClass('inquiry-loading');
+                },
+                success: function(response) {
+                    thisOne.removeClass('inquiry-loading');
+                    if (response != 'false') {
+                        $('.custom-modal-header').text('Заявка на звонок');
+                        $(".js_modal_content").text(response);
+                        jQuery("#getCodeModal").modal('show');
+                    }
                 }
-            }
-        });
+            });
+        }
         return false;
     });
+    const validateEmail = (email) => {
+        return email.match(
+            /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        );
+    };
 
     var form = $('.inquiry-phone-form');
     let msgField = form.find('#inquiry-message');
-    $('.inquiry_create, .js_offer_btn').on('click', function(e) {
+
+    $(document).on('click', '.inquiry_create, .js_offer_btn', function(e) {
         $('#getCodeModal').addClass('phone-inquiry');
         e.stopImmediatePropagation();
         e.preventDefault();
         $('#getCodeModal .custom-modal-header').text('Оставьте ваши контакты и мы обязательно вам перезвоним');
         $('#getCodeModal .custom-modal-desc').text('Закажите бесплатный звонок и мы перезвоним вам в течении 24 часов.');
 
-        form.appendTo('#getCodeModal .custom-modal-text');
+        form.appendTo('#getCodeModal .js_modal_content');
         form.css('display', 'block');
-        $('#getCodeModal .custom-modal-text .btn-callback').text('Оставить заявку');
+        $('#getCodeModal .js_modal_content .js_inquiry_submit').text('Оставить заявку');
 
         if ($(this).hasClass('js_startup')) {
             msgField.val('Хочу получить КП для стартапа');
@@ -183,9 +207,8 @@ $this->title = Yii::$app->name;
         jQuery("#getCodeModal").modal('show');
     });
 
-
-
-    $(".btn-callback").click(function(e) {
+    $(document).on('click', ".js_inquiry_submit", function(e) {
+        console.log('suchara');
         e.stopImmediatePropagation();
         e.preventDefault();
         var thisOne = $(this);
@@ -204,7 +227,7 @@ $this->title = Yii::$app->name;
                 thisOne.removeClass('inquiry-loading');
                 if (response != 'false') {
                     $('.custom-modal-header').text('Заявка на звонок');
-                    $(".custom-modal-text").text(response);
+                    $(".js_modal_content").text(response);
                     //jQuery("#getCodeModal").modal('show');
                 } else {
                     var inquiry_div = form.find('.field-inquiry-phone');
@@ -218,7 +241,7 @@ $this->title = Yii::$app->name;
 
     $("#getCodeModal").on('hidden.bs.modal', function() {
         $('#getCodeModal .custom-modal-header').text('');
-        $("#getCodeModal .custom-modal-text").html('');
+        $("#getCodeModal .js_modal_content").html('');
         $("#getCodeModal .custom-modal-desc").text('');
     });
 
@@ -226,8 +249,6 @@ $this->title = Yii::$app->name;
         $('.count_slider').slick('setPosition');
         $('.wrap-modal-slider').addClass('open');
     });
-
-
 
     $(document).ready(function() {
         $('.count-btn').on('click', function(e) {
@@ -314,6 +335,7 @@ $this->title = Yii::$app->name;
             return false;
         }
     });
+
     $('#inquiry-industry input').change(function() {
         if (this.value === '7') {
             $('.js_industry_custom').show();

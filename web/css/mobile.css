@@ -501,14 +501,14 @@
         font-size: 16px;
     }
 
-    .navbar-custom .navbar-brand {
+    /* .navbar-custom .navbar-brand {
         width: 180px;
         margin-right: 2rem;
     }
 
     .navbar-brand img {
         width: 100%;
-    }
+    } */
 
     .site-index .intro-cover {
         height: 500px;
@@ -899,7 +899,7 @@
     }
 }
 
-@media screen and (min-width:1025px) and (max-width:1200px) {
+@media screen and (min-width:768px) and (max-width:1200px) {
     .navbar-custom .navbar-brand {
         display: none !important;
     }

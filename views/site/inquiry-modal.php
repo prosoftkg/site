@@ -25,7 +25,7 @@ use yii\helpers\Url;
         <?= $form->field($model, 'message')->textInput(['maxlength' => true, 'placeholder' => 'Сообщение'])->label(false) ?>
 
         <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', 'отправить'), ['class' => 'btn btn-custom call_click']) ?>
+            <?= Html::submitButton(Yii::t('app', 'отправить'), ['class' => 'btn btn-custom js_contact_submit modalnahoi']) ?>
         </div>
         <?php ActiveForm::end(); ?>
 

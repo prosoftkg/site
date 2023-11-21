@@ -6,7 +6,7 @@ use yii\helpers\Url;
 <footer class="footer">
     <div class="container">
         <div class="footer-top">
-            <?= Html::img(Url::base() . "/images/site/logo.svg"); ?>
+            <div class='logo_text'><a href="/">PROSOFT</a></div>
             <div class="footer-nav">
                 <?= Html::a('портфолио', '#portfolio'); ?>
                 <?= Html::a('услуги', '#service'); ?>

@@ -10,7 +10,7 @@ use yii\behaviors\TimestampBehavior;
  *
  * @property int $id
  * @property string|null $fullname
- * @property string|null $e-mail
+ * @property string|null $email
  * @property string $phone
  * @property string $message
  * @property json $info

@@ -9,7 +9,7 @@ use yii\bootstrap4\Nav;
 use yii\bootstrap4\NavBar;
 
 NavBar::begin([
-    'brandLabel' => '<div class="brand-logo"></div>',
+    'brandLabel' => '<div class="brand-logo">PROSOFT</div>',
     'brandUrl' => Yii::$app->homeUrl,
     'options' => [
         'class' => 'navbar navbar-expand-md navbar-custom',
@@ -23,8 +23,8 @@ echo Nav::widget([
     'items' => [
         ['label' => 'портфолио', 'url' => '#portfolio', 'options' => ['class' => 'left-side-menu menu-right-margin']],
         ['label' => 'услуги', 'url' => '#service', 'options' => ['class' => 'left-side-menu menu-right-margin']],
-        ['label' => 'о нас', 'url' => '#digits', 'options' => ['class' => 'left-side-menu']],
-        ['label' => '', 'url' => ['/'], 'options' => ['class' => 'logo']],
+        ['label' => 'о нас', 'url' => '#digits', 'options' => ['class' => 'left-side-menu menu-right-margin']],
+        ['label' => 'PROSOFT', 'url' => ['/'], 'options' => ['class' => 'logo_text']],
         ['label' => 'условия работы', 'url' => '#stages', 'options' => ['class' => 'right-side-menu menu-left-margin']],
         ['label' => 'отзывы', 'url' => '#feedback', 'options' => ['class' => 'right-side-menu menu-left-margin']],
         ['label' => 'контакты', 'url' => '#contacts', 'options' => ['class' => 'right-side-menu menu-left-margin']],

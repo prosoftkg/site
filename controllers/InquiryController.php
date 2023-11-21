@@ -113,8 +113,12 @@ class InquiryController extends Controller
 
                 Yii::$app->response->format = Response::FORMAT_JSON;
                 if ($model->save()) {
-                    //$model->email(Yii::$app->params['adminEmail'], $model->name, $model->phone);
-                    self::saveYougile($model->id, $model->fullname . ' ' . $model->phone, $model->info . '<br />comment: ' . $model->message);
+                    $desc = $model->info . '<br />comment: ' . $model->message;
+                    $title = $model->fullname . ' ' . $model->phone;
+                    if ($model->email) {
+                        $title .= ' ' . $model->email;
+                    }
+                    //self::saveYougile($model->id, $title, $desc); //changeThis
                     return "Заказ звонка принят! Мы свяжемся с вами в ближайшее время!";
                 } else {
                     //$model->validate();
