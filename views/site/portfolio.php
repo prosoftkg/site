@@ -26,9 +26,10 @@ $items = [
 <div class="portfolio" id="portfolio">
     <div class="container">
         <h2 class="custom-heading">Наши проекты</h2>
-        <div class="portfolio_slogan">
+        <!-- <div class="portfolio_slogan">
             Работали с первыми лицами государств, топ-менеджерами и собственниками крупнейших кыргызских и зарубежных компаний.
-        </div>
+        </div> -->
+        <br />
         <?= TabsX::widget([
             'items' => $items,
             'position' => TabsX::POS_ABOVE,

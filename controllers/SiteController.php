@@ -178,6 +178,8 @@ class SiteController extends Controller
 
     public function actionRun()
     {
+
+        exit();
         $params = [
             'title' => 'My title 11:44',
             'body' => 'Hey there show me',

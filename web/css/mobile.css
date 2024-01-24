@@ -141,6 +141,7 @@
 
     .footer .footer-top {
         grid-template-columns: 1fr 1fr;
+        display: none;
     }
 
     .footer-top img {
@@ -148,7 +149,6 @@
     }
 
     .footer .footer-nav {
-        display: none;
     }
 
     .footer .footer-botom {
@@ -857,6 +857,11 @@
         background-size: 100% auto!important;
     } */
 }
+@media screen and (max-width: 600px) {
+    .brand-logo {
+        font-size: 5.6vw;
+    }    
+}
 
 @media screen and (max-width: 600px) and (orientation:landscape) {
     .main-body .site-index .intro-cover {
@@ -866,6 +871,9 @@
     .site-index .digits_cover {
         background-size: 100% !important;
     }
+    .brand-logo {
+        font-size: 4vw;
+    }    
 }
 
 @media screen and (max-width:810px) {}
