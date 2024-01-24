@@ -17,9 +17,9 @@ $this->title = Yii::$app->name;
                 <div class="slogan_one">
                     Создавайте, масштабируйте, контролируйте свой бизнес вместе с нами
                 </div>
-                <div class="slogan_two">
+                <h1 class="slogan_two">
                     Разработка мобильных приложений и сайтов
-                </div>
+                </h1>
                 <div class="inquiry_create btn-main">
                     Оставить заявку
                 </div>

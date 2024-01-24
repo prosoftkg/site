@@ -65,7 +65,6 @@ $config = [
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
                 'about' => 'site/about',
                 'contact' => 'site/contact',
-                'regulation' => 'site/regulation',
             ],
         ],
         'assetManager' => [
