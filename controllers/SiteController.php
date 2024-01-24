@@ -58,6 +58,18 @@ class SiteController extends Controller
     }
 
     /**
+     * @inheritdoc
+     */
+    public function beforeAction($action)
+    {
+        if ($action->id == 'tabs-data') {
+            $this->enableCsrfValidation = false;
+        }
+
+        return parent::beforeAction($action);
+    }
+
+    /**
      * Displays homepage.
      *
      * @return string
@@ -132,6 +144,7 @@ class SiteController extends Controller
 
     public function actionTabsData($id)
     {
+        return $id;
         if ($id == 1) {
             $portfolio = Portfolio::find()->where(['web' => 1])->orderBy(['prioritet' => SORT_ASC])->all();
         } elseif ($id == 2) {

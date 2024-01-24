@@ -14,12 +14,12 @@ $this->title = Yii::$app->name;
     <div class="intro-cover">
         <div class="container">
             <div class="intro-text">
-                <div class="slogan_one">
-                    Создавайте, масштабируйте, контролируйте свой бизнес вместе с нами
-                </div>
-                <div class="slogan_two">
-                    Разработка мобильных приложений и сайтов
-                </div>
+                <h1 class="slogan_one">
+                    Создаем красивые, функциональные, удобные сайты, интернет магазины и мобильные приложения в Кыргызстане.
+                </h1>
+                <h2 class="slogan_two">
+                    Расскажите нам о своих бизнес-задачах. Сделаем детальный анализ и предложим лучшие решения
+                </h2>
                 <div class="inquiry_create btn-main">
                     Оставить заявку
                 </div>
