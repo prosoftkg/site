@@ -142,4 +142,53 @@ class SiteController extends Controller
         $html = $this->renderPartial('tabContent', ['items' => $portfolio]);
         return Json::encode($html);
     }
+
+    public static function pushNotification($token, $params)
+    {
+        //$fcm_server_key = Yii::$app->params['firebaseServerKey'];
+        $fcm_server_key = 'AAAAgt2-ZUI:APA91bEIdTfeUOA4Ga9NOZ2DGxiFNf1uZfLBWqAZbgLY90UJZUjPLneX96HJBRX2DykR12wcIfp6ZJ7e3rkvCiiO6hArtL6IVFJGIRgHpa0VYGmsy-A8wCETH5qM2PDfs7S8fgzzZfrC';
+
+        $data = ["click_action" => "FLUTTER_NOTIFICATION_CLICK"];
+        if (!empty($params['params'])) {
+            $data = array_merge($data, $params['params']);
+        }
+        $fields = [
+            'notification'     => ['body' => $params['body'], 'title' => $params['title'], 'sound' => 'default', 'android_channel_id' => 'horsechannel'],
+            'priority' => 'high',
+            'data' => $data,
+            'to' => $token
+        ];
+
+
+        $headers = ['Authorization: key=' . $fcm_server_key, 'Content-Type: application/json'];
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+        $result = curl_exec($ch);
+        curl_close($ch);
+        var_dump($result);
+        //{"multicast_id":6871200661950690246,"success":1,"failure":0,"canonical_ids":0,"results":[{"message_id":"0:1704789063156133%3150c44c3150c44c"}]}
+        //{"multicast_id":2844040801835453767,"success":0,"failure":1,"canonical_ids":0,"results":[{"error":"NotRegistered"}]}
+    }
+
+    public function actionRun()
+    {
+
+        exit();
+        $params = [
+            'title' => 'My title 11:44',
+            'body' => 'Hey there show me',
+            'params' => [
+                'test_id' => 123,
+            ],
+        ];
+        $token = 'cXBC0x7FR8S1E8SPNC0XM0:APA91bFtTt8Z31sQpWpU7aXi5uhcMoHqAOlgWJpzB-ZD1KpK-MbrihojXXzsLsdDma4-ngOCBe1yFMf9fWPZ16AFdUAY9WtA_rWzTyP7GBg4KGmwZJU7JMRtmgvOwSXqwLk8Aept0Agi';
+        self::pushNotification($token, $params);
+        exit();
+    }
 }
