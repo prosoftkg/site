@@ -130,6 +130,18 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function beforeAction($action)
+    {
+        if ($action->id == 'tabs-data') {
+            $this->enableCsrfValidation = false;
+        }
+
+        return parent::beforeAction($action);
+    }
+
     public function actionTabsData($id)
     {
         if ($id == 1) {
