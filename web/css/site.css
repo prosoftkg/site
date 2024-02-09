@@ -2063,5 +2063,6 @@ a.desc:after {
     color:var(--color-logo);
     font-size: 2.6vw;
     font-family: CreoExtraBold;
+    letter-spacing: 0;
 }
 .logo_text a:hover{text-decoration: none;}
