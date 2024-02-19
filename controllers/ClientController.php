@@ -2,11 +2,16 @@
 
 namespace app\controllers;
 
+use Yii;
 use app\models\Client;
 use app\models\ClientSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
+use app\components\AccessRule;
+use app\models\User;
+
 
 /**
  * ClientController implements the CRUD actions for Client model.
@@ -21,6 +26,24 @@ class ClientController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class' => AccessControl::className(),
+                    'ruleConfig' => [
+                        'class' => AccessRule::className(),
+                    ],
+                    'only' => ['index', 'delete', 'view'],
+                    'rules' => [
+                        [
+                            //'actions' => ['logout'],
+                            'allow' => true,
+                            'roles' => [
+                                //User::ROLE_USER,
+                                //User::ROLE_MODERATOR,
+                                User::ROLE_ADMIN
+                            ],
+                        ],
+                    ],
+                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [

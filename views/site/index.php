@@ -212,7 +212,6 @@ $this->title = Yii::$app->name;
     });
 
     $(document).on('click', ".js_inquiry_submit", function(e) {
-        console.log('suchara');
         e.stopImmediatePropagation();
         e.preventDefault();
         var thisOne = $(this);
@@ -233,6 +232,9 @@ $this->title = Yii::$app->name;
                     $('.custom-modal-header').text('Заявка на звонок');
                     $(".js_modal_content").text(response);
                     //jQuery("#getCodeModal").modal('show');
+                    gtag('event', 'conversion', {
+                        'send_to': 'AW-1001497063/2sR3CJns4pEZEOfDxt0D'
+                    });
                 } else {
                     var inquiry_div = form.find('.field-inquiry-phone');
                     inquiry_div.addClass('has-error');
@@ -296,7 +298,6 @@ $this->title = Yii::$app->name;
         }
     });
 
-
     $('.question_next').click(function() {
         $('.count_slider').slick('slickNext');
         counter = counter + 1;
@@ -321,6 +322,10 @@ $this->title = Yii::$app->name;
                 success: function(response) {
                     if (response != 'false') {
                         count_id = parseInt(response);
+
+                        gtag('event', 'conversion', {
+                            'send_to': 'AW-1001497063/2sR3CJns4pEZEOfDxt0D'
+                        });
                         /* $('.modal-body').html("<div class='modal-success-header'>Отлично!</div><div class='modal-shortener'>" +
                             "<div class='custom-modal-desc text-align-center'>Результаты уже поступили в систему. Приблизительная оценка вашего  проекта...</div>" +
                             "<div class='custom-modal-grid-two'>" +

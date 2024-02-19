@@ -2,6 +2,9 @@ body {
     font-family: 'Open Sans', 'sans-serif';
 }
 
+main {
+    flex: 1;
+}
 main>.container {
     padding: 70px 15px 20px;
 }
@@ -1948,7 +1951,7 @@ a.desc:after {
 
 .admin-block {
     background-color: rgb(23, 4, 77);
-    padding: 10px;
+    padding: 10px 30px;
 }
 
 .admin-block a {

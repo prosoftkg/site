@@ -2,23 +2,19 @@
 
 namespace app\controllers;
 
-use Yii;
-use app\models\Portfolio;
-use app\models\PortfolioSearch;
+use app\models\Page;
+use yii\filters\AccessControl;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\models\Tag;
-use yii\web\Response;
-use yii\filters\AccessControl;
-use app\components\AccessRule;
 use app\models\User;
-
+use app\components\AccessRule;
 
 /**
- * PortfolioController implements the CRUD actions for Portfolio model.
+ * PageController implements the CRUD actions for Page model.
  */
-class PortfolioController extends Controller
+class PageController extends Controller
 {
     /**
      * @inheritDoc
@@ -33,10 +29,10 @@ class PortfolioController extends Controller
                     'ruleConfig' => [
                         'class' => AccessRule::className(),
                     ],
-                    'only' => ['index', 'delete', 'view'],
+                    'only' => ['create', 'update', 'index', 'delete'],
                     'rules' => [
                         [
-                            //'actions' => ['logout'],
+                            //'actions' => ['create', 'update', 'index', 'delete'],
                             'allow' => true,
                             'roles' => [
                                 //User::ROLE_USER,
@@ -57,23 +53,33 @@ class PortfolioController extends Controller
     }
 
     /**
-     * Lists all Portfolio models.
+     * Lists all Page models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new PortfolioSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $dataProvider = new ActiveDataProvider([
+            'query' => Page::find(),
+            /*
+            'pagination' => [
+                'pageSize' => 50
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'id' => SORT_DESC,
+                ]
+            ],
+            */
+        ]);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * Displays a single Portfolio model.
+     * Displays a single Page model.
      * @param int $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -86,14 +92,14 @@ class PortfolioController extends Controller
     }
 
     /**
-     * Creates a new Portfolio model.
+     * Creates a new Page model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new Portfolio();
-        $model->scenario = 'insert';
+        $model = new Page();
+
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);
@@ -108,7 +114,7 @@ class PortfolioController extends Controller
     }
 
     /**
-     * Updates an existing Portfolio model.
+     * Updates an existing Page model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param int $id ID
      * @return string|\yii\web\Response
@@ -117,7 +123,7 @@ class PortfolioController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $model->scenario = 'update';
+
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -128,7 +134,7 @@ class PortfolioController extends Controller
     }
 
     /**
-     * Deletes an existing Portfolio model.
+     * Deletes an existing Page model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param int $id ID
      * @return \yii\web\Response
@@ -141,34 +147,42 @@ class PortfolioController extends Controller
         return $this->redirect(['index']);
     }
 
-    /* public function actionList($query)
-    {
-        $models = Tag::findAllByName($query);
-        $items = [];
-
-        foreach ($models as $model) {
-            $items[] = ['name' => $model->name];
-        }
-        // We know we can use ContentNegotiator filter
-        // this way is easier to show you here :)
-        Yii::$app->response->format = Response::FORMAT_JSON;
-
-        return $items;
-    } */
-
     /**
-     * Finds the Portfolio model based on its primary key value.
+     * Finds the Page model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param int $id ID
-     * @return Portfolio the loaded model
+     * @return Page the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Portfolio::findOne(['id' => $id])) !== null) {
+        if (($model = Page::findOne(['id' => $id])) !== null) {
             return $model;
         }
 
-        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    protected function findModelByCode($code)
+    {
+        if (($model = Page::findOne(['code' => $code])) !== null) {
+            return $model;
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionPrivacy()
+    {
+        return $this->render('view', [
+            'model' => $this->findModelByCode('privacy'),
+        ]);
+    }
+
+    public function actionPrivacyPolicy()
+    {
+        return $this->render('view', [
+            'model' => $this->findModelByCode('privacy_common'),
+        ]);
     }
 }

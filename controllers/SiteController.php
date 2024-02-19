@@ -10,6 +10,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Portfolio;
+use app\models\User;
 use yii\helpers\Json;
 
 class SiteController extends Controller
@@ -58,6 +59,18 @@ class SiteController extends Controller
     }
 
     /**
+     * @inheritdoc
+     */
+    public function beforeAction($action)
+    {
+        if ($action->id == 'tabs-data') {
+            $this->enableCsrfValidation = false;
+        }
+
+        return parent::beforeAction($action);
+    }
+
+    /**
      * Displays homepage.
      *
      * @return string
@@ -66,6 +79,19 @@ class SiteController extends Controller
     {
         $this->layout = "index";
         return $this->render('index');
+    }
+
+    /**
+     * Displays homepage.
+     *
+     * @return string
+     */
+    public function actionAdmin()
+    {
+        if (Yii::$app->user->isGuest) {
+            return Yii::$app->getResponse()->redirect('/site/login');
+        }
+        return $this->render('admin');
     }
 
     /**
@@ -130,18 +156,6 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function beforeAction($action)
-    {
-        if ($action->id == 'tabs-data') {
-            $this->enableCsrfValidation = false;
-        }
-
-        return parent::beforeAction($action);
-    }
-
     public function actionTabsData($id)
     {
         if ($id == 1) {
@@ -192,7 +206,7 @@ class SiteController extends Controller
     {
 
         exit();
-        $params = [
+        /*  $params = [
             'title' => 'My title 11:44',
             'body' => 'Hey there show me',
             'params' => [
@@ -201,6 +215,6 @@ class SiteController extends Controller
         ];
         $token = 'cXBC0x7FR8S1E8SPNC0XM0:APA91bFtTt8Z31sQpWpU7aXi5uhcMoHqAOlgWJpzB-ZD1KpK-MbrihojXXzsLsdDma4-ngOCBe1yFMf9fWPZ16AFdUAY9WtA_rWzTyP7GBg4KGmwZJU7JMRtmgvOwSXqwLk8Aept0Agi';
         self::pushNotification($token, $params);
-        exit();
+        exit(); */
     }
 }
