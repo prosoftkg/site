@@ -8,6 +8,7 @@ use app\components\AccessRule;
 use yii\web\Controller;
 use yii\web\Response;
 use app\models\User;
+use app\models\Workhour;
 use app\models\YgBoard;
 use app\models\YgColumn;
 use app\models\YgProject;
@@ -132,6 +133,10 @@ class AdminController extends Controller
     {
         YgTask::fetchAll();
     }
+    protected function calcHours()
+    {
+        Workhour::calcHours();
+    }
 
     public function actionRun()
     {
@@ -139,7 +144,8 @@ class AdminController extends Controller
         //$this->syncProjects();
         //$this->syncBoards();
         //$this->syncColumns();
-        $this->syncTasks();
+        //$this->syncTasks();
+        $this->calcHours();
         exit();
     }
 }

@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\httpclient\Client;
 
 /**
  * This is the model class for table "yg_project".

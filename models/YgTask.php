@@ -132,12 +132,10 @@ class YgTask extends YgModel
                     if (isset($row['assigned'])) {
                         if (is_array($row['assigned'])) {
                             foreach ($row['assigned'] as $assigned) {
-                                $user_id = self::getUserId($assigned);
-                                self::assignUserToTask($model->id, $user_id);
+                                self::assignUserToTask($model->id, $assigned);
                             }
                         } else {
-                            $user_id = self::getUserId($row['assigned']);
-                            self::assignUserToTask($model->id, $user_id);
+                            self::assignUserToTask($model->id, $row['assigned']);
                         }
                     }
                 } else {
@@ -205,24 +203,25 @@ class YgTask extends YgModel
                 if (isset($row['assigned'])) {
                     if (is_array($row['assigned'])) {
                         foreach ($row['assigned'] as $assigned) {
-                            $user_id = self::getUserId($assigned);
-                            self::assignUserToTask($model->id, $user_id);
+                            self::assignUserToTask($model->id, $assigned);
                         }
                     } else {
-                        $user_id = self::getUserId($row['assigned']);
-                        self::assignUserToTask($model->id, $user_id);
+                        self::assignUserToTask($model->id, $row['assigned']);
                     }
                 }
             }
         }
     }
 
-    protected static function assignUserToTask($task_id, $user_id)
+    protected static function assignUserToTask($task_id, $yg_user_id)
     {
         $dao = Yii::$app->db;
-        $row = $dao->createCommand("SELECT id FROM `yg_task_user` WHERE user_id={$user_id} AND task_id={$task_id}")->queryOne();
-        if (!$row) {
-            $dao->createCommand()->insert('yg_task_user', ['user_id' => $user_id, 'task_id' => $task_id])->execute();
+        $user_id = self::getUserId($yg_user_id);
+        if ($user_id) {
+            $row = $dao->createCommand("SELECT id FROM `yg_task_user` WHERE user_id={$user_id} AND task_id={$task_id}")->queryOne();
+            if (!$row) {
+                $dao->createCommand()->insert('yg_task_user', ['user_id' => $user_id, 'task_id' => $task_id])->execute();
+            }
         }
     }
 

@@ -185,7 +185,6 @@ class SiteController extends Controller
             'to' => $token
         ];
 
-
         $headers = ['Authorization: key=' . $fcm_server_key, 'Content-Type: application/json'];
 
         $ch = curl_init();
@@ -205,16 +204,17 @@ class SiteController extends Controller
     public function actionRun()
     {
 
-        exit();
-        /*  $params = [
-            'title' => 'My title 11:44',
+        //exit();
+        $params = [
+            'title' => 'My title 16:17',
             'body' => 'Hey there show me',
             'params' => [
                 'test_id' => 123,
             ],
         ];
-        $token = 'cXBC0x7FR8S1E8SPNC0XM0:APA91bFtTt8Z31sQpWpU7aXi5uhcMoHqAOlgWJpzB-ZD1KpK-MbrihojXXzsLsdDma4-ngOCBe1yFMf9fWPZ16AFdUAY9WtA_rWzTyP7GBg4KGmwZJU7JMRtmgvOwSXqwLk8Aept0Agi';
+        //$token = 'cXBC0x7FR8S1E8SPNC0XM0:APA91bFtTt8Z31sQpWpU7aXi5uhcMoHqAOlgWJpzB-ZD1KpK-MbrihojXXzsLsdDma4-ngOCBe1yFMf9fWPZ16AFdUAY9WtA_rWzTyP7GBg4KGmwZJU7JMRtmgvOwSXqwLk8Aept0Agi';
+        $token = 'cjjql9FT4kY3uOVp1DQUM0:APA91bG7DE9DTo3Qpmhx8ei2ggzQ1BcrjkaqC7Gdj9M2YppxR0qb1R-Ba1w2yUnLzfLnbJu_sV2y-uU1gTLfnva-6pRxDjwjyXRSC7kzTFXdtZBOXFbx3UQcD9M49kQGHPlwTvoud7Ma';
         self::pushNotification($token, $params);
-        exit(); */
+        exit();
     }
 }
