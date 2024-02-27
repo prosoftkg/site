@@ -45,7 +45,7 @@ class AdminController extends Controller
                         ],
                     ],
                     [
-                        'actions' => ['hook'],
+                        'actions' => ['hook', 'hooks'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -66,7 +66,7 @@ class AdminController extends Controller
      */
     public function beforeAction($action)
     {
-        if ($action->id == 'hook') {
+        if (in_array($action->id, ['hook', 'hooks'])) {
             $this->enableCsrfValidation = false;
         }
 
@@ -223,15 +223,40 @@ class AdminController extends Controller
          */
     public function actionHook()
     {
-        $post = Yii::$app->request->post();
+        /* $post = Yii::$app->request->post();
         if ($post) {
+            $json = Json::encode($post);
+            $dao = Yii::$app->db;
+            $dao->createCommand()->insert('page', ['title' => 'webhook', 'content' => $json, 'code' => time()])->execute();
             if (isset($post['event'])) {
                 if ($post['event'] == 'task-created') {
-                    if (!empty($post['payload']['parents'])) {
+                    //do not create task if it has parents, it will be created by parent
+                    if (empty($post['event']['payload']['parents'])) {
                         YgTask::upsertTask($post['payload']);
                     }
-                } else 
-                if ($post['event'] == 'task-updated') {
+                } else if ($post['event'] == 'task-updated') {
+                    $dao->createCommand()->insert('page', ['title' => 'webhook upd', 'content' => 'zaaaaifal', 'code' => time()])->execute();
+                    $dao->createCommand()->insert('page', ['title' => 'webhook upd', 'content' => Json::encode($post['payload']), 'code' => time()])->execute();
+                    YgTask::upsertTask($post['payload']);
+                }
+            }
+        } */
+    }
+    public function actionHooks()
+    {
+        $post = Yii::$app->request->post();
+        if ($post) {
+            //$json = Json::encode($post);
+            $dao = Yii::$app->db;
+            //$dao->createCommand()->insert('page', ['title' => 'webhook', 'content' => $json, 'code' => time()])->execute();
+            if (isset($post['event'])) {
+                if ($post['event'] == 'task-created') {
+                    //do not create task if it has parents, it will be created by parent
+                    if (empty($post['event']['payload']['parents'])) {
+                        YgTask::upsertTask($post['payload']);
+                    }
+                } else if ($post['event'] == 'task-updated') {
+                    //$dao->createCommand()->insert('page', ['title' => 'webhook upd', 'content' => Json::encode($post['payload']), 'code' => time()])->execute();
                     YgTask::upsertTask($post['payload']);
                 }
             }
