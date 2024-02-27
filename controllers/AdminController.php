@@ -223,7 +223,7 @@ class AdminController extends Controller
          */
     public function actionHook()
     {
-        /* $post = Yii::$app->request->post();
+        $post = Yii::$app->request->post();
         if ($post) {
             $json = Json::encode($post);
             $dao = Yii::$app->db;
@@ -240,8 +240,10 @@ class AdminController extends Controller
                     YgTask::upsertTask($post['payload']);
                 }
             }
-        } */
+        }
     }
+
+    //just for testing from postman
     public function actionHooks()
     {
         $post = Yii::$app->request->post();

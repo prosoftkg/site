@@ -192,7 +192,7 @@ class YgTask extends YgModel
         return $dao->createCommand("SELECT * FROM `yg_column`")->queryAll();
     }
 
-    public $user_ids = [];
+    public static $user_ids = [];
     protected static function getUserId($yougile_id)
     {
         if (isset(self::$user_ids[$yougile_id])) {
@@ -207,7 +207,7 @@ class YgTask extends YgModel
         return 0;
     }
 
-    public $column_ids = [];
+    public static $column_ids = [];
     protected static function getColumnId($yougile_column_id)
     {
         if (isset(self::$column_ids[$yougile_column_id])) {
