@@ -266,6 +266,31 @@ class AdminController extends Controller
         }
     }
 
+    public function actionSyncHalf()
+    {
+        $this->syncUsers();
+        $this->syncProjects();
+        $this->syncBoards();
+        $this->syncColumns();
+    }
+    public function actionSyncTasks()
+    {
+        $this->syncTasks();
+    }
+    public function actionSyncAll()
+    {
+        $this->syncUsers();
+        $this->syncProjects();
+        $this->syncBoards();
+        $this->syncColumns();
+        $this->syncTasks();
+    }
+
+    public function actionCalcHours()
+    {
+        $this->calcHours();
+    }
+
     public function actionRun()
     {
         //$this->syncUsers();
