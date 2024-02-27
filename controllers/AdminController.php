@@ -156,13 +156,85 @@ class AdminController extends Controller
         Workhour::calcHours();
     }
 
+    /*
+         {
+            "event":"task-created",
+            "payload":{
+                "title":"Testing webhook",
+                "timestamp":1709016804701,
+                "columnId":"3a750b0a-8b05-4903-ac9e-74a34079748e",
+                "archived":false,
+                "completed":false,
+                "createdBy":"76071d35-e01d-4e11-95db-9cfed9a186c7",
+                "id":"08997e29-cd01-432d-b09e-19512d662d10",
+                "parents":[]
+            },
+            "fromUserId":"76071d35-e01d-4e11-95db-9cfed9a186c7"
+        }
+        {
+            "event":"task-updated",
+            "payload":{
+                "title":"Testing webhook",
+                "timestamp":1709016804701,
+                "columnId":"3a750b0a-8b05-4903-ac9e-74a34079748e",
+                "archived":false,
+                "completed":false,
+                "createdBy":"76071d35-e01d-4e11-95db-9cfed9a186c7",
+                "timeTracking":{"plan":0,"work":0},
+                "id":"08997e29-cd01-432d-b09e-19512d662d10",
+                "parents":[]
+            },
+            "fromUserId":"76071d35-e01d-4e11-95db-9cfed9a186c7"
+        }
+        {
+            "event":"task-updated",
+            "payload":{
+                "title":"Testing webhook",
+                "timestamp":1709016804701,
+                "columnId":"3a750b0a-8b05-4903-ac9e-74a34079748e",
+                "archived":false,
+                "completed":false,
+                "createdBy":"76071d35-e01d-4e11-95db-9cfed9a186c7",
+                "timeTracking":{"plan":3,"work":0},
+                "id":"08997e29-cd01-432d-b09e-19512d662d10","parents":[]
+            },
+            "fromUserId":"76071d35-e01d-4e11-95db-9cfed9a186c7"
+        }
+        {"event":"task-moved","payload":{"title":"Testing webhook","timestamp":1709016804701,"columnId":"787c50f1-f630-4f70-9a10-f5d9d72a5dd6","archived":false,"completed":false,"createdBy":"76071d35-e01d-4e11-95db-9cfed9a186c7","timeTracking":{"plan":3,"work":0},"id":"08997e29-cd01-432d-b09e-19512d662d10","parents":[]},"fromUserId":"76071d35-e01d-4e11-95db-9cfed9a186c7"}
+        {"event":"task-updated","payload":{"title":"Testing webhook","timestamp":1709016804701,"columnId":"787c50f1-f630-4f70-9a10-f5d9d72a5dd6","archived":false,"completed":true,"completedTimestamp":1709017307456,"assigned":"76071d35-e01d-4e11-95db-9cfed9a186c7","createdBy":"76071d35-e01d-4e11-95db-9cfed9a186c7","timeTracking":{"plan":3,"work":2},"id":"08997e29-cd01-432d-b09e-19512d662d10","parents":[]},"fromUserId":"76071d35-e01d-4e11-95db-9cfed9a186c7"}
+
+        {"event":"task-deleted","payload":{"title":"Testing webhook___deleted","timestamp":1709016804701,"columnId":"787c50f1-f630-4f70-9a10-f5d9d72a5dd6","archived":false,"completed":true,"completedTimestamp":1709017307456,"assigned":"76071d35-e01d-4e11-95db-9cfed9a186c7","createdBy":"76071d35-e01d-4e11-95db-9cfed9a186c7","timeTracking":{"plan":3,"work":2},"id":"08997e29-cd01-432d-b09e-19512d662d10","deleted":true,"parents":[]},"fromUserId":"76071d35-e01d-4e11-95db-9cfed9a186c7"}
+        {"event":"task-renamed","payload":{"title":"Testing webhook___deleted","timestamp":1709016804701,"columnId":"787c50f1-f630-4f70-9a10-f5d9d72a5dd6","archived":false,"completed":true,"completedTimestamp":1709017307456,"assigned":"76071d35-e01d-4e11-95db-9cfed9a186c7","createdBy":"76071d35-e01d-4e11-95db-9cfed9a186c7","timeTracking":{"plan":3,"work":2},"id":"08997e29-cd01-432d-b09e-19512d662d10","deleted":true,"parents":[]},"fromUserId":"76071d35-e01d-4e11-95db-9cfed9a186c7"}
+        
+        {"event":"task-updated","payload":{"title":"Another test","timestamp":1709017337708,"columnId":"3a750b0a-8b05-4903-ac9e-74a34079748e","archived":false,"completed":false,"subtasks":["f690d214-1f86-43c8-9ca9-fcae42d7472f","84317954-70ea-4c55-a3f1-61deeaf62919"],"createdBy":"76071d35-e01d-4e11-95db-9cfed9a186c7","id":"0ad8e3be-8ea9-4e25-a202-50409a4d3c3a","parents":[]},"fromUserId":"76071d35-e01d-4e11-95db-9cfed9a186c7"}
+        {
+            "event":"task-created",
+            "payload":{
+                "title":"Another subtask",
+                "timestamp":1709024348239,
+                "archived":false,
+                "completed":false,
+                "createdBy":"76071d35-e01d-4e11-95db-9cfed9a186c7",
+                "id":"84317954-70ea-4c55-a3f1-61deeaf62919",
+                "parents":["0ad8e3be-8ea9-4e25-a202-50409a4d3c3a"]
+            },
+            "fromUserId":"76071d35-e01d-4e11-95db-9cfed9a186c7"
+        }
+         */
     public function actionHook()
     {
         $post = Yii::$app->request->post();
         if ($post) {
-            $data = Json::encode($post);
-            $dao = Yii::$app->db;
-            $dao->createCommand()->insert('page', ['title' => 'webhook event', 'content' => $data])->execute();
+            if (isset($post['event'])) {
+                if ($post['event'] == 'task-created') {
+                    if (!empty($post['payload']['parents'])) {
+                        YgTask::upsertTask($post['payload']);
+                    }
+                } else 
+                if ($post['event'] == 'task-updated') {
+                    YgTask::upsertTask($post['payload']);
+                }
+            }
         }
     }
 

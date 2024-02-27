@@ -97,70 +97,67 @@ class YgTask extends YgModel
         $data = $response->data;
         if (!empty($data['content'])) {
             foreach ($data['content'] as $row) {
-                $model = YgTask::findOne(['yg_id' => $row['id']]);
-                if (!$model) {
-                    $model = new YgTask();
-                    $model->yg_id = $row['id'];
-                    $model->created_at = substr($row['timestamp'], 0, 10);
+                self::upsertTask($row, null, $column_id, $yg_column_id);
+            }
+        }
+    }
+    public static function upsertTask($row, $task_id = null, $column_id = null, $yg_column_id = null)
+    {
+        $model = YgTask::findOne(['yg_id' => $row['id']]);
+        if (!$model) {
+            $model = new YgTask();
+            $model->yg_id = $row['id'];
+            $model->created_at = substr($row['timestamp'], 0, 10);
+            if ($task_id) {
+                $model->parent_id = $task_id;
+            }
+        }
+        $model->title = StringHelper::truncate($row['title'], 250);
+        $model->archived = $row['archived'] ? 1 : 0;
+        $model->completed = $row['completed'] ? 1 : 0;
+        if (isset($row['completedTimestamp'])) {
+            $model->completed_at = substr($row['completedTimestamp'], 0, 10);
+        }
+        if (isset($row['description'])) {
+            $model->description = $row['description'];
+        }
+        if (isset($row['timeTracking'])) {
+            $model->time_plan = $row['timeTracking']['plan'];
+            $model->time_work = $row['timeTracking']['work'];
+        }
+        if (isset($row['deadline'])) {
+            $model->deadline = substr($row['deadline']['deadline'], 0, 10);
+        }
+        //$model->created_by=getUserId($row['createdBy']);
+        if ($yg_column_id) {
+            $model->yg_column_id = $yg_column_id;
+        } else if (isset($row['columnId'])) {
+            $model->yg_column_id = $row['columnId'];
+        }
+        if ($column_id) {
+            $model->column_id = $column_id;
+        } else if ($model->yg_column_id) {
+            $model->column_id = self::getColumnId($model->yg_column_id);
+        }
+        if ($model->save()) {
+            if (isset($row['subtasks'])) {
+                foreach ($row['subtasks'] as $yg_task_id) {
+                    self::addSubtask($model, $yg_task_id, $column_id, $yg_column_id);
                 }
-                $model->title = StringHelper::truncate($row['title'], 250);
-                $model->archived = $row['archived'] ? 1 : 0;
-                $model->completed = $row['completed'] ? 1 : 0;
-                if (isset($row['completedTimestamp'])) {
-                    $model->completed_at = substr($row['completedTimestamp'], 0, 10);
-                }
-                if (isset($row['description'])) {
-                    $model->description = $row['description'];
-                }
-                if (isset($row['timeTracking'])) {
-                    $model->time_plan = $row['timeTracking']['plan'];
-                    $model->time_work = $row['timeTracking']['work'];
-                }
-                if (isset($row['deadline'])) {
-                    $model->deadline = substr($row['deadline']['deadline'], 0, 10);
-                }
-                $model->created_by = self::getUserId($row['createdBy']);
-                $model->column_id = $column_id;
-                $model->yg_column_id = $yg_column_id;
-                if ($model->save()) {
-                    if (isset($row['subtasks'])) {
-                        foreach ($row['subtasks'] as $yg_task_id) {
-                            self::addSubtask($model, $yg_task_id);
-                        }
-                    }
-
-                    if (isset($row['assigned'])) {
-                        if (is_array($row['assigned'])) {
-                            foreach ($row['assigned'] as $assigned) {
-                                self::assignUserToTask($model->id, $assigned);
-                            }
-                        } else {
-                            self::assignUserToTask($model->id, $row['assigned']);
-                        }
+            }
+            if (isset($row['assigned'])) {
+                if (is_array($row['assigned'])) {
+                    foreach ($row['assigned'] as $assigned) {
+                        self::assignUserToTask($model->id, $assigned);
                     }
                 } else {
-                    var_dump($model->getErrors());
+                    self::assignUserToTask($model->id, $row['assigned']);
                 }
             }
         }
     }
 
-    protected static function getDbColumns()
-    {
-        $dao = Yii::$app->db;
-        return $dao->createCommand("SELECT * FROM `yg_column`")->queryAll();
-    }
-
-    protected static function getUserId($yougile_id)
-    {
-        $model = User::findOne(['yougile_id' => $yougile_id]);
-        if ($model) {
-            return $model->id;
-        }
-        return 0;
-    }
-
-    protected static function addSubtask($task, $yg_task_id)
+    protected static function addSubtask($task, $yg_task_id, $column_id = null, $yg_column_id = null)
     {
         $client = new Client();
         $response = $client
@@ -170,46 +167,7 @@ class YgTask extends YgModel
             ->send();
         $row = $response->data;
         if (!empty($row) && !empty($row['id'])) {
-            $model = YgTask::findOne(['yg_id' => $row['id']]);
-            if (!$model) {
-                $model = new YgTask();
-                $model->yg_id = $row['id'];
-                $model->created_at = substr($row['timestamp'], 0, 10);
-                $model->parent_id = $task->id;
-            }
-            $model->title = StringHelper::truncate($row['title'], 250);
-            $model->archived = $row['archived'] ? 1 : 0;
-            $model->completed = $row['completed'] ? 1 : 0;
-            if (isset($row['completedTimestamp'])) {
-                $model->completed_at = substr($row['completedTimestamp'], 0, 10);
-            }
-            if (isset($row['description'])) {
-                $model->description = $row['description'];
-            }
-            if (isset($row['timeTracking'])) {
-                $model->time_plan = $row['timeTracking']['plan'];
-                $model->time_work = $row['timeTracking']['work'];
-            }
-            if (isset($row['deadline'])) {
-                $model->deadline = substr($row['deadline']['deadline'], 0, 10);
-            }
-            //$model->created_by=getUserId($row['createdBy']);
-            if ($model->save()) {
-                if (isset($row['subtasks'])) {
-                    foreach ($row['subtasks'] as $yg_task_id) {
-                        self::addSubtask($model, $yg_task_id);
-                    }
-                }
-                if (isset($row['assigned'])) {
-                    if (is_array($row['assigned'])) {
-                        foreach ($row['assigned'] as $assigned) {
-                            self::assignUserToTask($model->id, $assigned);
-                        }
-                    } else {
-                        self::assignUserToTask($model->id, $row['assigned']);
-                    }
-                }
-            }
+            self::upsertTask($row, $task->id, $column_id, $yg_column_id);
         }
     }
 
@@ -223,6 +181,43 @@ class YgTask extends YgModel
                 $dao->createCommand()->insert('yg_task_user', ['user_id' => $user_id, 'task_id' => $task_id])->execute();
             }
         }
+    }
+
+
+    protected static function getDbColumns()
+    {
+        $dao = Yii::$app->db;
+        return $dao->createCommand("SELECT * FROM `yg_column`")->queryAll();
+    }
+
+    public $user_ids = [];
+    protected static function getUserId($yougile_id)
+    {
+        if (isset(self::$user_ids[$yougile_id])) {
+            return self::$user_ids[$yougile_id];
+        }
+        $dao = Yii::$app->db;
+        $user_id = $dao->createCommand("SELECT id FROM `user` WHERE yougile_id='{$yougile_id}'")->queryScalar();
+        if ($user_id) {
+            self::$user_ids[$yougile_id] = $user_id;
+            return $user_id;
+        }
+        return 0;
+    }
+
+    public $column_ids = [];
+    protected static function getColumnId($yougile_column_id)
+    {
+        if (isset(self::$column_ids[$yougile_column_id])) {
+            return self::$column_ids[$yougile_column_id];
+        }
+        $dao = Yii::$app->db;
+        $id = $dao->createCommand("SELECT id FROM `yg_column` WHERE yg_id='{$yougile_column_id}'")->queryScalar();
+        if ($id) {
+            self::$column_ids[$yougile_column_id] = $id;
+            return $id;
+        }
+        return 0;
     }
 
     /**
