@@ -154,6 +154,8 @@ class YgTask extends YgModel
                     self::assignUserToTask($model->id, $row['assigned']);
                 }
             }
+        } else {
+            print_r($model->errors);
         }
     }
 
