@@ -44,6 +44,11 @@ class AdminController extends Controller
                             User::ROLE_ADMIN
                         ],
                     ],
+                    [
+                        'actions' => ['hook'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
                 ],
             ],
             'verbs' => [
@@ -53,6 +58,19 @@ class AdminController extends Controller
                 ],
             ],
         ];
+    }
+
+
+    /**
+     * @inheritdoc
+     */
+    public function beforeAction($action)
+    {
+        if ($action->id == 'hook') {
+            $this->enableCsrfValidation = false;
+        }
+
+        return parent::beforeAction($action);
     }
 
 
@@ -138,6 +156,16 @@ class AdminController extends Controller
         Workhour::calcHours();
     }
 
+    public function actionHook()
+    {
+        $post = Yii::$app->request->post();
+        if ($post) {
+            $data = Json::encode($post);
+            $dao = Yii::$app->db;
+            $dao->createCommand()->insert('page', ['title' => 'webhook event', 'content' => $data])->execute();
+        }
+    }
+
     public function actionRun()
     {
         //$this->syncUsers();
@@ -145,7 +173,7 @@ class AdminController extends Controller
         //$this->syncBoards();
         //$this->syncColumns();
         //$this->syncTasks();
-        $this->calcHours();
+        //$this->calcHours();
         exit();
     }
 }

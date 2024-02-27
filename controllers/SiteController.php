@@ -204,7 +204,8 @@ class SiteController extends Controller
     public function actionRun()
     {
 
-        //exit();
+        echo 'yoba';
+        exit();
         $params = [
             'title' => 'My title 16:17',
             'body' => 'Hey there show me',
