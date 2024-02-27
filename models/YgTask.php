@@ -122,8 +122,12 @@ class YgTask extends YgModel
             $model->description = $row['description'];
         }
         if (isset($row['timeTracking'])) {
-            $model->time_plan = $row['timeTracking']['plan'];
-            $model->time_work = $row['timeTracking']['work'];
+            if (isset($row['timeTracking']['plan'])) {
+                $model->time_plan = $row['timeTracking']['plan'];
+            }
+            if (isset($row['timeTracking']['work'])) {
+                $model->time_work = $row['timeTracking']['work'];
+            }
         }
         if (isset($row['deadline'])) {
             $model->deadline = substr($row['deadline']['deadline'], 0, 10);
