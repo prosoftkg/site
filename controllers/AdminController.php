@@ -231,12 +231,10 @@ class AdminController extends Controller
             if (isset($post['event'])) {
                 if ($post['event'] == 'task-created') {
                     //do not create task if it has parents, it will be created by parent
-                    if (empty($post['event']['payload']['parents'])) {
+                    if (empty($post['payload']['parents'])) {
                         YgTask::upsertTask($post['payload']);
                     }
                 } else if ($post['event'] == 'task-updated') {
-                    $dao->createCommand()->insert('page', ['title' => 'webhook upd', 'content' => 'zaaaaifal', 'code' => time()])->execute();
-                    $dao->createCommand()->insert('page', ['title' => 'webhook upd', 'content' => Json::encode($post['payload']), 'code' => time()])->execute();
                     YgTask::upsertTask($post['payload']);
                     if (isset($post['payload']['timeTracking']) && isset($post['payload']['completedTimestamp'])) {
                         Workhour::calcHours();
