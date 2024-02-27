@@ -68,7 +68,9 @@ class YgProject extends YgModel
                     $model->yg_id = $row['id'];
                 }
                 $model->title = $row['title'];
-                $model->save();
+                if (!$model->save()) {
+                    var_dump($model->errors);
+                }
             }
         }
     }
