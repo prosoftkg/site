@@ -238,6 +238,9 @@ class AdminController extends Controller
                     $dao->createCommand()->insert('page', ['title' => 'webhook upd', 'content' => 'zaaaaifal', 'code' => time()])->execute();
                     $dao->createCommand()->insert('page', ['title' => 'webhook upd', 'content' => Json::encode($post['payload']), 'code' => time()])->execute();
                     YgTask::upsertTask($post['payload']);
+                    if (isset($post['payload']['timeTracking']) && isset($post['payload']['completedTimestamp'])) {
+                        Workhour::calcHours();
+                    }
                 }
             }
         }
@@ -272,7 +275,7 @@ class AdminController extends Controller
         //$this->syncBoards();
         //$this->syncColumns();
         //$this->syncTasks();
-        //$this->calcHours();
+        $this->calcHours();
         exit();
     }
 }

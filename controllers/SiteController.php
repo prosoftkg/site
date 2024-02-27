@@ -204,7 +204,7 @@ class SiteController extends Controller
     public function actionRun()
     {
 
-        echo 'yoba';
+        echo strtotime('today');
         exit();
         $params = [
             'title' => 'My title 16:17',

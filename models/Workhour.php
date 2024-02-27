@@ -57,10 +57,27 @@ class Workhour extends YgModel
         return [];
     }
 
-    public static function calcHours()
+    public static function calcHours($today = false)
     {
+
+        /*  $query = YgTask::find()->where(['NOT', ['time_plan' => null]]);
+        $query->andWhere(['NOT', ['time_work' => null]]);
+        if ($today) {
+            $todayTs = strtotime('today');
+            $query->andWhere(['>', 'completed_at', $todayTs]);
+        }else{
+            $query->andWhere(['NOT', ['completed_at' => null]]);
+        }
+        $rows = $query->asArray()->all();
+
+        exit(); */
+        $sql = "SELECT * FROM `yg_task` WHERE completed_at IS NOT NULL AND time_plan IS NOT NULL AND time_work IS NOT NULL";
+        if ($today) {
+            $todayTs = strtotime('today');
+            $sql .= " AND completed_at>={$todayTs}";
+        }
         $dao = Yii::$app->db;
-        $rows = $dao->createCommand("SELECT * FROM `yg_task` WHERE completed_at IS NOT NULL AND time_plan IS NOT NULL AND time_work IS NOT NULL")->queryAll();
+        $rows = $dao->createCommand($sql)->queryAll();
         $calcs = [];
         foreach ($rows as $row) {
             $completed_at = date('Y-m-d', $row['completed_at']);
