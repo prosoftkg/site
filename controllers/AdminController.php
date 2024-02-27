@@ -237,7 +237,7 @@ class AdminController extends Controller
                 } else if ($post['event'] == 'task-updated') {
                     YgTask::upsertTask($post['payload']);
                     if (isset($post['payload']['timeTracking']) && isset($post['payload']['completedTimestamp'])) {
-                        Workhour::calcHours();
+                        Workhour::calcHours(true);
                     }
                 }
             }
