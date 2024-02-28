@@ -125,6 +125,7 @@ class AdminController extends Controller
                     $em = explode('@', $user['email']);
                     $model->username = $em[0];
                     $model->password = $em[0];
+                    $model->role = 'user';
                 }
                 $model->name = $user['realName'];
                 $model->email = $user['email'];

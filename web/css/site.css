@@ -2044,6 +2044,9 @@ a.desc:after {
 .font12 {
     font-size: 12px;
 }
+.font13 {
+    font-size: 13px;
+}
 
 .lhn {
     line-height: normal;

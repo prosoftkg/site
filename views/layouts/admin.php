@@ -13,7 +13,7 @@ if (!Yii::$app->user->isGuest) {
             echo Html::a(Yii::t('app', 'Заявки на звонок'), ['/inquiry/index']);
         } else {
         }
-        echo Html::a(Yii::t('app', 'Logout'), ['/site/logout'], ['class' => 'float-right', 'data-method' => 'POST']);
+        echo Html::tag('span', Yii::$app->user->identity->username . ' ' . Html::a('Logout', ['/site/logout'], ['data-method' => 'POST']), ['class' => 'float-right text-white']);
         ?>
     </div>
 <?php

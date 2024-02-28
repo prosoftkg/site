@@ -24,6 +24,11 @@ AppAsset::register($this);
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <?php $this->head() ?>
+    <style>
+        main>.container {
+            padding: 10px 15px 20px;
+        }
+    </style>
 </head>
 
 <body class="d-flex flex-column h-100">
