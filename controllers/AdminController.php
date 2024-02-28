@@ -298,7 +298,7 @@ class AdminController extends Controller
         //$this->syncBoards();
         //$this->syncColumns();
         //$this->syncTasks();
-        $this->calcHours();
+        //$this->calcHours();
         exit();
     }
 }
