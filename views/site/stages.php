@@ -89,7 +89,7 @@ use yii\helpers\Html;
                 </div>
             </div>
             <div class="stage_right">
-                <?=Html::img(Url::base().'/images/site/stage.png');?>
+                <?= Html::img(Url::base() . '/images/site/stage1.png'); ?>
             </div>
         </div>
     </div>
