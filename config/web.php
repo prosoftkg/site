@@ -19,18 +19,23 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'modules' => [
-        'user' => [
+        /* 'user' => [
             'class' => 'dektrium\user\Module',
             'admins' => ['admin'],
-        ],
-    ],
+        ], */],
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'usWg670hwBQ-99HsOjXH6hUy5fVjg1BK',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ]
         ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
+        ],
+        'user' => [
+            'identityClass' => 'app\models\User',
         ],
 
         'errorHandler' => [
@@ -62,7 +67,8 @@ $config = [
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
                 'about' => 'site/about',
                 'contact' => 'site/contact',
-                'regulation' => 'site/regulation',
+                'privacy' => 'page/privacy',
+                'privacy-policy' => 'page/privacy-policy',
             ],
         ],
         'assetManager' => [
@@ -91,6 +97,7 @@ if (YII_ENV_DEV) {
         'class' => 'yii\gii\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
         //'allowedIPs' => ['127.0.0.1', '::1'],
+        'allowedIPs' => ['*'],
     ];
 }
 

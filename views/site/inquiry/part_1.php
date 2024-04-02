@@ -1,12 +1,14 @@
 <?php
-use app\models\Order;
-$types = Order::typeList();
+
+use app\models\Inquiry;
+
+$types = Inquiry::typeList();
 ?>
 <div>
     <div class="custom-modal-desc count-modal-desc">
         <div>
             <div class="question_num">
-                Вопрос <span>1</span> из 4
+                Вопрос <span>1</span> из 5
             </div>
 
             <div class="question_title">
@@ -17,7 +19,7 @@ $types = Order::typeList();
             </div>
 
 
-            <? //= $form->field($model, 'type')->checkboxList($types)->label(false); 
+            <?php //= $form->field($model, 'type')->checkboxList($types)->label(false); 
             ?>
             <?= $form->field($model, 'type[]')->checkboxList(
                 $types

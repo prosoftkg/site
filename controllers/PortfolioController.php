@@ -10,6 +10,10 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\Tag;
 use yii\web\Response;
+use yii\filters\AccessControl;
+use app\components\AccessRule;
+use app\models\User;
+
 
 /**
  * PortfolioController implements the CRUD actions for Portfolio model.
@@ -24,6 +28,24 @@ class PortfolioController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class' => AccessControl::className(),
+                    'ruleConfig' => [
+                        'class' => AccessRule::className(),
+                    ],
+                    'only' => ['index', 'delete', 'view'],
+                    'rules' => [
+                        [
+                            //'actions' => ['logout'],
+                            'allow' => true,
+                            'roles' => [
+                                //User::ROLE_USER,
+                                //User::ROLE_MODERATOR,
+                                User::ROLE_ADMIN
+                            ],
+                        ],
+                    ],
+                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
@@ -119,7 +141,7 @@ class PortfolioController extends Controller
         return $this->redirect(['index']);
     }
 
-    public function actionList($query)
+    /* public function actionList($query)
     {
         $models = Tag::findAllByName($query);
         $items = [];
@@ -132,7 +154,7 @@ class PortfolioController extends Controller
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         return $items;
-    }
+    } */
 
     /**
      * Finds the Portfolio model based on its primary key value.
@@ -149,6 +171,4 @@ class PortfolioController extends Controller
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
-
-
 }

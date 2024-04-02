@@ -9,6 +9,10 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Response;
+use yii\httpclient\Client;
+use yii\filters\AccessControl;
+use app\components\AccessRule;
+use app\models\User;
 
 /**
  * InquiryController implements the CRUD actions for Inquiry model.
@@ -23,6 +27,24 @@ class InquiryController extends Controller
         return array_merge(
             parent::behaviors(),
             [
+                'access' => [
+                    'class' => AccessControl::className(),
+                    'ruleConfig' => [
+                        'class' => AccessRule::className(),
+                    ],
+                    'only' => ['index', 'delete', 'view'],
+                    'rules' => [
+                        [
+                            //'actions' => ['logout'],
+                            'allow' => true,
+                            'roles' => [
+                                //User::ROLE_USER,
+                                //User::ROLE_MODERATOR,
+                                User::ROLE_ADMIN
+                            ],
+                        ],
+                    ],
+                ],
                 'verbs' => [
                     'class' => VerbFilter::className(),
                     'actions' => [
@@ -72,9 +94,52 @@ class InquiryController extends Controller
         $model = new Inquiry();
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
+                $info = [];
+
+                if ($model->price_range) {
+                    $post = explode(',', $model->price_range);
+                    //$info['price_min'] = $post[0];
+                    //$info['price_max'] = $post[1];
+                    $info[] = 'price_min: ' . $post[0];
+                    $info[] = 'price_max: ' . $post[1];
+                }
+
+                if ($model->type) {
+                    foreach ($model->type as $type) {
+                        $types[] = Inquiry::typeList()[$type];
+                    };
+                    //$info['type'] = implode(', ', $types);
+                    $info[] = 'type: ' . implode(', ', $types);
+                }
+
+                if ($model->design_need) {
+                    $list = Inquiry::designNeedList();
+                    //$info['design_need'] = $list[$model->design_need];
+                    $info[] = 'design_need: ' . $list[$model->design_need];
+                }
+
+                if ($model->industry) {
+                    $list = Inquiry::industryList();
+                    //$info['industry'] = $list[$model->industry];
+                    $info[] = 'industry: ' . $list[$model->industry];
+                }
+                if ($model->industry_custom) {
+                    //$info['industry_custom'] = $model->industry_custom;
+                    $info[] = 'industry_custom: ' . $model->industry_custom;
+                }
+                if ($info) {
+                    //$model->info = json_encode($info, JSON_UNESCAPED_UNICODE);
+                    $model->info = implode('<br />', $info);
+                }
+
                 Yii::$app->response->format = Response::FORMAT_JSON;
                 if ($model->save()) {
-                    //$model->email(Yii::$app->params['adminEmail'], $model->name, $model->phone);
+                    $desc = $model->info . '<br />comment: ' . $model->message;
+                    $title = $model->fullname . ' ' . $model->phone;
+                    if ($model->email) {
+                        $title .= ' ' . $model->email;
+                    }
+                    self::saveYougile($model->id, $title, $desc);
                     return "Заказ звонка принят! Мы свяжемся с вами в ближайшее время!";
                 } else {
                     //$model->validate();
@@ -88,6 +153,32 @@ class InquiryController extends Controller
         return $this->render('create', [
             'model' => $model,
         ]);
+    }
+
+    static function saveYougile($id, $title, $desc)
+    {
+        //$temir='76071d35-e01d-4e11-95db-9cfed9a186c7';
+        $isa = 'b908f561-855c-411c-8083-5602d770b680';
+        $request = [
+            'title' => $title,
+            'description' => $desc,
+            //'columnId' => '9df7847f-5d46-4764-9d61-00c712cf501b',//pm->novaya->inprogress
+            'columnId' => '130b04e8-2527-45a0-97ee-d1d353d490d9', //crm->novaya->novye
+            'assigned' => [$isa]
+        ];
+
+        $client = new Client();
+        $response = $client
+            ->createRequest()
+            ->setMethod('POST')
+            ->setUrl('https://yougile.com/api-v2/tasks')
+            ->setHeaders(['content-type' => 'application/json'])
+            ->addHeaders(['authorization' => 'Bearer AftoMTJhmiYXDzSrYkzdoOkUfu46fQJd9IOY5ghZ-K5RRZFMpIlVxwc8IPgIluf3'])
+            ->setData($request)
+            ->send();
+
+        $dao = Yii::$app->db;
+        $dao->createCommand()->update('inquiry', ['yougile_id' => $response->data['id']], ['id' => $id])->execute();
     }
 
     /**
@@ -138,5 +229,89 @@ class InquiryController extends Controller
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
+
+    static function yougiles()
+    {
+
+        /* {"event":"task-moved",
+            "payload":
+            {
+                "id":"00043c65-02f5-4c63-9ebb-150d47bc6e01",
+                "title":"task added by Postman",
+                "columnId":"190dea20-9b1e-4516-b1da-0b0073cf02ec",
+                "completed":false,
+                "archived":false,
+                "createdBy":"76071d35-e01d-4e11-95db-9cfed9a186c7",
+                "assigned":["76071d35-e01d-4e11-95db-9cfed9a186c7"],
+                "timestamp":1698652295065,"parents":[]
+            },
+            "fromUserId":"76071d35-e01d-4e11-95db-9cfed9a186c7"} */
+
+        /*"{\"event\":\"task-moved\",\"payload\":{\"id\":\"a2f3aed6-fbc4-430b-9079-dd850665d071\",\"title\":\"test\",\"columnId\":\"9df7847f-5d46-4764-9d61-00c712cf501b\",\"completed\":false,\"archived\":false,\"createdBy\":\"76071d35-e01d-4e11-95db-9cfed9a186c7\",\"timestamp\":1698746220096,\"parents\":[]},\"fromUserId\":\"76071d35-e01d-4e11-95db-9cfed9a186c7\"}"*/
+        /*"{\
+            "event\":\"task-updated\",
+            \"payload\":{
+                \"id\":\"9deeacde-c520-4eb0-9bf0-8a4ec1fa0a80\",
+                \"title\":\"task added by Postman\",
+                \"columnId\":\"55972025-7573-46a9-8b2e-08046b5d99c4\",
+                \"completed\":true,
+                \"completedTimestamp\":1698753622699,
+                \"archived\":false,
+                \"createdBy\":\"76071d35-e01d-4e11-95db-9cfed9a186c7\",
+                \"subtasks\":[],
+                \"assigned\":[\"76071d35-e01d-4e11-95db-9cfed9a186c7\"],
+                \"timestamp\":1698652295065,
+                \"parents\":[]
+            },
+            \"fromUserId\":\"76071d35-e01d-4e11-95db-9cfed9a186c7\
+            "}"*/
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function beforeAction($action)
+    {
+        if ($action->id == 'yougile' || $action->id == 'run') {
+            $this->enableCsrfValidation = false;
+        }
+
+        return parent::beforeAction($action);
+    }
+
+    public function actionYougile()
+    {
+        $dao = Yii::$app->db;
+        $post = Yii::$app->request->post();
+        if ($post) {
+            if (!empty($post['payload']['id'])) {
+                $id = $post['payload']['id'];
+                $event = $post['event'];
+            }
+            if (!empty($post['payload']['completed'])) {
+                $event .= ' completed';
+            }
+            if (!empty($post['payload']['archived'])) {
+                $event .= ' archived';
+            }
+            if (!empty($id)) {
+                $dao->createCommand()->update('inquiry', ['yougile_status' => $event], ['yougile_id' => $id])->execute();
+            }
+        }
+        exit;
+    }
+
+    public function actionRun()
+    {
+        $dao = Yii::$app->db;
+        $info = '';
+        $dao->createCommand()->insert(
+            'inquiry',
+            [
+                'fullname' => 'post id', 'phone' => '0553000665',
+                'info' => $info
+            ]
+        )->execute();
     }
 }

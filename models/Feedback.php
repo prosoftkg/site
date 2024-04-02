@@ -71,7 +71,8 @@ class Feedback extends \yii\db\ActiveRecord
     {
         $filename = Yii::getAlias("@webroot/images/feedback/") . $this->photo;
         if (file_exists($filename)) {
-            return Url::base() . "/images/feedback/{$this->photo_cropped}";
+            // return Url::base() . "/images/feedback/{$this->photo_cropped}";
+            return Url::base() . "/images/feedback/{$this->photo}";
         } else {
             return Url::base() . "/images/site/template.png";
         }

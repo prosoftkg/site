@@ -1,7 +1,6 @@
 <?php
 
 use app\models\Inquiry;
-use app\models\Order;
 use yii\widgets\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -24,7 +23,7 @@ use kartik\slider\Slider;
                 <div class="modal-body" id="getCode">
                     <div class="custom-modal-header"></div>
                     <div class="custom-modal-desc"></div>
-                    <div class="custom-modal-text"></div>
+                    <div class="custom-modal-text js_modal_content"></div>
                     <div class="custom-modal-comment"></div>
                 </div>
             </div>
@@ -36,11 +35,11 @@ use kartik\slider\Slider;
 $order_form = ActiveForm::begin([
     'options' => [
         'enctype' => 'multipart/form-data',
-        'action' => Url::to(['order/create']),
+        'action' => Url::to(['inquiry/create']),
         'class' => 'order_form'
     ]
 ]);
-$order = new Order();
+$order = new Inquiry();
 ?>
 <div class="modal fade modal-success" id="getCountModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
@@ -69,6 +68,10 @@ $order = new Order();
                             'form' => $order_form,
                             'model' => $order,
                         ]) ?>
+                        <?= $this->render('inquiry/part_5', [
+                            'form' => $order_form,
+                            'model' => $order,
+                        ]) ?>
                     </div>
                 </div>
 
@@ -88,8 +91,6 @@ $order = new Order();
     </div>
 </div>
 <?php ActiveForm::end(); ?>
-
-
 
 <div class="inquiry_cover">
     <div class="container">
@@ -121,12 +122,12 @@ $order = new Order();
 
                 <?= $form->field($model, 'email')->textInput(['maxlength' => true, 'placeholder' => 'ваш@gmail.com'])->label(false) ?>
 
-                <?= $form->field($model, 'phone')->textInput(['maxlength' => true, 'placeholder' => '0555 51 50 55'])->label(false) ?>
+                <?= $form->field($model, 'phone')->textInput(['maxlength' => true, 'placeholder' => '0990 140 142'])->label(false) ?>
 
                 <?= $form->field($model, 'message')->textInput(['maxlength' => true, 'placeholder' => 'Сообщение'])->label(false) ?>
 
                 <div class="form-group">
-                    <?= Html::submitButton(Yii::t('app', 'отправить'), ['class' => 'btn btn-custom call_click']) ?>
+                    <?= Html::submitButton(Yii::t('app', 'отправить'), ['class' => 'btn btn-custom js_contact_submit']) ?>
                 </div>
 
                 <?php ActiveForm::end(); ?>
@@ -134,7 +135,6 @@ $order = new Order();
             </div>
         </div>
     </div>
-
 
     <div class="inquiry-phone-form">
         <?php
@@ -150,12 +150,12 @@ $order = new Order();
         ?>
         <div class="form-shortener">
             <?= $form->field($model, 'fullname')->textInput(['maxlength' => true, 'placeholder' => 'ФИО'])->label(false); ?>
-            <?= $form->field($model, 'phone')->textInput(['maxlength' => true, 'placeholder' => '0555 51 50 55'])->label(false) ?>
+            <?= $form->field($model, 'phone')->textInput(['maxlength' => true, 'placeholder' => '0990 140 142'])->label(false) ?>
             <?= $form->field($model, 'message')->textInput(['maxlength' => true, 'placeholder' => 'Сообщение'])->label(false) ?>
         </div>
         <div class='custom-modal-comment'>Нажимая кнопку, вы даете согласие на обработку персональных данных и согласны с условиями пользовательского соглашения.</div>
         <div class="form-group">
-            <?= Html::submitButton(Yii::t('app', 'отправить'), ['class' => 'btn btn-callback']) ?>
+            <?= Html::submitButton(Yii::t('app', 'отправить'), ['class' => 'btn js_inquiry_submit btn-callback']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>
@@ -164,17 +164,17 @@ $order = new Order();
 </div>
 
 <div class="order_personal_data modal-shortener">
-    <div class="custom-modal-grid-two">        
+    <div class="custom-modal-grid-two">
         <?php
         echo $form->field($model, 'fullname')->textInput(['maxlength' => true, 'placeholder' => 'ФИО'])->label(false);
-        echo $form->field($model, 'phone')->textInput(['maxlength' => true, 'placeholder' => '0555 51 50 55'])->label(false);
+        echo $form->field($model, 'phone')->textInput(['maxlength' => true, 'placeholder' => '0990 140 142'])->label(false);
         ?>
     </div>
     <div class="custom-modal-hint">
-    Нажимая кнопку, вы даете согласие на обработку персональных данных и согласны с условиями пользовательского соглашения.
+        Нажимая кнопку, вы даете согласие на обработку персональных данных и согласны с условиями пользовательского соглашения.
     </div>
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Получить расчет'), ['class' => 'btn blue-btn call_click']) ?>
+        <?= Html::submitButton(Yii::t('app', 'Получить расчет'), ['class' => 'btn blue-btn js_contact_submit']) ?>
     </div>
 
 </div>
