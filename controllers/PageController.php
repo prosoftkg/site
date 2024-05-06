@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use Yii;
 use app\models\Page;
 use yii\filters\AccessControl;
 use yii\data\ActiveDataProvider;
