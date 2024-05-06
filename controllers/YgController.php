@@ -65,7 +65,7 @@ class YgController extends Controller
         $today = date('Y-m-d');
         $dao = Yii::$app->db;
         $users = $dao->createCommand("SELECT * FROM `user`")->queryAll();
-        $hours = $dao->createCommand("SELECT * FROM `workhour`")->queryAll();
+        $hours = $dao->createCommand("SELECT * FROM `workhour` ORDER BY workday DESC")->queryAll();
         //$hours = $dao->createCommand("SELECT * FROM `workhour` WHERE workday='{$today}'")->queryAll();
         //$rows = $dao->createCommand("SELECT * FROM `workhour` LEFT JOIN `user` ON workhour.user_id=user.id WHERE workday='{$today}'")->queryAll();
         return $this->render('index', ['users' => $users, 'hours' => $hours]);

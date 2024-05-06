@@ -2072,3 +2072,6 @@ a.desc:after {
     letter-spacing: 0;
 }
 .logo_text a:hover{text-decoration: none;}
+.table-dash td{
+    min-width:120px;
+}
