@@ -14,12 +14,15 @@ class Hlp
         return $outer;
     }
 
-    public static function progr($v, $is_work = false)
+    public static function progr($v, $is_work = false, $is_week = false)
     {
         $bg = '';
         $minutes = ceil(60 * $v);
         $time = intdiv($minutes, 60) . ':' . ($minutes % 60);
         $percent = ($minutes / 480) * 100;
+        if ($is_week) {
+            $percent = ($minutes / 2400) * 100;
+        }
         if ($is_work) {
             $bg = 'bg-success';
             $title = 'Spent: ' . $time;

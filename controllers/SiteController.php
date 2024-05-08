@@ -217,8 +217,13 @@ class SiteController extends Controller
 
     public function actionRun()
     {
-        $datas = strtotime('monday previous week');
-        echo date('Y-m-d H:i:s', $datas);
+        //$prevweek = strtotime('monday previous week');
+        $prevweekend = strtotime('friday previous week');
+        $thisweek = strtotime('monday this week');
+        $twoweeks = strtotime('-14 days', $thisweek);
+        $prevmonth = strtotime('first day of last month');
+        $thismonth = date('Y-m-01');
+        echo date('Y-m-d', $prevweekend);
         exit();
     }
 }

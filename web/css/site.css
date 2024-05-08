@@ -2075,3 +2075,11 @@ a.desc:after {
 .table-dash td{
     min-width:120px;
 }
+td.sm{font-size: 11px;}
+.flex{display:flex;}
+.spbtw{justify-content: space-between;}
+.range-select{}
+.range-select a{ margin-left:12px;}
+.range-select a.active{
+    color:var(--color-logo);
+}

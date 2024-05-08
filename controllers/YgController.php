@@ -62,10 +62,28 @@ class YgController extends Controller
      */
     public function actionIndex()
     {
+        $d = Yii::$app->request->get('d');
         $today = date('Y-m-d');
+        $thisweekstr = strtotime('monday this week');
+        $thisweek = date('Y-m-d', $thisweekstr);
+        $twoweeks = date('Y-m-d', strtotime('-14 days', $thisweekstr));
+        $prevmonth = date('Y-m-d', strtotime('first day of last month'));
+        $thismonth = date('Y-m-01');
+
+        $from = $thisweek;
+        $to = date('Y-m-d');
+
+        if ($d == 'pw') {
+            $from = date('Y-m-d', strtotime('monday previous week'));
+            $to = date('Y-m-d', strtotime('friday previous week'));
+        }
+        if ($d == 'tm') {
+            $from = $thismonth;
+        }
+
         $dao = Yii::$app->db;
         $users = $dao->createCommand("SELECT * FROM `user`")->queryAll();
-        $hours = $dao->createCommand("SELECT * FROM `workhour` ORDER BY workday DESC")->queryAll();
+        $hours = $dao->createCommand("SELECT * FROM `workhour` WHERE workday >= '{$from}' AND workday<='{$to}' ORDER BY workday ASC")->queryAll();
         //$hours = $dao->createCommand("SELECT * FROM `workhour` WHERE workday='{$today}'")->queryAll();
         //$rows = $dao->createCommand("SELECT * FROM `workhour` LEFT JOIN `user` ON workhour.user_id=user.id WHERE workday='{$today}'")->queryAll();
         return $this->render('index', ['users' => $users, 'hours' => $hours]);
