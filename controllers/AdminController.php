@@ -279,6 +279,18 @@ class AdminController extends Controller
             }
         }
     }
+    /* {"event":"project-created",
+        "payload":{
+            "title":"ToBeDeleted",
+            "timestamp":1715347373780,
+            "users":{"76071d35-e01d-4e11-95db-9cfed9a186c7":"admin"},
+            "id":"531fb1c0-4c1e-4435-903c-f675cc6e4154"
+        },
+        "fromUserId":"76071d35-e01d-4e11-95db-9cfed9a186c7"} */
+
+    /* {"event":"project-renamed","payload":{"title":"ToBeDeleted1","timestamp":1715347373780,"users":{"76071d35-e01d-4e11-95db-9cfed9a186c7":"admin"},"id":"531fb1c0-4c1e-4435-903c-f675cc6e4154"},"fromUserId":"76071d35-e01d-4e11-95db-9cfed9a186c7"} */
+    /* {"event":"project-updated","payload":{"title":"ToBeDeleted1","timestamp":1715347373780,"users":{"76071d35-e01d-4e11-95db-9cfed9a186c7":"admin","fc0f6380-e180-4e0e-9e8c-94919675e2ef":"worker"},"id":"531fb1c0-4c1e-4435-903c-f675cc6e4154"},"fromUserId":"76071d35-e01d-4e11-95db-9cfed9a186c7"} */
+    /* {"event":"project-deleted","payload":{"title":"ToBeDeleted1___deleted","timestamp":1715347373780,"users":{"76071d35-e01d-4e11-95db-9cfed9a186c7":"admin","fc0f6380-e180-4e0e-9e8c-94919675e2ef":"worker"},"id":"531fb1c0-4c1e-4435-903c-f675cc6e4154","deleted":true},"fromUserId":"76071d35-e01d-4e11-95db-9cfed9a186c7"} */
 
     public function actionSyncHalf()
     {
