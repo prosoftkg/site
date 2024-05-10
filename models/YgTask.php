@@ -227,6 +227,15 @@ class YgTask extends YgModel
     }
 
     /**
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getSubtasks()
+    {
+        return $this->hasMany(self::class, ['parent_id' => 'id']);
+    }
+
+    /**
      * Gets query for [[YgColumn]].
      *
      * @return \yii\db\ActiveQuery
@@ -234,5 +243,16 @@ class YgTask extends YgModel
     public function getColumn()
     {
         return $this->hasOne(YgColumn::class, ['id' => 'column_id']);
+    }
+
+    /**
+     * Gets query for [[User]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUsers()
+    {
+        return $this->hasMany(User::class, ['id' => 'user_id'])
+            ->viaTable('yg_task_user', ['task_id' => 'id']);
     }
 }

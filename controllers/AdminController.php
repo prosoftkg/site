@@ -45,7 +45,7 @@ class AdminController extends Controller
                         ],
                     ],
                     [
-                        'actions' => ['hook', 'hooks'],
+                        'actions' => ['hook', 'hooks', 'project-hook'],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -66,7 +66,7 @@ class AdminController extends Controller
      */
     public function beforeAction($action)
     {
-        if (in_array($action->id, ['hook', 'hooks'])) {
+        if (in_array($action->id, ['hook', 'hooks', 'project-hook'])) {
             $this->enableCsrfValidation = false;
         }
 
@@ -226,9 +226,9 @@ class AdminController extends Controller
     {
         $post = Yii::$app->request->post();
         if ($post) {
-            $json = Json::encode($post);
-            $dao = Yii::$app->db;
-            $dao->createCommand()->insert('page', ['title' => 'webhook', 'content' => $json, 'code' => time()])->execute();
+            //$json = Json::encode($post);
+            //$dao = Yii::$app->db;
+            //$dao->createCommand()->insert('page', ['title' => 'webhook', 'content' => $json, 'code' => time()])->execute();
             if (isset($post['event'])) {
                 if ($post['event'] == 'task-created') {
                     //do not create task if it has parents, it will be created by parent
@@ -263,6 +263,19 @@ class AdminController extends Controller
                     //$dao->createCommand()->insert('page', ['title' => 'webhook upd', 'content' => Json::encode($post['payload']), 'code' => time()])->execute();
                     YgTask::upsertTask($post['payload']);
                 }
+            }
+        }
+    }
+
+    //just for testing from postman
+    public function actionProjectHook()
+    {
+        $post = Yii::$app->request->post();
+        if ($post) {
+            $json = Json::encode($post);
+            $dao = Yii::$app->db;
+            $dao->createCommand()->insert('page', ['title' => 'webhook', 'content' => $json, 'code' => time()])->execute();
+            if (isset($post['event'])) {
             }
         }
     }

@@ -10,35 +10,75 @@ use app\components\Hlp;
 
 $this->title = 'Workday';
 $this->params['breadcrumbs'][] = $this->title;
-$hoursByUser = [];
+$user_tasks = [];
 
+/* [
+    'user_id'=>[
+        'name'=>'',
+        'tasks'=>tasks
+    ]
+] */
+/* [
+    'project_id'=>[
+        'title'=>'',
+        'columns'=>[
+            'column_id'=>[
+                'title'=>'',
+                'tasks'=>tasks
+            ]
+        ]
+    ]
+]
+ */
 
-foreach ($hours as $hour) {
-    $hoursByUser[$hour['user_id']] = $hour;
-}
 ?>
 <div class="page-index">
 
     <h3><?= Html::encode($this->title) ?></h3>
-    <ul class="list-group">
-        <?php
-
-        foreach ($users as $user) {
-            $name = $user['name'];
-            if (!$name) {
-                $name = $user['username'];
+    <?php
+    foreach ($tasks as $task) {
+        foreach ($task->users as $user) {
+            if (isset($user_tasks[$user->id])) {
+                $user_tasks[$user->id]['tasks'][] = $task;
+            } else {
+                $name = $user->name;
+                if (!$name) {
+                    $name = $user->username;
+                }
+                $user_tasks[$user->id] = [
+                    'name' => $name,
+                    'tasks' => [$task]
+                ];
             }
-            $name = Html::tag('span', $name, ['class' => 'workday-user mb5']);
-            $track = '';
-            if (isset($hoursByUser[$user['id']])) {
-                $day = $hoursByUser[$user['id']];
-                //$track = $day['plan'] . ' / ' . $day['work'];
-                $track = Hlp::progr($day['plan']);
-                $track .= Hlp::progr($day['work'], true);
+        }
+    }
+    foreach ($user_tasks as $user_id => $user) {
+        echo '<h4>' . $user['name'] . '</h4>';
+        echo "<table class='table table-striped table-condensed table-bordered'>";
+        foreach ($user['tasks'] as $task) {
+            if (empty($task->column->board->project->title)) {
+                echo "<tr><td>" . $task->id . "</td></tr>";
+            } else {
             }
-            echo Html::tag('li', $name . $track, ['class' => 'list-group-item']);
-        };
-        ?>
-    </ul>
+            /* echo "<tr>";
+            echo "<td>" . $task->column->board->project->title . '</td>';
+            echo "<td>" . $task->column->title . '</td>';
+            echo "<td>" . $task->id . ': ' . $task->title . '(' . $task->completed . ')</td>';
+            echo "<td>" . $task->time_plan . '</td>';
+            echo "</tr>";
+            if ($task->subtasks) {
+                foreach ($task->subtasks as $subtask) {
+                    echo "<tr>";
+                    echo "<td> </td>";
+                    echo "<td> </td>";
+                    echo "<td>" . $subtask->id . ': ' . $subtask->title . '(' . $subtask->completed . ')</td>';
+                    echo "<td>" . $subtask->time_plan . '</td>';
+                    echo "</tr>";
+                }
+            } */
+        }
+        echo "</table>";
+    }
+    ?>
 
 </div>

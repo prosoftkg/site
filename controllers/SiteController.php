@@ -217,13 +217,7 @@ class SiteController extends Controller
 
     public function actionRun()
     {
-        //$prevweek = strtotime('monday previous week');
-        $prevweekend = strtotime('friday previous week');
-        $thisweek = strtotime('monday this week');
-        $twoweeks = strtotime('-14 days', $thisweek);
-        $prevmonth = strtotime('first day of last month');
-        $thismonth = date('Y-m-01');
-        echo date('Y-m-d', $prevweekend);
+        echo "yoba";
         exit();
     }
 }
