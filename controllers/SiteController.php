@@ -12,6 +12,7 @@ use app\models\ContactForm;
 use app\models\Portfolio;
 use app\models\User;
 use yii\helpers\Json;
+use app\models\YgBoard;
 
 class SiteController extends Controller
 {
@@ -217,7 +218,6 @@ class SiteController extends Controller
 
     public function actionRun()
     {
-        echo "yoba";
         exit();
     }
 }

@@ -325,7 +325,7 @@ class AdminController extends Controller
                 if ($post['event'] == 'board-created') {
                     $model->yg_id = $post['payload']['id'];
                     $model->yg_project_id = $post['payload']['projectId'];
-                    $model->project_id = YgBoard::getDbProject($post['payload']['projectId']);;
+                    $model->project_id = YgBoard::getDbProject($post['payload']['projectId'])['id'];
                 }
                 $model->title = $post['payload']['title'];
                 if (!$model->save()) {
