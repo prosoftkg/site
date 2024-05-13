@@ -75,6 +75,29 @@ class YgTask extends YgModel
         ];
     }
 
+    public static function fixAll()
+    {
+        $dao = Yii::$app->db;
+        $rows = $dao->createCommand("SELECT * FROM `yg_task` WHERE column_id=0 LIMIT 20")->queryAll();
+        //$rows = $dao->createCommand("SELECT id, yg_id FROM `yg_task` WHERE id=632")->queryAll();
+        //print_r($rows);
+        foreach ($rows as $row) {
+            $client = new Client();
+            $response = $client
+                ->createRequest()
+                ->setMethod('GET')->setHeaders(['Authorization' => 'Bearer ' . YgModel::$dartlabKey])
+                ->setUrl(YgModel::$ygurl . '/tasks/' . $row['yg_id'])
+                ->send();
+            $data = $response->data;
+            //print_r($data);
+            $column = $dao->createCommand("SELECT * FROM `yg_column` WHERE yg_id='{$data['columnId']}'")->queryOne();
+            //print_r($column);
+            if ($column) {
+                $dao->createCommand()->update('yg_task', ['column_id' => $column['id']], ['id' => $row['id']])->execute();
+            }
+        }
+    }
+
 
     public static function fetchAll()
     {

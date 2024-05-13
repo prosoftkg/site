@@ -13,6 +13,7 @@ use app\models\Portfolio;
 use app\models\User;
 use yii\helpers\Json;
 use app\models\YgBoard;
+use app\models\YgTask;
 
 class SiteController extends Controller
 {
@@ -218,6 +219,7 @@ class SiteController extends Controller
 
     public function actionRun()
     {
+        YgTask::fixAll();
         exit();
     }
 }

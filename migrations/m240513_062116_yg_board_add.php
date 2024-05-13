@@ -13,7 +13,7 @@ class m240513_062116_yg_board_add extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn($this->tableName, 'title', $this->string(50)->defaultValue(null));
+        //$this->addColumn($this->tableName, 'title', $this->string(50)->defaultValue(null));
     }
 
     /**

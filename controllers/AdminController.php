@@ -311,8 +311,8 @@ class AdminController extends Controller
         $post = Yii::$app->request->post();
         if ($post) {
             $dao = Yii::$app->db;
-            $json = Json::encode($post);
-            $dao->createCommand()->insert('page', ['title' => 'boardhook', 'content' => $json, 'code' => time()])->execute();
+            /* $json = Json::encode($post);
+            $dao->createCommand()->insert('page', ['title' => 'boardhook', 'content' => $json, 'code' => time()])->execute(); */
             if (isset($post['event'])) {
                 if ($post['event'] == 'board-created') {
                     $model = new YgBoard();
@@ -344,8 +344,8 @@ class AdminController extends Controller
         $post = Yii::$app->request->post();
         if ($post) {
             $dao = Yii::$app->db;
-            $json = Json::encode($post);
-            $dao->createCommand()->insert('page', ['title' => 'columnhook', 'content' => $json, 'code' => time()])->execute();
+            /* $json = Json::encode($post);
+            $dao->createCommand()->insert('page', ['title' => 'columnhook', 'content' => $json, 'code' => time()])->execute(); */
             if (isset($post['event'])) {
                 if ($post['event'] == 'column-created') {
                     $model = new YgColumn();
