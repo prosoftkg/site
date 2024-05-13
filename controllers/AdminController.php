@@ -267,18 +267,32 @@ class AdminController extends Controller
         }
     }
 
-    //just for testing from postman
     public function actionProjectHook()
     {
         $post = Yii::$app->request->post();
         if ($post) {
-            $json = Json::encode($post);
+            /*$json = Json::encode($post);
             $dao = Yii::$app->db;
-            $dao->createCommand()->insert('page', ['title' => 'webhook', 'content' => $json, 'code' => time()])->execute();
+            $dao->createCommand()->insert('page', ['title' => 'webhook', 'content' => $json, 'code' => time()])->execute();*/
             if (isset($post['event'])) {
+                if ($post['event'] == 'project-created') {
+                    $model = new YgProject();
+                } else if ($post['event'] != 'task-deleted') {
+                    $model = YgProject::findOne(['yg_id' => $post['payload']['id']]);
+                    if (!$model) {
+                        $model = new YgProject();
+                    }
+                }
+
+                $model->yg_id = $post['payload']['id'];
+                $model->title = $post['payload']['title'];
+                if (!$model->save()) {
+                    var_dump($model->errors);
+                }
             }
         }
     }
+
     /* {"event":"project-created",
         "payload":{
             "title":"ToBeDeleted",
