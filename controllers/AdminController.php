@@ -310,9 +310,9 @@ class AdminController extends Controller
     {
         $post = Yii::$app->request->post();
         if ($post) {
-            /* $json = Json::encode($post);
             $dao = Yii::$app->db;
-            $dao->createCommand()->insert('page', ['title' => 'boardhook', 'content' => $json, 'code' => time()])->execute(); */
+            $json = Json::encode($post);
+            $dao->createCommand()->insert('page', ['title' => 'boardhook', 'content' => $json, 'code' => time()])->execute();
             if (isset($post['event'])) {
                 if ($post['event'] == 'board-created') {
                     $model = new YgBoard();
@@ -329,7 +329,9 @@ class AdminController extends Controller
                 }
                 $model->title = $post['payload']['title'];
                 if (!$model->save()) {
-                    var_dump($model->errors);
+                    //var_dump($model->errors);
+                    $json = Json::encode($model->errors);
+                    $dao->createCommand()->insert('page', ['title' => 'boardhook_error', 'content' => $json, 'code' => time()])->execute();
                 }
             }
         }
