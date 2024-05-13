@@ -2083,3 +2083,9 @@ td.sm{font-size: 11px;}
 .range-select a.active{
     color:var(--color-logo);
 }
+.table-tasks{}
+.table-tasks td{font-size:14px;
+    padding: 6px 10px;
+}
+.table-tasks td.sm{font-size:12px;
+}

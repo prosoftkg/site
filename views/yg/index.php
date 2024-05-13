@@ -65,7 +65,7 @@ if ($d == 'pw') {
             $plan = 0;
             $work = 0;
             echo '<tr>';
-            echo '<td>' . $name . '</td>';
+            echo "<td ='#{$$users[$user_id]['username']}'>" . $name . '</td>';
             foreach ($dates as $date) {
                 $track = '';
                 if (isset($userDays[$date])) {
@@ -103,13 +103,18 @@ if ($d == 'pw') {
         }
     }
     foreach ($user_tasks as $user_id => $user) {
-        echo '<h4>' . $user['name'] . '</h4>';
-        echo "<table class='table table-striped table-condensed table-bordered'>";
+        echo "<h4 id='{$user->username}'>" . $user['name'] . '</h4>';
+        echo "<table class='table table-striped table-condensed table-bordered table-tasks'>";
         foreach ($user['tasks'] as $task) {
             echo "<tr>";
-            echo "<td>" . $task->column->board->project->title . '</td>';
-            echo "<td>" . $task->column->title . '</td>';
-            echo "<td>" . $task->id . ': ' . $task->title . '(' . $task->completed . ')</td>';
+            if (isset($task->column->board->project->title)) {
+                echo "<td class='sm'>" . $task->column->board->project->title . '</td>';
+                echo "<td class='sm'>" . $task->column->title . '</td>';
+            } else {
+                echo "<td> NO</td>";
+                echo "<td> NO</td>";
+            }
+            echo "<td data-id='{$task->id}'>" . $task->title . '(' . $task->completed . ')</td>';
             echo "<td>" . $task->time_plan . '</td>';
             echo "</tr>";
             if ($task->subtasks) {
@@ -117,7 +122,7 @@ if ($d == 'pw') {
                     echo "<tr>";
                     echo "<td> </td>";
                     echo "<td> </td>";
-                    echo "<td>" . $subtask->id . ': ' . $subtask->title . '(' . $subtask->completed . ')</td>';
+                    echo "<td data-id='{$subtask->id}'>" . $subtask->title . '(' . $subtask->completed . ')</td>';
                     echo "<td>" . $subtask->time_plan . '</td>';
                     echo "</tr>";
                 }
