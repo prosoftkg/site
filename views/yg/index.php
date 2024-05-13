@@ -97,13 +97,14 @@ if ($d == 'pw') {
                 }
                 $user_tasks[$user->id] = [
                     'name' => $name,
-                    'tasks' => [$task]
+                    'tasks' => [$task],
+                    'username' => $user->username
                 ];
             }
         }
     }
     foreach ($user_tasks as $user_id => $user) {
-        echo "<h4 id='{$user->username}'>" . $user['name'] . '</h4>';
+        echo "<h4 id='{$user['username']}'>" . $user['name'] . '</h4>';
         echo "<table class='table table-striped table-condensed table-bordered table-tasks'>";
         foreach ($user['tasks'] as $task) {
             echo "<tr>";
