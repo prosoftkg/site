@@ -65,7 +65,7 @@ if ($d == 'pw') {
             $plan = 0;
             $work = 0;
             echo '<tr>';
-            echo "<td ='#{$$users[$user_id]['username']}'>" . $name . '</td>';
+            echo "<td><a href='#{$users[$user_id]['username']}' class='nolink'>" . $name . '</a></td>';
             foreach ($dates as $date) {
                 $track = '';
                 if (isset($userDays[$date])) {
