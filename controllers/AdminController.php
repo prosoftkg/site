@@ -21,6 +21,7 @@ use yii\httpclient\Client;
 class AdminController extends Controller
 {
     public $layout = 'clean';
+    public static $hookEnds = ['hook', 'hooks', 'project-hook', 'board-hook', 'column-hook'];
 
     /**
      * {@inheritdoc}
@@ -45,7 +46,7 @@ class AdminController extends Controller
                         ],
                     ],
                     [
-                        'actions' => ['hook', 'hooks', 'project-hook'],
+                        'actions' => self::$hookEnds,
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -66,7 +67,7 @@ class AdminController extends Controller
      */
     public function beforeAction($action)
     {
-        if (in_array($action->id, ['hook', 'hooks', 'project-hook'])) {
+        if (in_array($action->id, self::$hookEnds)) {
             $this->enableCsrfValidation = false;
         }
 
@@ -277,7 +278,7 @@ class AdminController extends Controller
             if (isset($post['event'])) {
                 if ($post['event'] == 'project-created') {
                     $model = new YgProject();
-                } else if ($post['event'] != 'task-deleted') {
+                } else if ($post['event'] != 'project-deleted') {
                     $model = YgProject::findOne(['yg_id' => $post['payload']['id']]);
                     if (!$model) {
                         $model = new YgProject();
@@ -305,6 +306,32 @@ class AdminController extends Controller
     /* {"event":"project-renamed","payload":{"title":"ToBeDeleted1","timestamp":1715347373780,"users":{"76071d35-e01d-4e11-95db-9cfed9a186c7":"admin"},"id":"531fb1c0-4c1e-4435-903c-f675cc6e4154"},"fromUserId":"76071d35-e01d-4e11-95db-9cfed9a186c7"} */
     /* {"event":"project-updated","payload":{"title":"ToBeDeleted1","timestamp":1715347373780,"users":{"76071d35-e01d-4e11-95db-9cfed9a186c7":"admin","fc0f6380-e180-4e0e-9e8c-94919675e2ef":"worker"},"id":"531fb1c0-4c1e-4435-903c-f675cc6e4154"},"fromUserId":"76071d35-e01d-4e11-95db-9cfed9a186c7"} */
     /* {"event":"project-deleted","payload":{"title":"ToBeDeleted1___deleted","timestamp":1715347373780,"users":{"76071d35-e01d-4e11-95db-9cfed9a186c7":"admin","fc0f6380-e180-4e0e-9e8c-94919675e2ef":"worker"},"id":"531fb1c0-4c1e-4435-903c-f675cc6e4154","deleted":true},"fromUserId":"76071d35-e01d-4e11-95db-9cfed9a186c7"} */
+
+    public function actionBoardHook()
+    {
+        $post = Yii::$app->request->post();
+        if ($post) {
+            $json = Json::encode($post);
+            $dao = Yii::$app->db;
+            $dao->createCommand()->insert('page', ['title' => 'boardhook', 'content' => $json, 'code' => time()])->execute();
+            /*   if (isset($post['event'])) {
+                if ($post['event'] == 'board-created') {
+                    $model = new YgProject();
+                } else if ($post['event'] != 'board-deleted') {
+                    $model = YgProject::findOne(['yg_id' => $post['payload']['id']]);
+                    if (!$model) {
+                        $model = new YgProject();
+                    }
+                }
+
+                $model->yg_id = $post['payload']['id'];
+                $model->title = $post['payload']['title'];
+                if (!$model->save()) {
+                    var_dump($model->errors);
+                }
+            } */
+        }
+    }
 
     public function actionSyncHalf()
     {
