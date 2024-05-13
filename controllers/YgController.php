@@ -87,7 +87,7 @@ class YgController extends Controller
         $hours = $dao->createCommand("SELECT * FROM `workhour` WHERE workday >= '{$from}' AND workday<='{$to}' ORDER BY workday ASC")->queryAll();
         //$hours = $dao->createCommand("SELECT * FROM `workhour` WHERE workday='{$today}'")->queryAll();
         //$rows = $dao->createCommand("SELECT * FROM `workhour` LEFT JOIN `user` ON workhour.user_id=user.id WHERE workday='{$today}'")->queryAll();
-        $tasks = YgTask::find()->where(['completed' => 0])->all();
+        $tasks = YgTask::find()->where(['completed' => 0])->andWhere(['not', ['column_id' => null]])->all();
         return $this->render('index', ['users' => $users, 'hours' => $hours, 'tasks' => $tasks]);
     }
 

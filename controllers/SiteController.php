@@ -219,7 +219,6 @@ class SiteController extends Controller
 
     public function actionRun()
     {
-        YgTask::fixAll();
         exit();
     }
 }

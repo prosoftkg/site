@@ -75,37 +75,6 @@ class YgTask extends YgModel
         ];
     }
 
-    public static function fixAll()
-    {
-        $dao = Yii::$app->db;
-        $rows = $dao->createCommand("SELECT id, yg_id FROM `yg_task` WHERE column_id=0 AND deadline IS NULL LIMIT 10")->queryAll();
-        //$rows = $dao->createCommand("SELECT id, yg_id FROM `yg_task` WHERE id=632")->queryAll();
-        //print_r($rows);
-        foreach ($rows as $row) {
-            $saved = false;
-            $client = new Client();
-            $response = $client
-                ->createRequest()
-                ->setMethod('GET')->setHeaders(['Authorization' => 'Bearer ' . YgModel::$dartlabKey])
-                ->setUrl(YgModel::$ygurl . '/tasks/' . $row['yg_id'])
-                ->send();
-            $data = $response->data;
-            //print_r($data);
-            if (!empty($data['columnId'])) {
-                $column = $dao->createCommand("SELECT * FROM `yg_column` WHERE yg_id='{$data['columnId']}'")->queryOne();
-                //print_r($column);
-                if ($column) {
-                    $saved = true;
-                    $dao->createCommand()->update('yg_task', ['column_id' => $column['id']], ['id' => $row['id']])->execute();
-                }
-            }
-            if (!$saved) {
-                $dao->createCommand()->update('yg_task', ['deadline' => 1], ['id' => $row['id']])->execute();
-            }
-        }
-    }
-
-
     public static function fetchAll()
     {
         $rows = self::getDbColumns();
@@ -284,5 +253,37 @@ class YgTask extends YgModel
     {
         return $this->hasMany(User::class, ['id' => 'user_id'])
             ->viaTable('yg_task_user', ['task_id' => 'id']);
+    }
+
+
+    //sometimes column_id is saved as 0, so we need to fix it
+    public static function fixAll()
+    {
+        $dao = Yii::$app->db;
+        $rows = $dao->createCommand("SELECT id, yg_id FROM `yg_task` WHERE column_id=0 AND deadline IS NULL LIMIT 10")->queryAll();
+        //$rows = $dao->createCommand("SELECT id, yg_id FROM `yg_task` WHERE id=632")->queryAll();
+        //print_r($rows);
+        foreach ($rows as $row) {
+            $saved = false;
+            $client = new Client();
+            $response = $client
+                ->createRequest()
+                ->setMethod('GET')->setHeaders(['Authorization' => 'Bearer ' . YgModel::$dartlabKey])
+                ->setUrl(YgModel::$ygurl . '/tasks/' . $row['yg_id'])
+                ->send();
+            $data = $response->data;
+            //print_r($data);
+            if (!empty($data['columnId'])) {
+                $column = $dao->createCommand("SELECT * FROM `yg_column` WHERE yg_id='{$data['columnId']}'")->queryOne();
+                //print_r($column);
+                if ($column) {
+                    $saved = true;
+                    $dao->createCommand()->update('yg_task', ['column_id' => $column['id']], ['id' => $row['id']])->execute();
+                }
+            }
+            if (!$saved) {
+                $dao->createCommand()->update('yg_task', ['deadline' => 1], ['id' => $row['id']])->execute();
+            }
+        }
     }
 }
