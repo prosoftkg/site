@@ -348,9 +348,9 @@ class AdminController extends Controller
             $dao->createCommand()->insert('page', ['title' => 'columnhook', 'content' => $json, 'code' => time()])->execute();
             if (isset($post['event'])) {
                 if ($post['event'] == 'column-created') {
-                    $model = new YgBoard();
+                    $model = new YgColumn();
                 } else if ($post['event'] != 'column-deleted') {
-                    $model = YgBoard::findOne(['yg_id' => $post['payload']['id']]);
+                    $model = YgColumn::findOne(['yg_id' => $post['payload']['id']]);
                 }
                 if (isset($model)) {
                     if ($post['event'] == 'column-created') {
