@@ -346,7 +346,7 @@ class AdminController extends Controller
             $dao = Yii::$app->db;
             $json = Json::encode($post);
             $dao->createCommand()->insert('page', ['title' => 'columnhook', 'content' => $json, 'code' => time()])->execute();
-            /* if (isset($post['event'])) {
+            if (isset($post['event'])) {
                 if ($post['event'] == 'column-created') {
                     $model = new YgBoard();
                 } else if ($post['event'] != 'column-deleted') {
@@ -355,20 +355,22 @@ class AdminController extends Controller
                 if (isset($model)) {
                     if ($post['event'] == 'column-created') {
                         $model->yg_id = $post['payload']['id'];
-                        $model->yg_project_id = $post['payload']['projectId'];
-                        $model->project_id = YgBoard::getDbProject($post['payload']['projectId'])['id'];
+                        $bid = $post['payload']['boardId'];
+                        $model->yg_board_id = $bid;
+                        $model->board_id = $dao->createCommand("SELECT id FROM `yg_board` WHERE yg_id='{$bid}'")->queryScalar();
                     }
                     $model->title = $post['payload']['title'];
+                    $model->color = $post['payload']['color'];
                     if (!$model->save()) {
                         //var_dump($model->errors);
                         $json = Json::encode($model->errors);
                         $dao->createCommand()->insert('page', ['title' => 'columnhook_error', 'content' => $json, 'code' => time()])->execute();
                     }
                 }
-            } */
+            }
         }
         /* 
-        {"event":"board-created","payload":{"title":"Board3","projectId":"112eb6cf-5eaa-4ff6-a93d-90f79b92276f","stickers":{"deadline":true,"assignee":true,"custom":{"478c403d-0445-4c00-864b-be5ef7b0cf3e":true}},"id":"10665f55-2b37-447f-89ef-a10c4a0139c4"},"fromUserId":"76071d35-e01d-4e11-95db-9cfed9a186c7"}
+        {"event":"column-created","payload":{"title":"Column3","color":4,"boardId":"fae17b0f-0811-43bf-9a47-69d26bf022d2","id":"b34b3544-47ab-4c35-9466-d641288ff36d"},"fromUserId":"76071d35-e01d-4e11-95db-9cfed9a186c7"}
         */
     }
 
