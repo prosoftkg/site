@@ -292,45 +292,50 @@ class AdminController extends Controller
                 }
             }
         }
+        /* {"event":"project-created",
+            "payload":{
+                "title":"ToBeDeleted",
+                "timestamp":1715347373780,
+                "users":{"76071d35-e01d-4e11-95db-9cfed9a186c7":"admin"},
+                "id":"531fb1c0-4c1e-4435-903c-f675cc6e4154"
+            },
+            "fromUserId":"76071d35-e01d-4e11-95db-9cfed9a186c7"} */
+
+        /* {"event":"project-renamed","payload":{"title":"ToBeDeleted1","timestamp":1715347373780,"users":{"76071d35-e01d-4e11-95db-9cfed9a186c7":"admin"},"id":"531fb1c0-4c1e-4435-903c-f675cc6e4154"},"fromUserId":"76071d35-e01d-4e11-95db-9cfed9a186c7"} */
+        /* {"event":"project-updated","payload":{"title":"ToBeDeleted1","timestamp":1715347373780,"users":{"76071d35-e01d-4e11-95db-9cfed9a186c7":"admin","fc0f6380-e180-4e0e-9e8c-94919675e2ef":"worker"},"id":"531fb1c0-4c1e-4435-903c-f675cc6e4154"},"fromUserId":"76071d35-e01d-4e11-95db-9cfed9a186c7"} */
+        /* {"event":"project-deleted","payload":{"title":"ToBeDeleted1___deleted","timestamp":1715347373780,"users":{"76071d35-e01d-4e11-95db-9cfed9a186c7":"admin","fc0f6380-e180-4e0e-9e8c-94919675e2ef":"worker"},"id":"531fb1c0-4c1e-4435-903c-f675cc6e4154","deleted":true},"fromUserId":"76071d35-e01d-4e11-95db-9cfed9a186c7"} */
     }
-
-    /* {"event":"project-created",
-        "payload":{
-            "title":"ToBeDeleted",
-            "timestamp":1715347373780,
-            "users":{"76071d35-e01d-4e11-95db-9cfed9a186c7":"admin"},
-            "id":"531fb1c0-4c1e-4435-903c-f675cc6e4154"
-        },
-        "fromUserId":"76071d35-e01d-4e11-95db-9cfed9a186c7"} */
-
-    /* {"event":"project-renamed","payload":{"title":"ToBeDeleted1","timestamp":1715347373780,"users":{"76071d35-e01d-4e11-95db-9cfed9a186c7":"admin"},"id":"531fb1c0-4c1e-4435-903c-f675cc6e4154"},"fromUserId":"76071d35-e01d-4e11-95db-9cfed9a186c7"} */
-    /* {"event":"project-updated","payload":{"title":"ToBeDeleted1","timestamp":1715347373780,"users":{"76071d35-e01d-4e11-95db-9cfed9a186c7":"admin","fc0f6380-e180-4e0e-9e8c-94919675e2ef":"worker"},"id":"531fb1c0-4c1e-4435-903c-f675cc6e4154"},"fromUserId":"76071d35-e01d-4e11-95db-9cfed9a186c7"} */
-    /* {"event":"project-deleted","payload":{"title":"ToBeDeleted1___deleted","timestamp":1715347373780,"users":{"76071d35-e01d-4e11-95db-9cfed9a186c7":"admin","fc0f6380-e180-4e0e-9e8c-94919675e2ef":"worker"},"id":"531fb1c0-4c1e-4435-903c-f675cc6e4154","deleted":true},"fromUserId":"76071d35-e01d-4e11-95db-9cfed9a186c7"} */
 
     public function actionBoardHook()
     {
         $post = Yii::$app->request->post();
         if ($post) {
-            $json = Json::encode($post);
+            /* $json = Json::encode($post);
             $dao = Yii::$app->db;
-            $dao->createCommand()->insert('page', ['title' => 'boardhook', 'content' => $json, 'code' => time()])->execute();
-            /*   if (isset($post['event'])) {
+            $dao->createCommand()->insert('page', ['title' => 'boardhook', 'content' => $json, 'code' => time()])->execute(); */
+            if (isset($post['event'])) {
                 if ($post['event'] == 'board-created') {
-                    $model = new YgProject();
+                    $model = new YgBoard();
                 } else if ($post['event'] != 'board-deleted') {
-                    $model = YgProject::findOne(['yg_id' => $post['payload']['id']]);
+                    $model = YgBoard::findOne(['yg_id' => $post['payload']['id']]);
                     if (!$model) {
-                        $model = new YgProject();
+                        $model = new YgBoard();
                     }
                 }
-
-                $model->yg_id = $post['payload']['id'];
+                if ($post['event'] == 'board-created') {
+                    $model->yg_id = $post['payload']['id'];
+                    $model->yg_project_id = $post['payload']['projectId'];
+                    $model->project_id = YgBoard::getDbProject($post['payload']['projectId']);;
+                }
                 $model->title = $post['payload']['title'];
                 if (!$model->save()) {
                     var_dump($model->errors);
                 }
-            } */
+            }
         }
+        /* 
+        {"event":"board-created","payload":{"title":"Board3","projectId":"112eb6cf-5eaa-4ff6-a93d-90f79b92276f","stickers":{"deadline":true,"assignee":true,"custom":{"478c403d-0445-4c00-864b-be5ef7b0cf3e":true}},"id":"10665f55-2b37-447f-89ef-a10c4a0139c4"},"fromUserId":"76071d35-e01d-4e11-95db-9cfed9a186c7"}
+        */
     }
 
     public function actionSyncHalf()

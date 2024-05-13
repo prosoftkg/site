@@ -18,6 +18,7 @@ class m240215_084901_yg_board extends Migration
             'id' => $this->primaryKey(),
             'project_id' => $this->integer(),
             'yg_id' => $this->string(50),
+            'title' => $this->string(50),
             'yg_project_id' => $this->string(50),
             'created_at' => $this->integer(),
             'updated_at' => $this->integer(),

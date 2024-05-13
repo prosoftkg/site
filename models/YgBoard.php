@@ -79,7 +79,7 @@ class YgBoard extends YgModel
         }
     }
 
-    protected static function getDbProject($yg_project_id)
+    public static function getDbProject($yg_project_id)
     {
         $dao = Yii::$app->db;
         return $dao->createCommand("SELECT * FROM `yg_project` WHERE yg_id='{$yg_project_id}'")->queryOne();
