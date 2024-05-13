@@ -272,23 +272,23 @@ class AdminController extends Controller
     {
         $post = Yii::$app->request->post();
         if ($post) {
-            /*$json = Json::encode($post);
             $dao = Yii::$app->db;
+            /*$json = Json::encode($post);
             $dao->createCommand()->insert('page', ['title' => 'webhook', 'content' => $json, 'code' => time()])->execute();*/
             if (isset($post['event'])) {
                 if ($post['event'] == 'project-created') {
                     $model = new YgProject();
                 } else if ($post['event'] != 'project-deleted') {
                     $model = YgProject::findOne(['yg_id' => $post['payload']['id']]);
-                    if (!$model) {
-                        $model = new YgProject();
-                    }
                 }
-
-                $model->yg_id = $post['payload']['id'];
-                $model->title = $post['payload']['title'];
-                if (!$model->save()) {
-                    var_dump($model->errors);
+                if (isset($model)) {
+                    $model->yg_id = $post['payload']['id'];
+                    $model->title = $post['payload']['title'];
+                    if (!$model->save()) {
+                        //var_dump($model->errors);
+                        $json = Json::encode($model->errors);
+                        $dao->createCommand()->insert('page', ['title' => 'projecthook_error', 'content' => $json, 'code' => time()])->execute();
+                    }
                 }
             }
         }
@@ -318,22 +318,54 @@ class AdminController extends Controller
                     $model = new YgBoard();
                 } else if ($post['event'] != 'board-deleted') {
                     $model = YgBoard::findOne(['yg_id' => $post['payload']['id']]);
-                    if (!$model) {
-                        $model = new YgBoard();
+                }
+                if (isset($model)) {
+                    if ($post['event'] == 'board-created') {
+                        $model->yg_id = $post['payload']['id'];
+                        $model->yg_project_id = $post['payload']['projectId'];
+                        $model->project_id = YgBoard::getDbProject($post['payload']['projectId'])['id'];
+                    }
+                    $model->title = $post['payload']['title'];
+                    if (!$model->save()) {
+                        //var_dump($model->errors);
+                        $json = Json::encode($model->errors);
+                        $dao->createCommand()->insert('page', ['title' => 'boardhook_error', 'content' => $json, 'code' => time()])->execute();
                     }
                 }
-                if ($post['event'] == 'board-created') {
-                    $model->yg_id = $post['payload']['id'];
-                    $model->yg_project_id = $post['payload']['projectId'];
-                    $model->project_id = YgBoard::getDbProject($post['payload']['projectId'])['id'];
-                }
-                $model->title = $post['payload']['title'];
-                if (!$model->save()) {
-                    //var_dump($model->errors);
-                    $json = Json::encode($model->errors);
-                    $dao->createCommand()->insert('page', ['title' => 'boardhook_error', 'content' => $json, 'code' => time()])->execute();
-                }
             }
+        }
+        /* 
+        {"event":"board-created","payload":{"title":"Board3","projectId":"112eb6cf-5eaa-4ff6-a93d-90f79b92276f","stickers":{"deadline":true,"assignee":true,"custom":{"478c403d-0445-4c00-864b-be5ef7b0cf3e":true}},"id":"10665f55-2b37-447f-89ef-a10c4a0139c4"},"fromUserId":"76071d35-e01d-4e11-95db-9cfed9a186c7"}
+        */
+    }
+
+    public function actionColumnHook()
+    {
+        $post = Yii::$app->request->post();
+        if ($post) {
+            $dao = Yii::$app->db;
+            $json = Json::encode($post);
+            $dao->createCommand()->insert('page', ['title' => 'columnhook', 'content' => $json, 'code' => time()])->execute();
+            /* if (isset($post['event'])) {
+                if ($post['event'] == 'column-created') {
+                    $model = new YgBoard();
+                } else if ($post['event'] != 'column-deleted') {
+                    $model = YgBoard::findOne(['yg_id' => $post['payload']['id']]);
+                }
+                if (isset($model)) {
+                    if ($post['event'] == 'column-created') {
+                        $model->yg_id = $post['payload']['id'];
+                        $model->yg_project_id = $post['payload']['projectId'];
+                        $model->project_id = YgBoard::getDbProject($post['payload']['projectId'])['id'];
+                    }
+                    $model->title = $post['payload']['title'];
+                    if (!$model->save()) {
+                        //var_dump($model->errors);
+                        $json = Json::encode($model->errors);
+                        $dao->createCommand()->insert('page', ['title' => 'columnhook_error', 'content' => $json, 'code' => time()])->execute();
+                    }
+                }
+            } */
         }
         /* 
         {"event":"board-created","payload":{"title":"Board3","projectId":"112eb6cf-5eaa-4ff6-a93d-90f79b92276f","stickers":{"deadline":true,"assignee":true,"custom":{"478c403d-0445-4c00-864b-be5ef7b0cf3e":true}},"id":"10665f55-2b37-447f-89ef-a10c4a0139c4"},"fromUserId":"76071d35-e01d-4e11-95db-9cfed9a186c7"}
