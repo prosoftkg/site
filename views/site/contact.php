@@ -2,11 +2,11 @@
 
 use yii\helpers\Html;
 use yii\helpers\Url;
+use app\components\Hlp;
 
 /** @var yii\web\View $this */
 /** @var yii\bootstrap4\ActiveForm $form */
 /** @var app\models\ContactForm $model */
-
 ?>
 <script src="https://maps.api.2gis.ru/2.0/loader.js?pkg=full"></script>
 <br />
@@ -20,8 +20,8 @@ use yii\helpers\Url;
         <div class='addr_right ml-5 mb-3 mob-ml-0 mob-mt-15'>
             <strong>Наш адрес:</strong><br />
             ул. Шевченко 114, каб. 4<br />Бишкек, 720033<br />
-            Тел.: <?= Html::a('(+996) 990 140 142', 'tel:+996990140142') ?><br />
-            Эл. почта: <?= Html::a('info@prosoft.kg', 'mailto:info@prosoft.kg') ?>
+            Тел.: <?= Html::a(Hlp::phones()[0], "tel:" . Hlp::phones()[1]) ?><br />
+            Эл. почта: <?= Html::a(Hlp::globalData('email'), "mailto:" . Hlp::globalData('email')) ?>
         </div>
     </div>
 </section>

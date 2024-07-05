@@ -1,6 +1,9 @@
 <?php
 
+use app\components\Hlp;
+
 /** @var yii\web\View $this */
+
 ?>
 <div class="count-wrap">
     <div class="container">
@@ -11,7 +14,7 @@
                 </div>
                 <div class="count-hint">
                     <p>Есть вопросы? Позвоните нам</p>
-                    <p><a href='tel:+996990140142'>+996 (990) 140 142</a></p>
+                    <p><a href='tel:<?= Hlp::phones()[1] ?>'><?= Hlp::phones()[0] ?></a></p>
                 </div>
             </div>
             <div class="count-right">

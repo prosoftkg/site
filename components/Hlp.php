@@ -3,6 +3,7 @@
 namespace app\components;
 
 use yii\helpers\Html;
+use Yii;
 
 class Hlp
 {
@@ -32,5 +33,15 @@ class Hlp
         $title = Html::tag('div', $title, ['class' => 'text-muted font13']);
         $bar = self::pb($percent, $bg);
         return Html::tag('div', $title . $bar, []);
+    }
+    public static function globalData($key, $default = null)
+    {
+        return Yii::$app->globalData->get($key, $default);
+    }
+    public static function phones()
+    {
+        $phone = self::globalData('phone');
+        $phoneClear = preg_replace('/[^+\d]/', '', $phone);
+        return [$phone, $phoneClear];
     }
 }

@@ -34,6 +34,9 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'globalData' => [
+            'class' => 'app\components\GlobalData',
+        ],
         'user' => [
             'identityClass' => 'app\models\User',
         ],

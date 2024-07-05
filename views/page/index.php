@@ -28,7 +28,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'id',
             'title',
-            'content:ntext',
+            [
+                'attribute' => 'content',
+                'value' => function ($model) {
+                    return \yii\helpers\StringHelper::truncate($model->content, 100, '...');
+                },
+            ],
             'code',
             [
                 'class' => ActionColumn::className(),
